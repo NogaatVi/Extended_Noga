@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/nogadoron/Documents/Important files Noga/GDH-NogaDoron/Extended scripts/Extended3/Extended3/Extended3.csproj",
+      "projectUniqueName": "/Users/nogadoron/Documents/Important files Noga/Extended_Noga/Extended3/Extended3.csproj",
       "projectName": "Extended3",
-      "projectPath": "/Users/nogadoron/Documents/Important files Noga/GDH-NogaDoron/Extended scripts/Extended3/Extended3/Extended3.csproj",
+      "projectPath": "/Users/nogadoron/Documents/Important files Noga/Extended_Noga/Extended3/Extended3.csproj",
       "packagesPath": "/Users/nogadoron/.nuget/packages/",
-      "outputPath": "/Users/nogadoron/Documents/Important files Noga/GDH-NogaDoron/Extended scripts/Extended3/Extended3/obj/",
+      "outputPath": "/Users/nogadoron/Documents/Important files Noga/Extended_Noga/Extended3/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/nogadoron/.nuget/NuGet/NuGet.Config"

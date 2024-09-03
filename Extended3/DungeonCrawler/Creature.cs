@@ -35,7 +35,7 @@ namespace Creature
     {
             List<string> titleList = new List<string> { "The Fearsome", "The Mighty", "The Dreaded", "The Slimy", "The Indomitable" };
             List<string> nameList = new List<string> { "Morganna", "Samir", "Vincent", "Delila", "Noga" };
-            string title = "Not a Title";
+            string title = "Not a Title what is happening with this rep?";
             public Monster(int power, int health, string name, string title) : base(power, health, name)
             {
                 this.power = power;
