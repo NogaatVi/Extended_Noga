@@ -1,0 +1,28 @@
+﻿<Properties StartupConfiguration="{B7A10741-412E-4011-BF12-110F485D5566}|Default">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workbench ActiveDocument="DungeonCrawler/Creature.cs">
+    <Files>
+      <File FileName="DungeonCrawler/Creature.cs" Line="1" Column="1" />
+      <File FileName="DungeonCrawler/Program.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Extended3">
+            <Node name="Extended3">
+              <Node name="DungeonCrawler" expanded="True">
+                <Node name="Creature.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.Extended3 PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>
