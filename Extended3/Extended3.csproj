@@ -9,9 +9,11 @@
 
   <ItemGroup>
     <None Remove="DungeonCrawler\" />
+    <None Remove="DungeonCrawler\Classes\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DungeonCrawler\" />
+    <Folder Include="DungeonCrawler\Classes\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" />
