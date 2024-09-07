@@ -1,0 +1,42 @@
+﻿using PlayerClass;
+using System;
+using static DungeonCrawler.Program;
+
+namespace DungeonClass
+{
+    public class Dungeon
+    {
+        List<Room> roomList = new List<Room> { };
+        Player player = new Player(0, 10, 25);
+        public Dungeon()
+        {
+
+        }
+        public void InitializePlayer()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Welcome, dear adventurer, you are now at the gates of the Mystic Dungeon!");
+            Console.WriteLine("Be wary, for inside great treasure and even greater danger awaits...");
+            player.playerNamer();
+            Console.WriteLine($"Ahh, {player.name}, delve carefully, or the master of the Dungeon will get you!");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Now get ready, and go!");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("---------------------------------------------------");
+        }
+        public void InitializeRooms()
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("You feel the dungeon shift, dust and rubble falling from the ceiling as new doors appear.");
+            Random random = new Random();
+            int roomAmount = random.Next(1, 13);
+            for (int i = 0; i < roomAmount; i++)
+            {
+                roomList.Add(new Room($"Room{i + 1}"));
+                Console.WriteLine(roomList[i].Name);
+            }
+            Console.WriteLine("---------------------------------------------------");
+        }
+    }
+}
+

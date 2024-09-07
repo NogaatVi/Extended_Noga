@@ -1,7 +1,7 @@
 ﻿using System;
-namespace Monsters
+namespace MonsterClass
 {
-	public class Monster
+	public class Loot
 	{
         public int power;
         public int health;
@@ -11,7 +11,7 @@ namespace Monsters
         List<string> titleList = new List<string> { "The Fearsome", "The Mighty", "The Dreaded", "The Slimy", "The Indomitable"};
         List<string> nameList = new List<string> { "Morganna", "Samir", "Vincent", "Delila", "Noga"};
 
-        public Monster(int power, int health)//Constructor for monstere
+        public Loot(int power, int health)//Constructor for monstere
         {
             this.power = power;
             this.health = health;
