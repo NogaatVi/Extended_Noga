@@ -35,6 +35,7 @@ namespace DungeonClass
                 roomList.Add(new Room($"Room{i + 1}"));
                 Console.WriteLine(roomList[i].Name);
             }
+            Console.ForegroundColor= ConsoleColor.White;
             Console.WriteLine("---------------------------------------------------");
         }
     }

@@ -30,6 +30,14 @@ namespace MonsterClass
             name = title + " " + nameList[num];
             return name;
         }
+        public void monsterAnnouncer() 
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Before you stand the fearsome {name}");
+            Console.WriteLine("Tremble in fear, mortal!");
+            Console.ForegroundColor = ConsoleColor.White;
+
+        }
     }
 }
 

@@ -15,7 +15,7 @@ namespace PlayerClass
             this.power = power;
             this.health = health;
         }
-        public string playerNamer()
+        public string playerNamer() //Name that bitch!
         {
             while (name == null) 
             {
