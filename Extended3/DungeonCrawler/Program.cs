@@ -2,25 +2,18 @@
 using MonsterClass;
 using PlayerClass;
 using lootClass;
+using roomClass;
 using DungeonClass;
-//using Loot;
+
 namespace DungeonCrawler;
 class Program
 {
-    public class Room
-    {
-        public string Name { get; set;}
-        public Room(string name)
-        {
-            Name = name;
-        }
-    }
     static void Main(string[] args)
     {
-        Dungeon thisDungeon = new Dungeon();
+        Player newPlayer = new Player(0, 10, 25);
+        Dungeon thisDungeon = new Dungeon(newPlayer);
         thisDungeon.InitializePlayer();
         thisDungeon.InitializeRooms();
-        Room room1 = new Room("room1");
         Console.ReadLine();
     }
 }
