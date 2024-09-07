@@ -2,6 +2,7 @@
 using PlayerClass;
 using lootClass;
 using MonsterClass;
+using DungeonClass;
 namespace roomClass
 {
     public class Room
@@ -12,20 +13,21 @@ namespace roomClass
         {
             
         }
-        public void InitializeLoot() 
+        public void InitializeLoot() //get loot
         {
             Console.WriteLine("Upon entering the room, you spot a curious thing:");
             loot.lootNamer();
             loot.lootPowerSetter();
             loot.lootAnnouncer();
-        }//get loot
-        public void InitializeMonster() 
+        }
+        public void InitializeMonster() //get monster
         {
             Monster.titleGiver();
             Monster.nameSetter();
+            Monster.monsterPowerSetter();
             Monster.monsterAnnouncer();
-        }//get monster
-        public void Encounter() 
+        }
+        public void Encounter(Player player) 
         {
             InitializeLoot();
             InitializeMonster();

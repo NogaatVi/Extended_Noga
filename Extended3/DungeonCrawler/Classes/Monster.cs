@@ -7,6 +7,7 @@ namespace MonsterClass
         public int health;
         public string name = "Not a Name";
         public string title = "Not a Title";
+        private static int monsterCounter = 0;
 
         List<string> titleList = new List<string> { "The Fearsome", "The Mighty", "The Dreaded", "The Slimy", "The Indomitable"};
         List<string> nameList = new List<string> { "Morganna", "Samir", "Vincent", "Delila", "Noga"};
@@ -15,6 +16,7 @@ namespace MonsterClass
         {
             this.power = power;
             this.health = health;
+            monsterCounter++;
         }
         public string titleGiver()//get a fearsome title...
         {
@@ -30,14 +32,48 @@ namespace MonsterClass
             name = title + " " + nameList[num];
             return name;
         }
-        public void monsterAnnouncer() 
+        public int monsterPowerSetter()// sets the power of monster depending on how many monster initialized
+        {
+            Random random = new Random();
+            power = random.Next(0, 3);
+            switch (monsterCounter)
+            {
+                case 0:
+                    power *= 1;
+                    break;
+
+                case <= 3:
+                    power *= 2;
+                    break;
+
+                case <= 6:
+                    power *= 3;
+                    break;
+
+                case <= 9:
+                    power *= 4;
+                    break;
+
+                case <= 12:
+                    power *= 5;
+                    break;
+
+                case <= 15:
+                    power *= 6;
+                    break;
+            }
+            return power;
+        }
+        public void monsterAnnouncer()//A big scary monster appears! Shout it from the rooftops! 
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"Before you stand the fearsome {name}");
+            Console.WriteLine($"It's power is grea ({power}).");
             Console.WriteLine("Tremble in fear, mortal!");
             Console.ForegroundColor = ConsoleColor.White;
 
         }
+        
     }
 }
 

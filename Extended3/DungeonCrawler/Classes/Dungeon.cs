@@ -7,10 +7,10 @@ namespace DungeonClass
     public class Dungeon
     {
         List<Room> roomList = new List<Room> { };
-        Player player = new Player(0, 10, 25);
-        public Dungeon()
+        public Player MyPlayer { get; set; }
+        public Dungeon(Player player)
         {
-
+            MyPlayer = player;
         }
         public void InitializePlayer()
         {

@@ -24,14 +24,14 @@ namespace PlayerClass
             }
             return name;
         }
-        public int reduceHealth() //nothing here
+        public int reduceHealth() //nothing here yet
         {
             return health;
         }
         public int regenerateHealth()
         {
             return health;
-        }//nothing here
+        }//nothing here yet
     }
 }
 
