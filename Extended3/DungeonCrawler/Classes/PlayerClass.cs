@@ -19,6 +19,7 @@ namespace PlayerClass
         {
             while (name == null) 
             {
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("What is your name, brave dungeon delver?");
                 name = Console.ReadLine();
             }

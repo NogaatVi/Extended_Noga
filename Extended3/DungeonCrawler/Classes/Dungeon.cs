@@ -25,22 +25,50 @@ namespace DungeonClass
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("---------------------------------------------------");
         }
-        public void InitializeRooms()
+        public void InitializeRooms()// minimum 3 rooms
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("You feel the dungeon shift, dust and rubble falling from the ceiling as new doors appear.");
             Random random = new Random();
-            int roomAmount = random.Next(1, 13);
-            for (int i = 0; i < roomAmount; i++)
+            int roomAmount = random.Next(3, 13);
+            for (int i = 0; i <= roomAmount; i++)//set dynamic room names 
             {
-                roomList.Add(new Room($"Room{i + 1}"));
-                Console.WriteLine(roomList[i].Name);
+                if (i==0) 
+                {
+                    roomList.Add(new Room("Entrance Hall"));
+                }
+                else if (i == roomAmount) 
+                {
+                    roomList.Add(new Room("Boss Room"));
+                }
+                else 
+                {
+                    roomList.Add(new Room($"Room {i}"));
+                }
             }
             Console.ForegroundColor= ConsoleColor.White;
+            PrintRooms();
             Console.WriteLine("---------------------------------------------------");
         }
-        public void EnterRoom() 
+        public void PrintRooms()//works :) 
         {
+            Console.WriteLine("The rooms available to you are:");
+            Console.WriteLine(string.Join(", ", roomList.Select(room => room.Name)));
+        }
+        public void EnterRoom() //get a room, get the ball rolling- initialaize and encounter
+        {
+            Console.WriteLine("What room would you like to explore?");
+            string roomName = Console.ReadLine();
+            Room selectedRoom = roomList.FirstOrDefault(room => room.Name == roomName); //compare names not string to class dummy
+
+            if (selectedRoom != null && !string.IsNullOrEmpty(roomName))//if room is not null, and the string roomName is not null or empty encounter
+            {
+                selectedRoom.Encounter(MyPlayer);
+            }
+            else
+            {
+                Console.WriteLine("Room not found.");
+            }
         }
     }
 }

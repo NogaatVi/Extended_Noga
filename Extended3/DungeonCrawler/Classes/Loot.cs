@@ -70,7 +70,7 @@ namespace lootClass
         {
             if (lootName != null)
             {
-                Console.WriteLine($" Could it be? a{lootName}?");
+                Console.WriteLine($"Could it be? {lootName}?");
                 Console.WriteLine($"If you squint, you assess it's power is {lootPower}");
                 Console.WriteLine("Is it worth fightning a Monster? Or should you flee?");
             }

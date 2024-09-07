@@ -19,7 +19,7 @@ namespace roomClass
         }
         public void InitializeLoot() //get loot
         {
-            Console.WriteLine("Upon entering the room, you spot a curious thing:");
+            Console.WriteLine("Upon entering, you spot a curious object:");
             loot.lootNamer();
             loot.lootPowerSetter();
             loot.lootAnnouncer();
@@ -33,9 +33,24 @@ namespace roomClass
         }
         public void Encounter(Player player)// finish encounter- compare monster and player power. bool win. 
         {
-            Console.WriteLine("Encounter");
+            Console.WriteLine($"You've entered {Name}");
             InitializeLoot();
             InitializeMonster();
+            Console.WriteLine($"Will you flee, or will you fight?");
+            if ("fight".Equals(Console.ReadLine(), StringComparison.OrdinalIgnoreCase)) 
+            { 
+                Console.WriteLine("Fight!");
+            }
+            else if ("flee".Equals(Console.ReadLine(), StringComparison.OrdinalIgnoreCase)) 
+            {
+                Console.WriteLine("You've fled...");
+            }
+            else 
+            {
+                Console.WriteLine("Invalid Option.");
+                return;
+            }
+
         }
     }
 }

@@ -14,6 +14,7 @@ class Program
         Dungeon thisDungeon = new Dungeon(newPlayer);
         thisDungeon.InitializePlayer();
         thisDungeon.InitializeRooms();
+        thisDungeon.EnterRoom();
         Console.ReadLine();
     }
 }

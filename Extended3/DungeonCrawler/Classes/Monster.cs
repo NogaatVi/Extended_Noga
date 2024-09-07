@@ -10,7 +10,7 @@ namespace MonsterClass
         private static int monsterCounter = 0;
 
         List<string> titleList = new List<string> { "The Fearsome", "The Mighty", "The Dreaded", "The Slimy", "The Indomitable"};
-        List<string> nameList = new List<string> { "Morganna", "Samir", "Vincent", "Delila", "Noga"};
+        List<string> nameList = new List<string> { "Morganna", "Samir", "Vincent", "Delila", "Noga", "Aviv" , "Lydia", "Shalev"};
 
         public Monster(int power, int health)//Constructor for monstere
         {
@@ -35,7 +35,7 @@ namespace MonsterClass
         public int monsterPowerSetter()// sets the power of monster depending on how many monster initialized
         {
             Random random = new Random();
-            power = random.Next(0, 3);
+            power = random.Next(2, 5);
             switch (monsterCounter)
             {
                 case 0:
@@ -67,11 +67,10 @@ namespace MonsterClass
         public void monsterAnnouncer()//A big scary monster appears! Shout it from the rooftops! 
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Before you stand the fearsome {name}");
-            Console.WriteLine($"It's power is grea ({power}).");
-            Console.WriteLine("Tremble in fear, mortal!");
+            Console.WriteLine($"Before you stands {name}");
+            Console.WriteLine($"Their power is great! ({power})");
+            Console.WriteLine("Tremble in fear, Mortal!");
             Console.ForegroundColor = ConsoleColor.White;
-
         }
         
     }
