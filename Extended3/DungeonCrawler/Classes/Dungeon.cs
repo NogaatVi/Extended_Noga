@@ -1,5 +1,6 @@
 ﻿using PlayerClass;
 using System;
+using roomClass;
 using static DungeonCrawler.Program;
 
 namespace DungeonClass
@@ -17,9 +18,9 @@ namespace DungeonClass
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Welcome, dear adventurer, you are now at the gates of the Mystic Dungeon!");
             Console.WriteLine("Be wary, for inside great treasure and even greater danger awaits...");
-            player.playerNamer();
-            Console.WriteLine($"Ahh, {player.name}, delve carefully, or the master of the Dungeon will get you!");
+            MyPlayer.playerNamer();
             Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"Ahh, {MyPlayer.name}, delve carefully, or the master of the Dungeon will get you!");
             Console.WriteLine("Now get ready, and go!");
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("---------------------------------------------------");
@@ -37,6 +38,9 @@ namespace DungeonClass
             }
             Console.ForegroundColor= ConsoleColor.White;
             Console.WriteLine("---------------------------------------------------");
+        }
+        public void EnterRoom() 
+        {
         }
     }
 }

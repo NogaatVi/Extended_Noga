@@ -8,12 +8,14 @@ namespace roomClass
 {
     public class Room
     {
+        public string Name { get; set; }
         Loot loot = new Loot(0, "");
         Monster Monster = new Monster(0,0);
         public static int roomsInitialized = 0;
-        public Room()
+        public Room(string name)
         {
             roomsInitialized++;
+            Name = name;
         }
         public void InitializeLoot() //get loot
         {
