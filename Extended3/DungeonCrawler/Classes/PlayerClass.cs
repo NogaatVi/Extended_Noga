@@ -1,26 +1,30 @@
 ﻿using System;
-namespace Extended3.DungeonCrawler.Classes
+
+namespace Players
 {
     public class Player
     {
         public int level;
         public int power;
         public int health;
-        public string name = "";
+        public string name = "not a name";
 
-        public Player(int level, int power, int health, string name) //for player
+        public Player(int level, int power, int health) //for player
         {
             this.level = level;
             this.power = power;
             this.health = health;
-            this.name = name;
         }
         public string playerNamer()
         {
             Console.WriteLine("What is your name, brave dungeon delver?");
+            name = Console.ReadLine();
+            while (name == null) 
+            {
+               name = Console.ReadLine();
+            }
             return name;
         }
-
         public int reduceHealth() //if power < monsterPo
         {
             return health;
