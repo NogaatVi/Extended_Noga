@@ -1,6 +1,7 @@
 ﻿using System;
 using MonsterClass;
 using PlayerClass;
+using lootClass;
 using DungeonClass;
 //using Loot;
 namespace DungeonCrawler;
@@ -8,8 +9,6 @@ class Program
 {
     public class Room
     {
-        List<Loot> monsterList = new List<Loot> { };
-        List<Loot> lootList = new List<Loot> { };
         public string Name { get; set;}
         public Room(string name)
         {
@@ -21,6 +20,7 @@ class Program
         Dungeon thisDungeon = new Dungeon();
         thisDungeon.InitializePlayer();
         thisDungeon.InitializeRooms();
+        Room room1 = new Room("room1");
         Console.ReadLine();
     }
 }

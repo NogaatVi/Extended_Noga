@@ -7,7 +7,7 @@ namespace PlayerClass
         public int level;
         public int power;
         public int health;
-        public string name = "not a name";
+        public string name;
 
         public Player(int level, int power, int health) //for player
         {
@@ -17,22 +17,21 @@ namespace PlayerClass
         }
         public string playerNamer()
         {
-            Console.WriteLine("What is your name, brave dungeon delver?");
-            name = Console.ReadLine();
             while (name == null) 
             {
-               name = Console.ReadLine();
+                Console.WriteLine("What is your name, brave dungeon delver?");
+                name = Console.ReadLine();
             }
             return name;
         }
-        public int reduceHealth() //if power < monsterPo
+        public int reduceHealth() //nothing here
         {
             return health;
         }
         public int regenerateHealth()
         {
             return health;
-        }
+        }//nothing here
     }
 }
 

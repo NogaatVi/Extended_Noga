@@ -4,10 +4,10 @@ namespace lootClass
 {
     public class Loot
     {
-        int lootPower;
-        string p1;//for name setter
-        string p2;//for name setter
-        string lootName;
+        public int lootPower;
+        string p1 ="";//for name setter
+        string p2= "";//for name setter
+        public string lootName = "";
         public Loot(int lootPower, string lootName)
         {
             this.lootPower = lootPower;
@@ -65,6 +65,15 @@ namespace lootClass
             }
             lootPower = basePower;
             return lootPower;
+        }
+        public void lootAnnouncer() 
+        {
+            if (lootName != null)
+            {
+                Console.WriteLine($" Could it be? a{lootName}?");
+                Console.WriteLine($"If you squint, you assess it's power is {lootPower}");
+                Console.WriteLine("Is it worth fightning a Monster? Or should you flee?");
+            }
         }
     }
 }
