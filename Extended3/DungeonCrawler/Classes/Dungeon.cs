@@ -61,17 +61,21 @@ namespace DungeonClass
 
         public void EnterRoom() //get a room, get the ball rolling- initialaize and encounter
         {
-            string roomName = null;
             Room selectedRoom = null;
             Console.WriteLine("What room would you like to explore?");
-            while (selectedRoom == null && string.IsNullOrWhiteSpace(roomName))//while u cheeky not giving proper answer
+
+            while (selectedRoom == null)
             {
-                roomName = Console.ReadLine();
-                selectedRoom = roomList.FirstOrDefault(room => room.Name == roomName);// if room class.name ==room name do the thing
-                
-                if (selectedRoom == null && string.IsNullOrWhiteSpace(roomName))
+                string roomName = Console.ReadLine(); ;
+                if (string.IsNullOrWhiteSpace(roomName))
                 {
                     Console.WriteLine("Invalid room. Please try again.");
+                    continue;
+                }
+                selectedRoom = roomList.FirstOrDefault(room => room.Name == roomName);
+                if (selectedRoom== null)
+                {
+                    Console.WriteLine("Room not found. Please try again.");
                 }
             }
             selectedRoom.Encounter(MyPlayer);

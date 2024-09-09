@@ -42,12 +42,12 @@ namespace roomClass
             Monster.monsterAnnouncer();
         }
 
-        public bool Fight()
+        public bool Fight(Player player)
         {
             return win;
         }
 
-        public bool Flee()
+        public bool Flee(Player player)
         {
             return win;
         }

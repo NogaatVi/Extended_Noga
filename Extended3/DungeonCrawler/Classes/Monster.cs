@@ -25,6 +25,7 @@ namespace MonsterClass
             title = titleList[num];
             return title;
         }
+
         public string nameSetter()// and add it to a silly name...
         {
             Random random = new Random();
@@ -32,6 +33,7 @@ namespace MonsterClass
             name = title + " " + nameList[num];
             return name;
         }
+
         public int monsterPowerSetter()// sets the power of monster depending on how many monster initialized
         {
             Random random = new Random();
@@ -64,6 +66,7 @@ namespace MonsterClass
             }
             return power;
         }
+
         public void monsterAnnouncer()//A big scary monster appears! Shout it from the rooftops! 
         {
             Console.ForegroundColor = ConsoleColor.Red;
