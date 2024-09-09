@@ -15,6 +15,7 @@ namespace PlayerClass
             this.power = power;
             this.health = health;
         }
+
         public string playerNamer() //Name that bitch!
         {
             Console.ForegroundColor = ConsoleColor.White;
@@ -29,10 +30,12 @@ namespace PlayerClass
             }
             return name;
         }
+
         public int reduceHealth() //nothing here yet
         {
             return health;
         }
+
         public int regenerateHealth()
         {
             return health;

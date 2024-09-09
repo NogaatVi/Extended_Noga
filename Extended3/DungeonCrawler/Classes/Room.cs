@@ -23,6 +23,7 @@ namespace roomClass
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("---------------------------------------------------");
         }
+
         public void InitializeLoot() //get loot
         {
             BracketPutter();
@@ -31,6 +32,7 @@ namespace roomClass
             loot.lootPowerSetter();
             loot.lootAnnouncer();
         }
+
         public void InitializeMonster() //get monster
         {
             BracketPutter();
@@ -39,10 +41,17 @@ namespace roomClass
             Monster.monsterPowerSetter();
             Monster.monsterAnnouncer();
         }
+
         public bool Fight()
         {
             return win;
         }
+
+        public bool Flee()
+        {
+            return win;
+        }
+
         public void Encounter(Player player)// finish encounter- compare monster and player power. bool win. 
         {
             BracketPutter();

@@ -13,6 +13,7 @@ namespace DungeonClass
         {
             MyPlayer = player;
         }
+
         public void InitializePlayer()
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -25,6 +26,7 @@ namespace DungeonClass
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("---------------------------------------------------");
         }
+
         public void InitializeRooms()// minimum 3 rooms
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
@@ -50,11 +52,13 @@ namespace DungeonClass
             PrintRooms();
             Console.WriteLine("---------------------------------------------------");
         }
+
         public void PrintRooms()//works :) 
         {
             Console.WriteLine("The rooms available to you are:");
             Console.WriteLine(string.Join(", ", roomList.Select(room => room.Name)));
         }
+
         public void EnterRoom() //get a room, get the ball rolling- initialaize and encounter
         {
             string roomName = null;

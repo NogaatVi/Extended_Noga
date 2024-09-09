@@ -13,6 +13,7 @@ namespace lootClass
             this.lootPower = lootPower;
             this.lootName = lootName;
         }
+
         public string lootNamer() 
         {
             List<string> lootName0 = new List<string> { "Mordekainen's Great", "Sparkling Nando's", "A Broken", "A Simple", "A Good", "An Excellent" };
@@ -25,6 +26,7 @@ namespace lootClass
             lootName = $"{p1} {p2}";
             return lootName;
         }
+
         public int lootPowerSetter() 
         {
             int basePower;
@@ -66,6 +68,7 @@ namespace lootClass
             lootPower = basePower;
             return lootPower;
         }
+
         public void lootAnnouncer() 
         {
             if (lootName != null)
