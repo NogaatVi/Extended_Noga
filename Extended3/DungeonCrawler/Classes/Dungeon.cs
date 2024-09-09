@@ -67,7 +67,7 @@ namespace DungeonClass
                 
                 if (selectedRoom == null && string.IsNullOrWhiteSpace(roomName))
                 {
-                    Console.WriteLine("Invalid room, please try again.");
+                    Console.WriteLine("Invalid room. Please try again.");
                 }
             }
             selectedRoom.Encounter(MyPlayer);
