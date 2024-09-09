@@ -61,7 +61,7 @@ namespace roomClass
             }
             else 
             {
-                Console.WriteLine("Invalid Option.");
+                Console.WriteLine($"What will you do,{player.name}.");
                 return;
             }
 
