@@ -30,7 +30,7 @@ namespace DungeonClass
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("You feel the dungeon shift, dust and rubble falling from the ceiling as new doors appear.");
             Random random = new Random();
-            int roomAmount = random.Next(3, 13);
+            int roomAmount = random.Next(3, 8);
             for (int i = 0; i <= roomAmount; i++)//set dynamic room names 
             {
                 if (i==0) 
@@ -57,18 +57,20 @@ namespace DungeonClass
         }
         public void EnterRoom() //get a room, get the ball rolling- initialaize and encounter
         {
+            string roomName = null;
+            Room selectedRoom = null;
             Console.WriteLine("What room would you like to explore?");
-            string roomName = Console.ReadLine();
-            Room selectedRoom = roomList.FirstOrDefault(room => room.Name == roomName); //compare names not string to class dummy
-
-            if (selectedRoom != null && !string.IsNullOrEmpty(roomName))//if room is not null, and the string roomName is not null or empty encounter
+            while (selectedRoom == null && string.IsNullOrWhiteSpace(roomName))//while u cheeky not giving proper answer
             {
-                selectedRoom.Encounter(MyPlayer);
+                roomName = Console.ReadLine();
+                selectedRoom = roomList.FirstOrDefault(room => room.Name == roomName);// if room class.name ==room name do the thing
+                
+                if (selectedRoom == null && string.IsNullOrWhiteSpace(roomName))
+                {
+                    Console.WriteLine("Invalid room, please try again.");
+                }
             }
-            else
-            {
-                Console.WriteLine("Room not found.");
-            }
+            selectedRoom.Encounter(MyPlayer);
         }
     }
 }

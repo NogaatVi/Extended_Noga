@@ -7,7 +7,7 @@ namespace PlayerClass
         public int level;
         public int power;
         public int health;
-        public string name;
+        public string name = null;
 
         public Player(int level, int power, int health) //for player
         {
@@ -17,11 +17,15 @@ namespace PlayerClass
         }
         public string playerNamer() //Name that bitch!
         {
-            while (name == null) 
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("What is your name, brave dungeon delver?");
+            while (string.IsNullOrWhiteSpace(name))// if u try to be cheeky
             {
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("What is your name, brave dungeon delver?");
                 name = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    Console.WriteLine("Do not dawdle, Adventurer! What is your name?");
+                }
             }
             return name;
         }
