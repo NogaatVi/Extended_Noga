@@ -1,13 +1,15 @@
 ﻿using System;
+using PlayerClass;
 namespace MonsterClass
 {
 	public class Monster
 	{
         public int power;
-        public int health;
+        public int health = 10;
         public string name = "Not a Name";
         public string title = "Not a Title";
-        private static int monsterCounter = 0;
+        private static int monsterCounter = 0;//how many monster did we have by now?
+        public bool alive = true;
 
         List<string> titleList = new List<string> { "The Fearsome", "The Mighty", "The Dreaded", "The Slimy", "The Indomitable"};
         List<string> nameList = new List<string> { "Morganna", "Samir", "Vincent", "Delila", "Noga", "Aviv" , "Lydia", "Shalev"};
@@ -37,7 +39,7 @@ namespace MonsterClass
         public int monsterPowerSetter()// sets the power of monster depending on how many monster initialized
         {
             Random random = new Random();
-            power = random.Next(2, 5);
+            power = random.Next(1, 5);
             switch (monsterCounter)
             {
                 case 0:
@@ -45,25 +47,26 @@ namespace MonsterClass
                     break;
 
                 case <= 3:
-                    power *= 2;
+                    power *= 1;
                     break;
 
                 case <= 6:
-                    power *= 3;
+                    power *= 2;
                     break;
 
                 case <= 9:
-                    power *= 4;
+                    power *= 2;
                     break;
 
                 case <= 12:
-                    power *= 5;
+                    power *= 3;
                     break;
 
                 case <= 15:
-                    power *= 6;
+                    power *= 3;
                     break;
             }
+            Console.WriteLine(power);//FOR TEST
             return power;
         }
 
@@ -72,10 +75,23 @@ namespace MonsterClass
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"Before you stands {name}");
             Console.WriteLine($"Their power is great! ({power})");
+            Console.WriteLine($"Their Health is ({health})");
             Console.WriteLine("Tremble in fear, Mortal!");
             Console.ForegroundColor = ConsoleColor.White;
         }
-        
+        public bool isAlive()
+        {
+            if (health < 0)
+            {
+                Console.WriteLine($"{name} has been vanquished!");
+                return alive = false;
+            }
+            else
+            {
+                Console.WriteLine($"{name} still lives!");
+                return alive = true;
+            }
+        }
     }
 }
 

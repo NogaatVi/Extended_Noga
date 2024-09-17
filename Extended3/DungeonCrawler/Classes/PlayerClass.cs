@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Net.Mail;
+using MonsterClass;
 
 namespace PlayerClass
 {
@@ -7,7 +9,9 @@ namespace PlayerClass
         public int level;
         public int power;
         public int health;
+        public int maxHealth;
         public string name = null;
+        public bool alive = true;
 
         public Player(int level, int power, int health) //for player
         {
@@ -30,16 +34,28 @@ namespace PlayerClass
             }
             return name;
         }
-
-        public int reduceHealth() //nothing here yet
+        public void regenerateHealth()
         {
-            return health;
+            health = maxHealth;   
+        }//very simple back to max health 
+        public void announcePlayer() 
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"Your power is {power}, and your health is {health}.");
         }
-
-        public int regenerateHealth()
+        public bool isAlive() 
         {
-            return health;
-        }//nothing here yet
+            if (health > 0)
+            {
+                Console.WriteLine($"{name} you've lived to see another day!");
+                return alive = true;
+            }
+            else 
+            {
+                Console.WriteLine($"{name} you've died!");
+                return alive = false;
+            }
+        }
     }
 }
 

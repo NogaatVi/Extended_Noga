@@ -3,6 +3,7 @@ using PlayerClass;
 using lootClass;
 using MonsterClass;
 using DungeonClass;
+using System.Numerics;
 
 namespace roomClass
 {
@@ -10,8 +11,7 @@ namespace roomClass
     {
         public string Name { get; set; }
         Loot loot = new Loot(0, "");
-        Monster Monster = new Monster(0,0);
-        bool win = false;
+        Monster thisRoomMonster = new Monster(0, 10);
         public static int roomsInitialized = 0;
         public Room(string name)
         {
@@ -24,7 +24,7 @@ namespace roomClass
             Console.WriteLine("---------------------------------------------------");
         }
 
-        public void InitializeLoot() //get loot
+        public void InitializeLoot() //get loot REMEMBER to move lloot after winning- except for Entrance hall which has only loot
         {
             BracketPutter();
             Console.WriteLine("Upon entering, you spot a curious object:");
@@ -36,45 +36,93 @@ namespace roomClass
         public void InitializeMonster() //get monster
         {
             BracketPutter();
-            Monster.titleGiver();
-            Monster.nameSetter();
-            Monster.monsterPowerSetter();
-            Monster.monsterAnnouncer();
+            thisRoomMonster.titleGiver();
+            thisRoomMonster.nameSetter();
+            thisRoomMonster.monsterPowerSetter();
+            thisRoomMonster.monsterAnnouncer();
         }
 
-        public bool Fight(Player player)
+        public void Fight(Player player)
         {
-            return win;
+            int turnsElapsed = 0;
+            while (player.alive && thisRoomMonster.alive)
+            {
+                if (turnsElapsed % 2 == 0) // Player hits monster
+                {
+                    Console.WriteLine($"{player.name} ({player.health}) hit {thisRoomMonster.name} ({thisRoomMonster.health})");
+                    thisRoomMonster.health -= player.power;
+                }
+                else // Monster hits player
+                {
+                    Console.WriteLine($"{thisRoomMonster.name} ({thisRoomMonster.health}) hit {player.name} ({player.health})");
+                    player.health -= thisRoomMonster.power;
+                }
+
+                player.isAlive();//check if both alive
+                thisRoomMonster.isAlive();
+
+                if (!player.alive || !thisRoomMonster.alive)
+                {
+                    break; // Stop if somone dead
+                }
+
+                turnsElapsed++;
+            }
+            Console.WriteLine("Encounter Over");//FOR TEST
         }
 
-        public bool Flee(Player player)
+        public void Flee(Player player)//u need to pay more ATTENTION HERE
         {
-            return win;
+            Console.WriteLine("You've fled...");
+            return;
         }
 
-        public void Encounter(Player player)// finish encounter- compare monster and player power. bool win. 
+        public void TakeLoot(Player player) 
+        {
+            player.power += loot.lootPower;
+        }
+        public void Encounter(Player player)
         {
             BracketPutter();
             Console.WriteLine($"You've entered {Name}");
-            InitializeLoot();
+            player.announcePlayer();
             InitializeMonster();
             Console.WriteLine($"Will you flee, or will you fight?");
             string action = Console.ReadLine();
             if ("fight".Equals(action, StringComparison.OrdinalIgnoreCase)) 
             { 
                 Console.WriteLine("Fight!");
+                Fight(player);
+                if (player.alive)//if u lived after fightning
+                {
+                    InitializeLoot();
+                }
+                else 
+                { 
+                }
             }
             else if ("flee".Equals(action, StringComparison.OrdinalIgnoreCase)) 
             {
-                Console.WriteLine("You've fled...");
+                
+                Flee(player);
             }
             else 
             {
                 Console.WriteLine($"What will you do,{player.name}.");
                 return;
             }
-
         }
+
+        public void EntranceRoomEncounter(Player player)
+        {
+            BracketPutter();
+            Console.WriteLine($"You've entered {Name}");
+            InitializeLoot();
+            TakeLoot(player);
+            Console.WriteLine($"You feel your power grow! ({player.power})");
+            return;
+        }
+
     }
 }
 

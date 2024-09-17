@@ -30,7 +30,7 @@ namespace DungeonClass
         public void InitializeRooms()// minimum 3 rooms
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine("You feel the dungeon shift, dust and rubble falling from the ceiling as new doors appear.");
+            Console.WriteLine("You feel the dungeon shift, dust and rubble fall from the ceiling as new doors appear.");
             Random random = new Random();
             int roomAmount = random.Next(3, 8);
             for (int i = 0; i <= roomAmount; i++)//set dynamic room names 
@@ -48,8 +48,8 @@ namespace DungeonClass
                     roomList.Add(new Room($"Room {i}"));
                 }
             }
-            Console.ForegroundColor= ConsoleColor.White;
             PrintRooms();
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("---------------------------------------------------");
         }
 
@@ -59,14 +59,16 @@ namespace DungeonClass
             Console.WriteLine(string.Join(", ", roomList.Select(room => room.Name)));
         }
 
-        public void EnterRoom() //get a room, get the ball rolling- initialaize and encounter
+        public void ExploreRoom() //get a room, get the ball rolling- initialaize and encounter CHECK IF ROOM EXPLORED
         {
             Room selectedRoom = null;
-            Console.WriteLine("What room would you like to explore?");
+            string roomName = "";
 
-            while (selectedRoom == null)
+            while (selectedRoom == null)//name looper- give me propper name!
             {
-                string roomName = Console.ReadLine(); ;
+                Console.WriteLine("What room would you like to explore?");
+                roomName = Console.ReadLine();
+
                 if (string.IsNullOrWhiteSpace(roomName))
                 {
                     Console.WriteLine("Invalid room. Please try again.");
@@ -78,7 +80,19 @@ namespace DungeonClass
                     Console.WriteLine("Room not found. Please try again.");
                 }
             }
-            selectedRoom.Encounter(MyPlayer);
+            //Special rooms
+            if (roomName.Equals("Entrance Hall", StringComparison.OrdinalIgnoreCase))
+            {
+                selectedRoom.EntranceRoomEncounter(MyPlayer);
+            }
+            else if (roomName.Equals("Boss Room", StringComparison.OrdinalIgnoreCase))
+            {
+            }
+            else 
+            {
+                selectedRoom.Encounter(MyPlayer); //if not special room just reg encounter
+            }
+            
         }
     }
 }

@@ -14,7 +14,7 @@ namespace lootClass
             this.lootName = lootName;
         }
 
-        public string lootNamer() 
+        public void lootNamer() 
         {
             List<string> lootName0 = new List<string> { "Mordekainen's Great", "Sparkling Nando's", "A Broken", "A Simple", "A Good", "An Excellent" };
             List<string> lootName1 = new List<string> { "Sword", "Shield", "Cloak", "Orb", "Lantern", "Pack", "Staff", "Whip" };
@@ -24,7 +24,6 @@ namespace lootClass
             p1 = lootName0[num];
             p2 = lootName1[num1];
             lootName = $"{p1} {p2}";
-            return lootName;
         }
 
         public int lootPowerSetter() 
@@ -75,7 +74,6 @@ namespace lootClass
             {
                 Console.WriteLine($"Could it be? {lootName}?");
                 Console.WriteLine($"If you squint, you assess it's power is {lootPower}");
-                Console.WriteLine("Is it worth fightning a Monster? Or should you flee?");
             }
         }
     }

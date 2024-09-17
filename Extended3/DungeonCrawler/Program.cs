@@ -10,11 +10,11 @@ class Program
 {
     static void Main(string[] args)
     {
-        Player newPlayer = new Player(0, 10, 25);
+        Player newPlayer = new Player(1, 15, 35);
         Dungeon thisDungeon = new Dungeon(newPlayer);
         thisDungeon.InitializePlayer();
         thisDungeon.InitializeRooms();
-        thisDungeon.EnterRoom();
+        thisDungeon.ExploreRoom();
         Console.ReadLine();
     }
 }
