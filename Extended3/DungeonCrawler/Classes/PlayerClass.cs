@@ -9,7 +9,7 @@ namespace PlayerClass
         public int level;
         public int power;
         public int health;
-        public int maxHealth;
+        public int maxHealth = 20;
         public string name = null;
         public bool alive = true;
 

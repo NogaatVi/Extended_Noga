@@ -30,7 +30,7 @@ namespace DungeonClass
         public void InitializeRooms()// minimum 3 rooms
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine("You feel the dungeon shift, dust and rubble fall from the ceiling as new doors appear.");
+            Console.WriteLine("You feel the dungeon shift; Dust and rubble fall from the ceiling as new doors appear.");
             Random random = new Random();
             int roomAmount = random.Next(3, 8);
             for (int i = 0; i <= roomAmount; i++)//set dynamic room names 
@@ -86,10 +86,15 @@ namespace DungeonClass
             {
                 selectedRoom.EntranceRoomEncounter(MyPlayer);
             }
-            else if (roomName.Equals("Boss Room", StringComparison.OrdinalIgnoreCase))
+            else if ((roomName.Equals("Boss Room", StringComparison.OrdinalIgnoreCase)) && (Room.roomsVisited > (roomList.Count -1)))//if all roms but the boss room visited
             {
+                selectedRoom.EncounterBossRoom(MyPlayer);
             }
-            else 
+            else if (((roomName.Equals("Boss Room", StringComparison.OrdinalIgnoreCase)) && (Room.roomsVisited < (roomList.Count - 1))))// if not explored all roomes-boss room yet
+            {
+                Console.WriteLine($"{MyPlayer.name}, don't be hasty--there are other rooms to check first before dealing with this fearsome monster!");
+            }
+            else
             {
                 selectedRoom.Encounter(MyPlayer); //if not special room just reg encounter
             }

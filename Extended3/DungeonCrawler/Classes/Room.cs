@@ -13,10 +13,10 @@ namespace roomClass
         Loot loot = new Loot(0, "");
         Monster thisRoomMonster = new Monster(0, 0);
         bool hasBeenExplored = false;
-        public static int roomsInitialized = 0;
+        public static int roomsVisited = 0;
         public Room(string name)
         {
-            roomsInitialized++;
+            roomsVisited++;
             Name = name;
         }
         public void BracketPutter()//i want a bracket here
@@ -28,7 +28,7 @@ namespace roomClass
         public void InitializeLoot() //get loot REMEMBER to move lloot after winning- except for Entrance hall which has only loot
         {
             BracketPutter();
-            Console.WriteLine("Upon entering, you spot a curious object:");
+            Console.WriteLine("The Monster lies dead, and behind you spot a curious object:");
             loot.lootNamer();
             loot.lootPowerSetter();
             loot.lootAnnouncer();
@@ -96,7 +96,7 @@ namespace roomClass
                 action = Console.ReadLine();
                 if ("fight".Equals(action, StringComparison.OrdinalIgnoreCase))
                 {
-                    Console.WriteLine("Fight!");
+                    Console.WriteLine("Let's Fight!");
                     Fight(player);
                     if (player.alive)//if u lived after fightning
                     {
@@ -104,7 +104,7 @@ namespace roomClass
                         TakeLoot(player);
                         player.regenerateHealth();
                         hasBeenExplored = true;
-                        break; ;
+                        break;
                     }
                     else
                     {
@@ -136,6 +136,50 @@ namespace roomClass
             hasBeenExplored = true;
         }
 
+        public void EncounterBossRoom(Player player) 
+        {
+            string action = "";
+            BracketPutter();
+            Console.WriteLine("Brave adventurer, gird your loins!");
+            player.announcePlayer();
+            Console.WriteLine("Something in the room around you changes, a smell of stagnant death lingers in the air.");
+            Console.WriteLine("You hear a creepy slithering sound, as all of a sudden you see two, bright red eyes, shining from the darkness.");
+            InitializeMonster();
+            while (string.IsNullOrWhiteSpace(action))
+            {
+                Console.WriteLine($"Will you flee, or will you fight?");
+                action = Console.ReadLine();
+                if ("fight".Equals(action, StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine("Let's Fight!");
+                    Fight(player);
+                    if (player.alive)//if u lived after fightning
+                    {
+                        InitializeLoot();
+                        TakeLoot(player);
+                        player.regenerateHealth();
+                        hasBeenExplored = true;
+                        break;
+                    }
+                    else
+                    {
+                        //have game intiializing here
+                        hasBeenExplored = true;
+                        break;
+                    }
+                }
+                else if ("flee".Equals(action, StringComparison.OrdinalIgnoreCase))
+                {
+                    Flee(player);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine($"What will you do,{player.name}.");
+                    continue;
+                }
+            }
+        }
     }
 }
 

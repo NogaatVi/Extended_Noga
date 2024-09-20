@@ -86,6 +86,7 @@ namespace MonsterClass
             Console.WriteLine("Tremble in fear, Mortal!");
             Console.ForegroundColor = ConsoleColor.White;
         }
+
         public bool isAlive()
         {
             if (health < 0)

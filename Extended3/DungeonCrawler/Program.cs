@@ -8,7 +8,7 @@ using DungeonClass;
 namespace DungeonCrawler;
 class Program
 {
-    public void NewDungeon() 
+    public void NewDungeon() //try to make dungeons loopable?
     {
        Player newPlayer = new Player(1, 15, 35);
         Dungeon thisDungeon = new Dungeon(newPlayer);
