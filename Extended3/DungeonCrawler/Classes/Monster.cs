@@ -5,7 +5,7 @@ namespace MonsterClass
 	public class Monster
 	{
         public int power;
-        public int health = 10;
+        public int health;
         public string name = "Not a Name";
         public string title = "Not a Title";
         private static int monsterCounter = 0;//how many monster did we have by now?
@@ -36,34 +36,41 @@ namespace MonsterClass
             return name;
         }
 
-        public int monsterPowerSetter()// sets the power of monster depending on how many monster initialized
+        public int monsterPowerAndHealthSetter()// sets the power of monster depending on how many monster initialized
         {
             Random random = new Random();
             power = random.Next(1, 5);
+            health = random.Next(10, 15);
             switch (monsterCounter)
             {
                 case 0:
                     power *= 1;
+                    health *= 1;
                     break;
 
                 case <= 3:
                     power *= 1;
+                    health *= 1;
                     break;
 
                 case <= 6:
                     power *= 2;
+                    health *= 2;
                     break;
 
                 case <= 9:
                     power *= 2;
+                    health *= 2;
                     break;
 
                 case <= 12:
                     power *= 3;
+                    health *= 3;
                     break;
 
                 case <= 15:
                     power *= 3;
+                    health *= 3;
                     break;
             }
             Console.WriteLine(power);//FOR TEST

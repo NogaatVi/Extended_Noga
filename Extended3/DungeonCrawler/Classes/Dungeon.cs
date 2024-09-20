@@ -64,7 +64,7 @@ namespace DungeonClass
             Room selectedRoom = null;
             string roomName = "";
 
-            while (selectedRoom == null)//name looper- give me propper name!
+            while (selectedRoom == null) 
             {
                 Console.WriteLine("What room would you like to explore?");
                 roomName = Console.ReadLine();
@@ -79,7 +79,8 @@ namespace DungeonClass
                 {
                     Console.WriteLine("Room not found. Please try again.");
                 }
-            }
+            } //name looper- give me propper name!
+
             //Special rooms
             if (roomName.Equals("Entrance Hall", StringComparison.OrdinalIgnoreCase))
             {

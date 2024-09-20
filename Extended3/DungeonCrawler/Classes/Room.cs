@@ -11,7 +11,8 @@ namespace roomClass
     {
         public string Name { get; set; }
         Loot loot = new Loot(0, "");
-        Monster thisRoomMonster = new Monster(0, 10);
+        Monster thisRoomMonster = new Monster(0, 0);
+        bool hasBeenExplored = false;
         public static int roomsInitialized = 0;
         public Room(string name)
         {
@@ -38,7 +39,7 @@ namespace roomClass
             BracketPutter();
             thisRoomMonster.titleGiver();
             thisRoomMonster.nameSetter();
-            thisRoomMonster.monsterPowerSetter();
+            thisRoomMonster.monsterPowerAndHealthSetter();
             thisRoomMonster.monsterAnnouncer();
         }
 
@@ -49,12 +50,12 @@ namespace roomClass
             {
                 if (turnsElapsed % 2 == 0) // Player hits monster
                 {
-                    Console.WriteLine($"{player.name} ({player.health}) hit {thisRoomMonster.name} ({thisRoomMonster.health})");
+                    Console.WriteLine($"{player.name} ({player.health}) hit {thisRoomMonster.name} ({thisRoomMonster.health}).");
                     thisRoomMonster.health -= player.power;
                 }
                 else // Monster hits player
                 {
-                    Console.WriteLine($"{thisRoomMonster.name} ({thisRoomMonster.health}) hit {player.name} ({player.health})");
+                    Console.WriteLine($"{thisRoomMonster.name} ({thisRoomMonster.health}) hit {player.name} ({player.health}).");
                     player.health -= thisRoomMonster.power;
                 }
 
@@ -73,43 +74,55 @@ namespace roomClass
 
         public void Flee(Player player)//u need to pay more ATTENTION HERE
         {
+            hasBeenExplored = false;
             Console.WriteLine("You've fled...");
-            return;
         }
 
         public void TakeLoot(Player player) 
         {
             player.power += loot.lootPower;
         }
+
         public void Encounter(Player player)
         {
+            string action = "";
             BracketPutter();
             Console.WriteLine($"You've entered {Name}");
             player.announcePlayer();
             InitializeMonster();
-            Console.WriteLine($"Will you flee, or will you fight?");
-            string action = Console.ReadLine();
-            if ("fight".Equals(action, StringComparison.OrdinalIgnoreCase)) 
-            { 
-                Console.WriteLine("Fight!");
-                Fight(player);
-                if (player.alive)//if u lived after fightning
+            while (string.IsNullOrWhiteSpace(action)) 
+            {
+                Console.WriteLine($"Will you flee, or will you fight?");
+                action = Console.ReadLine();
+                if ("fight".Equals(action, StringComparison.OrdinalIgnoreCase))
                 {
-                    InitializeLoot();
+                    Console.WriteLine("Fight!");
+                    Fight(player);
+                    if (player.alive)//if u lived after fightning
+                    {
+                        InitializeLoot();
+                        TakeLoot(player);
+                        player.regenerateHealth();
+                        hasBeenExplored = true;
+                        break; ;
+                    }
+                    else
+                    {
+                        //have game intiializing here
+                        hasBeenExplored = true;
+                        break;
+                    }
                 }
-                else 
-                { 
+                else if ("flee".Equals(action, StringComparison.OrdinalIgnoreCase))
+                {
+                    Flee(player);
+                    break;
                 }
-            }
-            else if ("flee".Equals(action, StringComparison.OrdinalIgnoreCase)) 
-            {
-                
-                Flee(player);
-            }
-            else 
-            {
-                Console.WriteLine($"What will you do,{player.name}.");
-                return;
+                else
+                {
+                    Console.WriteLine($"What will you do,{player.name}.");
+                    continue;
+                }
             }
         }
 
@@ -120,7 +133,7 @@ namespace roomClass
             InitializeLoot();
             TakeLoot(player);
             Console.WriteLine($"You feel your power grow! ({player.power})");
-            return;
+            hasBeenExplored = true;
         }
 
     }

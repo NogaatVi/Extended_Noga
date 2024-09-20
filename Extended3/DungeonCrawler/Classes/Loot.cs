@@ -72,8 +72,10 @@ namespace lootClass
         {
             if (lootName != null)
             {
-                Console.WriteLine($"Could it be? {lootName}?");
-                Console.WriteLine($"If you squint, you assess it's power is {lootPower}");
+                Console.WriteLine("Could it be?");
+                Console.WriteLine($"{lootName}!");
+                Console.WriteLine($"Looking closer, you assess it's power is {lootPower}.");
+                Console.WriteLine("Score!");
             }
         }
     }
