@@ -22,7 +22,15 @@ class Program
         Dungeon thisDungeon = new Dungeon(newPlayer);
         thisDungeon.InitializePlayer();
         thisDungeon.InitializeRooms();
-        thisDungeon.ExploreRoom();
+        while (Room.roomsVisited != thisDungeon.roomList.Count -1) 
+        {
+            thisDungeon.PrintRooms();
+            thisDungeon.ExploreRoom();
+            Console.WriteLine($"FOR TEST {Room.roomsVisited}");
+            Console.WriteLine(thisDungeon.roomList.Count);
+        }
+        Console.WriteLine("BOSS TIME");
+        thisDungeon.FightBoss();
         Console.WriteLine("end of program");//FOR TEST
         Console.ReadLine();
     }

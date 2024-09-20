@@ -2,16 +2,29 @@
 using System;
 using roomClass;
 using static DungeonCrawler.Program;
+using System.Security.Cryptography.X509Certificates;
 
 namespace DungeonClass
 {
     public class Dungeon
     {
-        List<Room> roomList = new List<Room> { };
+        public List<Room> roomList = new List<Room> { };
         public Player MyPlayer { get; set; }
         public Dungeon(Player player)
         {
             MyPlayer = player;
+        }
+        public void MakeItPurple(string yourStringHere) 
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine(yourStringHere);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        public void BracketPutter()//i want a bracket here
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("---------------------------------------------------");
         }
 
         public void InitializePlayer()
@@ -48,15 +61,15 @@ namespace DungeonClass
                     roomList.Add(new Room($"Room {i}"));
                 }
             }
-            PrintRooms();
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("---------------------------------------------------");
         }
 
         public void PrintRooms()//works :) 
         {
-            Console.WriteLine("The rooms available to you are:");
-            Console.WriteLine(string.Join(", ", roomList.Select(room => room.Name)));
+            BracketPutter();
+            MakeItPurple("The rooms available to you are:");
+            MakeItPurple(string.Join(", ", roomList.Select(room => room.Name)));
         }
 
         public void ExploreRoom() //get a room, get the ball rolling- initialaize and encounter CHECK IF ROOM EXPLORED
@@ -86,19 +99,20 @@ namespace DungeonClass
             {
                 selectedRoom.EntranceRoomEncounter(MyPlayer);
             }
-            else if ((roomName.Equals("Boss Room", StringComparison.OrdinalIgnoreCase)) && (Room.roomsVisited > (roomList.Count -1)))//if all roms but the boss room visited
+            else if (roomName.Equals("Boss Room", StringComparison.OrdinalIgnoreCase)) 
             {
-                selectedRoom.EncounterBossRoom(MyPlayer);
-            }
-            else if (((roomName.Equals("Boss Room", StringComparison.OrdinalIgnoreCase)) && (Room.roomsVisited < (roomList.Count - 1))))// if not explored all roomes-boss room yet
-            {
-                Console.WriteLine($"{MyPlayer.name}, don't be hasty--there are other rooms to check first before dealing with this fearsome monster!");
+                Console.WriteLine($"{MyPlayer.name}, don't be hasty! The dungeon's master is crafty--Conserve your power!");
             }
             else
             {
                 selectedRoom.Encounter(MyPlayer); //if not special room just reg encounter
             }
-            
+        }
+
+        public void FightBoss() 
+        {
+            Room bossRoom = new Room("Boss Room");
+            bossRoom.EncounterBossRoom(MyPlayer);
         }
     }
 }
