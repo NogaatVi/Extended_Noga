@@ -98,6 +98,7 @@ namespace DungeonClass
             if (roomName.Equals("Entrance Hall", StringComparison.OrdinalIgnoreCase))
             {
                 selectedRoom.EntranceRoomEncounter(MyPlayer);
+                roomList.Remove(selectedRoom);
             }
             else if (roomName.Equals("Boss Room", StringComparison.OrdinalIgnoreCase)) 
             {
@@ -106,6 +107,10 @@ namespace DungeonClass
             else
             {
                 selectedRoom.Encounter(MyPlayer); //if not special room just reg encounter
+                if (selectedRoom.hasBeenExplored) 
+                {
+                    roomList.Remove(selectedRoom);
+                }
             }
         }
 

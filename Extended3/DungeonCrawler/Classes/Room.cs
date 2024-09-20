@@ -12,7 +12,7 @@ namespace roomClass
         public string Name { get; set; }
         Loot loot = new Loot(0, "");
         Monster thisRoomMonster = new Monster(0, 0);
-        bool hasBeenExplored = false;
+        public bool hasBeenExplored = false;
         public static int roomsVisited = 0;
         public Room(string name)
         {

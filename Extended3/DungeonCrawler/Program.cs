@@ -8,13 +8,8 @@ using DungeonClass;
 namespace DungeonCrawler;
 class Program
 {
-    public void NewDungeon() //try to make dungeons loopable?
+    public void NewDungeon() 
     {
-       Player newPlayer = new Player(1, 15, 35);
-        Dungeon thisDungeon = new Dungeon(newPlayer);
-        thisDungeon.InitializePlayer();
-        thisDungeon.InitializeRooms();
-        thisDungeon.ExploreRoom(); 
     }
     static void Main(string[] args)
     {
