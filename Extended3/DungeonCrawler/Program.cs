@@ -17,16 +17,24 @@ class Program
         Dungeon thisDungeon = new Dungeon(newPlayer);
         thisDungeon.InitializePlayer();
         thisDungeon.InitializeRooms();
-        while (Room.roomsVisited != thisDungeon.roomList.Count -1) 
+        if (newPlayer.isAlive())
         {
-            thisDungeon.PrintRooms();
-            thisDungeon.ExploreRoom();
-            Console.WriteLine($"FOR TEST {Room.roomsVisited}");
-            Console.WriteLine(thisDungeon.roomList.Count);
+            while (Room.roomsVisited != thisDungeon.roomList.Count)
+            {
+                thisDungeon.PrintRooms();
+                thisDungeon.ExploreRoom();
+                Console.WriteLine($"FOR TEST {Room.roomsVisited}");
+                Console.WriteLine(thisDungeon.roomList.Count);
+            }
+          Console.WriteLine("BOSS TIME");
+          thisDungeon.FightBoss();
         }
-        Console.WriteLine("BOSS TIME");
-        thisDungeon.FightBoss();
-        Console.WriteLine("end of program");//FOR TEST
+        else 
+        {
+            Console.WriteLine("Another victim has been claimed by the devious dungeon's master!");
+            Console.WriteLine("I shall bury the dead, but as always, a new, brave adventurer will come... They always do.");
+        }
+        Console.WriteLine("End of program");//FOR TEST
         Console.ReadLine();
     }
 }

@@ -26,6 +26,13 @@ namespace roomClass
             Console.ForegroundColor = ConsoleColor.White;
         }
 
+        public void MakeItMagenta(string yourTextHere)
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine(yourTextHere);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
         public void MakeItRed(string yourTextHere)
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -72,12 +79,12 @@ namespace roomClass
             {
                 if (turnsElapsed % 2 == 0) // Player hits monster
                 {
-                    MakeItGreen($"{player.name} ({player.health}) hit {thisRoomMonster.name} ({thisRoomMonster.health}).");
+                    MakeItGreen($"{player.name} ({player.health}) attacked {thisRoomMonster.name} ({thisRoomMonster.health}).");
                     thisRoomMonster.health -= player.power;
                 }
                 else // Monster hits player
                 {
-                    MakeItRed($"{thisRoomMonster.name} ({thisRoomMonster.health}) hit {player.name} ({player.health}).");
+                    MakeItRed($"{thisRoomMonster.name} ({thisRoomMonster.health}) attacked {player.name} ({player.health}).");
                     player.health -= thisRoomMonster.power;
                 }
 
@@ -96,7 +103,7 @@ namespace roomClass
         public void Flee(Player player)//u need to pay more ATTENTION HERE
         {
             hasBeenExplored = false;
-            Console.WriteLine("You've fled...");
+            MakeItRed("You've fled...");
             return;
         }
 
@@ -109,7 +116,7 @@ namespace roomClass
         {
             string action = "";
             BracketPutter();
-            Console.WriteLine($"You've entered {Name}");
+            MakeItGreen($"You've entered {Name}");
             player.announcePlayer();
             InitializeMonster();
             while (string.IsNullOrWhiteSpace(action)) 

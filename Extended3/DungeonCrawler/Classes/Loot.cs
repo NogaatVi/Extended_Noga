@@ -16,7 +16,7 @@ namespace lootClass
 
         public void lootNamer() 
         {
-            List<string> lootName0 = new List<string> { "Mordekainen's Great", "Sparkling Nando's", "A Broken", "A Simple", "A Good", "An Excellent" };
+            List<string> lootName0 = new List<string> { "Mordekainen's Great", "Sparkling Nando's", "A Worn", "A Simple", "A Good", "An Excellent" };
             List<string> lootName1 = new List<string> { "Sword", "Shield", "Cloak", "Orb", "Lantern", "Pack", "Staff", "Whip" };
             Random random = new Random();
             int num = random.Next(0, lootName0.Count);
@@ -30,10 +30,10 @@ namespace lootClass
         {
             int basePower;
             Random random = new Random();
-            basePower = random.Next(1, 5);
+            basePower = random.Next(2, 5);
             if (lootName != null) 
             {
-                if (lootName.Contains("A Broken"))
+                if (lootName.Contains("A Worn"))
                 {
                     basePower *= 1;
                 }

@@ -36,55 +36,58 @@ namespace MonsterClass
             return name;
         }
 
-        public int monsterPowerAndHealthSetter()// sets the power of monster depending on how many monster initialized
+        public void monsterPowerAndHealthSetter()// sets the power of monster depending on how many monster initialized
         {
+            int incresingNum = 1;
             Random random = new Random();
-            power = random.Next(1, 5);
-            health = random.Next(10, 15);
+            power = random.Next(incresingNum, 5);
+            health = random.Next(incresingNum * 5, 10);
             switch (monsterCounter)
             {
                 case 0:
                     power *= 1;
                     health *= 1;
+                    incresingNum++;
                     break;
 
-                case <= 3:
-                    power *= 1;
-                    health *= 1;
-                    break;
-
-                case <= 6:
+                case < 1:
                     power *= 2;
                     health *= 2;
+                    incresingNum++;
                     break;
 
-                case <= 9:
-                    power *= 2;
-                    health *= 2;
-                    break;
-
-                case <= 12:
+                case < 2:
                     power *= 3;
                     health *= 3;
+                    incresingNum++;
                     break;
 
-                case <= 15:
-                    power *= 3;
-                    health *= 3;
+                case < 4:
+                    power *= 4;
+                    health *= 4;
+                    incresingNum++;
+                    break;
+
+                case < 6:
+                    power *= 5;
+                    health *= 5;
+                    incresingNum++;
+
+                    break;
+
+                case < 8:
+                    power *= 6;
+                    health *= 6;
+                    incresingNum++;
                     break;
             }
-            Console.WriteLine(power);//FOR TEST
-            return power;
         }
 
         public void monsterAnnouncer()//A big scary monster appears! Shout it from the rooftops! 
         {
-            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"Before you stands {name}");
-            Console.WriteLine($"Their power is great! ({power})");
+            Console.WriteLine($"Their power is ({power})");
             Console.WriteLine($"Their Health is ({health})");
-            Console.WriteLine("Tremble in fear, Mortal!");
-            Console.ForegroundColor = ConsoleColor.White;
         }
 
         public bool isAlive()
@@ -96,7 +99,6 @@ namespace MonsterClass
             }
             else
             {
-                Console.WriteLine($"{name} still lives!");
                 return alive = true;
             }
         }

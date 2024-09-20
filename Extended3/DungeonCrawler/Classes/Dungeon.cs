@@ -42,7 +42,6 @@ namespace DungeonClass
 
         public void InitializeRooms()// minimum 3 rooms
         {
-            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("You feel the dungeon shift; Dust and rubble fall from the ceiling as new doors appear.");
             Random random = new Random();
             int roomAmount = random.Next(3, 8);
@@ -52,17 +51,15 @@ namespace DungeonClass
                 {
                     roomList.Add(new Room("Entrance Hall"));
                 }
-                else if (i == roomAmount) 
-                {
-                    roomList.Add(new Room("Boss Room"));
-                }
+                //else if (i == roomAmount) 
+                //{
+                //    roomList.Add(new Room("Boss Room"));
+                //}
                 else 
                 {
                     roomList.Add(new Room($"Room {i}"));
                 }
             }
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("---------------------------------------------------");
         }
 
         public void PrintRooms()//works :) 
@@ -79,6 +76,7 @@ namespace DungeonClass
 
             while (selectedRoom == null) 
             {
+                BracketPutter();
                 Console.WriteLine("What room would you like to explore?");
                 roomName = Console.ReadLine();
 

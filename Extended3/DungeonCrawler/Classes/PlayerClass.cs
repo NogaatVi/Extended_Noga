@@ -47,12 +47,11 @@ namespace PlayerClass
         {
             if (health > 0)
             {
-                Console.WriteLine($"{name} you've lived to see another day!");
                 return alive = true;
             }
             else 
             {
-                Console.WriteLine($"{name} you've died!");
+                Console.WriteLine("Oh no! You've died!");
                 return alive = false;
             }
         }
