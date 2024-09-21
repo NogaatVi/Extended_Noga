@@ -22,7 +22,6 @@ namespace PlayerClass
 
         public string playerNamer() //Name that bitch!
         {
-            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("What is your name, brave dungeon delver?");
             while (string.IsNullOrWhiteSpace(name))// if u try to be cheeky
             {
@@ -40,7 +39,6 @@ namespace PlayerClass
         }//very simple back to max health 
         public void announcePlayer() 
         {
-            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine($"{name}, your power is {power}, and your health is {health}.");
         }
         public bool isAlive() 

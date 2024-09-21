@@ -9,6 +9,7 @@ namespace DungeonClass
     public class Dungeon
     {
         public List<Room> roomList = new List<Room> { };
+        public List<Room> exploredRooms = new List<Room>();
         public Player MyPlayer { get; set; }
         public Dungeon(Player player)
         {
@@ -21,23 +22,23 @@ namespace DungeonClass
             Console.ForegroundColor = ConsoleColor.White;
         }
 
-        public void BracketPutter()//i want a bracket here
+        public void BracketPutter(string myTextHere)//i want a bracket here
         {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"--------------------------{myTextHere}--------------------------");
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("---------------------------------------------------");
+
         }
 
         public void InitializePlayer()
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Welcome, dear adventurer, you are now at the gates of the Mystic Dungeon!");
+            Console.WriteLine("Welcome, dear adventurer! \nYou are now at the gates of the Mystic Dungeon!");
             Console.WriteLine("Be wary, for inside great treasure and even greater danger awaits...");
+            Console.ForegroundColor = ConsoleColor.Red;
             MyPlayer.playerNamer();
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"Ahh, {MyPlayer.name}, delve carefully, or the master of the Dungeon will get you!");
-            Console.WriteLine("Now get ready, and go!");
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("---------------------------------------------------");
+            Console.WriteLine($"Ahh, {MyPlayer.name}, delve carefully. \nThe Master of the Dungeon is crafty and vicious!");
+            BracketPutter("Enter the Dungeon!");
         }
 
         public void InitializeRooms()// minimum 3 rooms
@@ -60,7 +61,7 @@ namespace DungeonClass
 
         public void PrintRooms() 
         {
-            BracketPutter();
+            BracketPutter("Rooms Available");
             MakeItPurple("The rooms available to you are:");
             MakeItPurple(string.Join(", ", roomList.Select(room => room.Name)));
         }
@@ -72,13 +73,13 @@ namespace DungeonClass
 
             while (selectedRoom == null) 
             {
-                BracketPutter();
+                BracketPutter("Time to Explore");
                 Console.WriteLine("What room would you like to explore?");
                 roomName = Console.ReadLine();
 
                 if (string.IsNullOrWhiteSpace(roomName))
                 {
-                    Console.WriteLine("Invalid room. Please try again.");
+                    Console.WriteLine("Please try again.");
                     continue;
                 }
                 selectedRoom = roomList.FirstOrDefault(room => room.Name == roomName);
@@ -89,22 +90,32 @@ namespace DungeonClass
             } //name looper- give me propper name!
 
             //Special rooms
-            if (roomName.Equals("Entrance Hall", StringComparison.OrdinalIgnoreCase))
+            if (!selectedRoom.hasBeenExplored)
             {
-                selectedRoom.EntranceRoomEncounter(MyPlayer);
-                roomList.Remove(selectedRoom);
-            }
-            else if (roomName.Equals("Boss Room", StringComparison.OrdinalIgnoreCase)) 
-            {
-                Console.WriteLine($"{MyPlayer.name}, don't be hasty! The dungeon's master is crafty--Conserve your power!");
-            }
-            else
-            {
-                selectedRoom.Encounter(MyPlayer); //if not special room just reg encounter
-                if (selectedRoom.hasBeenExplored) 
+                if (roomName.Equals("Entrance Hall", StringComparison.OrdinalIgnoreCase))
                 {
-                    roomList.Remove(selectedRoom);
+                    selectedRoom.EntranceRoomEncounter(MyPlayer);
+                    if (selectedRoom.hasBeenExplored) 
+                    { 
+                       exploredRooms.Add(selectedRoom);//if roomhas been explored (not fled)
+                    }
                 }
+                else if (roomName.Equals("Boss Room", StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine($"{MyPlayer.name}, don't be hasty! The dungeon's master is crafty--Conserve your power!");
+                }
+                else
+                {
+                    selectedRoom.Encounter(MyPlayer); //if not special room just reg encounter
+                    if (selectedRoom.hasBeenExplored) 
+                    { 
+                       exploredRooms.Add(selectedRoom);//if roomhas been explored (not fled)
+                    }
+                }
+            }
+            else 
+            {
+                Console.WriteLine($"{selectedRoom.Name} has already been explored. \n{selectedRoom.thisRoomMonster.name} is lying dead on the ground.");
             }
         }
 

@@ -69,7 +69,7 @@ namespace lootClass
         {
             if (lootName != null)
             {
-                Console.WriteLine($"Could it be? n\"{lootName}! \nLooking closer, you assess it's power is {lootPower}.");
+                Console.WriteLine($"Could it be? \n{lootName}! \nLooking closer, you assess it's power is {lootPower}.");
             }
         }
     }

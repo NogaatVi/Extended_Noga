@@ -14,7 +14,7 @@ class Program
     static void Main(string[] args)
     {
 
-        Player newPlayer = new Player(1, 15, 35);
+        Player newPlayer = new Player(1, 10, 20);
         Dungeon thisDungeon = new Dungeon(newPlayer);
         
         thisDungeon.InitializePlayer();
@@ -22,7 +22,7 @@ class Program
         
         while (newPlayer.isAlive())
         {
-            if (thisDungeon.roomList.Count != 0)
+            if (thisDungeon.roomList.Count != thisDungeon.exploredRooms.Count)//if rooms existingin dungeon not equal to explored rooms
             {
                 thisDungeon.PrintRooms();
                 thisDungeon.ExploreRoom();

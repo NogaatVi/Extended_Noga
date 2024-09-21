@@ -11,7 +11,7 @@ namespace roomClass
     {
         public string Name { get; set; }
         Loot loot = new Loot(0, "");
-        Monster thisRoomMonster = new Monster(0, 0);
+        public Monster thisRoomMonster;
         public bool hasBeenExplored = false;
         public static int roomsVisited;
         public Room(string name)
@@ -33,6 +33,13 @@ namespace roomClass
             Console.ForegroundColor = ConsoleColor.White;
         }
 
+        public void MakeItBlue(string yourTextHere)
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine(yourTextHere);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
         public void MakeItRed(string yourTextHere)
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -40,22 +47,23 @@ namespace roomClass
             Console.ForegroundColor = ConsoleColor.White;
         }
 
-        public void BracketPutter()//i want a bracket here
+        public void BracketPutter(string myTextHere)//i want a bracket here
         {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"--------------------------{myTextHere}--------------------------");
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("---------------------------------------------------");
         }
 
         public void InitializeLoot()
         {
-            BracketPutter();
+            BracketPutter("Loot");
             if (Name == "Entrance Hall")
             {
-                Console.WriteLine("With daylight still shining behind you, you spot a curious object:");
+                Console.WriteLine("With the sounds of the great doors shutting still ringing in your ears, you spot a curious object:");
             }
             else 
             { 
-                Console.WriteLine("The Monster lies dead, and behind you spot a curious object:");
+                Console.WriteLine("The Monster lies dead. \nit's dark blood pooling beneath it's massive body.\nBehind it, spot a curious object:");
             }
             loot.lootNamer();
             loot.lootPowerSetter();
@@ -64,7 +72,8 @@ namespace roomClass
 
         public void InitializeMonster() //get monster
         {
-            BracketPutter();
+            thisRoomMonster = new Monster(0, 0);
+            BracketPutter("A Great Monster Appears!");
             thisRoomMonster.titleGiver();
             thisRoomMonster.nameSetter();
             thisRoomMonster.monsterPowerAndHealthSetter();
@@ -94,7 +103,7 @@ namespace roomClass
                 "An abandoned altar covered in melted candles and long-dead flowers. \nThe air is thick with the scent of old incense, and shadows seem to flit just beyond the light.", 
             };
             int num = random.Next(1, descriptionList.Count);
-            MakeItMagenta($"{descriptionList[num]}");
+            MakeItBlue($"{descriptionList[num]}");
             descriptionList.RemoveAt( num );
         }//just for flavor
 
@@ -142,7 +151,7 @@ namespace roomClass
         public void Encounter(Player player)
         {
             string action = "";
-            BracketPutter();
+            BracketPutter("Encounter");
             MakeItGreen($"You've entered {Name}");
             DescribeRoom();
             player.announcePlayer();
@@ -187,20 +196,27 @@ namespace roomClass
         public void EntranceRoomEncounter(Player player)
         {
             roomsVisited++;
-            BracketPutter();
+            BracketPutter("Entrance Hall");
             Console.WriteLine($"You've entered {Name}");
-            InitializeLoot();
-            TakeLoot(player);
-            Console.WriteLine($"You feel your power grow! ({player.power})");
-            hasBeenExplored = true;
+            if (!hasBeenExplored)
+            {
+                InitializeLoot();
+                TakeLoot(player);
+                Console.WriteLine($"You feel your power grow! ({player.power})");
+                hasBeenExplored = true;
+            }
+            else 
+            {
+                Console.WriteLine("You come back to the Entrance Hall, the doors to the outside world are shut.\nYou are still trapped inside.");
+            }
         }
 
         public void EncounterBossRoom(Player player) 
         {
             string action = "";
-            BracketPutter();
+            BracketPutter($"Mind yourself, {player.name}");
             player.announcePlayer();
-            BracketPutter();
+            BracketPutter("Boss Time!");
             MakeItRed("Brave adventurer, gird your loins!");
             DescribeRoom();
             Console.WriteLine("Something around you changes, a smell of stagnant death lingers in the air.");
