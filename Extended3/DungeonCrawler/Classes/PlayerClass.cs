@@ -12,6 +12,15 @@ namespace PlayerClass
         public int maxHealth = 20;
         public string name = null;
         public bool alive = true;
+        List<string> playerTitles = new List<string> 
+        { 
+            "The Valiant",
+            "The Courageous",
+            "The Unyielding",
+            "The Resolute",
+            "The Noble",
+            "The Indomitable"
+        };
 
         public Player(int level, int power, int health) //for player
         {
@@ -31,6 +40,9 @@ namespace PlayerClass
                     Console.WriteLine("Do not dawdle, Adventurer! What is your name?");
                 }
             }
+            Random random = new Random();
+            int num = random.Next(0, playerTitles.Count);
+            name = playerTitles[num]+ " " + name;
             return name;
         }
         public void regenerateHealth()

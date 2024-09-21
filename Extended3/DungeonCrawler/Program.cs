@@ -6,83 +6,107 @@ using roomClass;
 using DungeonClass;
 using System.Numerics;
 
-namespace DungeonCrawler;
-class Program
+namespace DungeonCrawler
 {
-    public bool isPlaying = true;
-    public void NewDungeon() 
+    class Program
     {
-    }
-    public void RunDungeon(string starterText) 
-    {
-        isPlaying = true;
-        Console.WriteLine(starterText);
-        Player newPlayer = new Player(1, 10, 20);
-        Dungeon thisDungeon = new Dungeon(newPlayer);
+        public bool isPlaying = true;
 
-        thisDungeon.InitializePlayer();
-        thisDungeon.InitializeRooms();
-
-        while (newPlayer.isAlive())
+        public void NewDungeon()
         {
-            if (thisDungeon.roomList.Count != thisDungeon.exploredRooms.Count)//if rooms existingin dungeon not equal to explored rooms
-            {
-                thisDungeon.PrintRooms();
-                thisDungeon.ExploreRoom();
-            }
-            else
-            {
-                thisDungeon.FightBoss();
-                break;
-            }
+            // Optional: Add any setup code here for creating a new dungeon.
         }
 
-        if (!newPlayer.isAlive())
+        public void RunDungeon(string starterText)
         {
-            Console.WriteLine("Another victim has been claimed by the devious Dungeon's Master!");
-            Console.WriteLine("I shall bury the dead...\nBut as always, a new, brave adventurer will come...\nThey always do.");
-            isPlaying = false;
-        }
-        else
-        {
-            Console.WriteLine("You have done it!\nTheDungeon's doors swing open,\nGathering your loot, you run out.\nYou are free!");
-            isPlaying= false;
-        }
-    }
-    static void Main(string[] args)
-    {
-        Program newProgram = new Program();
-        int runNumber = 1;
+            Console.WriteLine(starterText);
+            Player newPlayer = new Player(1, 10, 20);
+            Dungeon thisDungeon = new Dungeon(newPlayer);
 
-        if (newProgram.isPlaying)
-        {
-            Console.WriteLine("Welcome to...\nThe Mystical Dungeon!");
-            string action = "";
+            thisDungeon.InitializePlayer();
+            thisDungeon.InitializeRooms();
 
-            while (string.IsNullOrWhiteSpace(action))
+            while (newPlayer.isAlive())
             {
-                Console.WriteLine("Would you like to play?\nY/N");
-                action = Console.ReadLine();
-
-                if ("Y".Equals(action, StringComparison.OrdinalIgnoreCase))
+                if (thisDungeon.roomList.Count != thisDungeon.exploredRooms.Count) // If there are unexplored rooms
                 {
-                    newProgram.RunDungeon($"--Run {runNumber}--\nThe Mystical Dungeon!");
-                }
-                else if ("N".Equals(action, StringComparison.OrdinalIgnoreCase))
-                {
-                    Console.WriteLine($"Thank you for opening my game!\nI hope to see you soon.");
-                    break;
+                    thisDungeon.PrintRooms();
+                    thisDungeon.ExploreRoom();
                 }
                 else
                 {
-                    Console.WriteLine($"Unrecognized.\nPlease Try Again.");
-                    continue;
+                    thisDungeon.FightBoss();
+                    break;
                 }
             }
+
+            if (!newPlayer.isAlive())
+            {
+                Console.WriteLine("Another victim has been claimed by the devious Dungeon's Master!");
+                Console.WriteLine("I shall bury the dead...\nBut as always, a new, brave adventurer will come...\nThey always do.");
+            }
+            else
+            {
+                Console.WriteLine("You have done it!\nThe Dungeon's doors swing open,\nGathering your loot, you run out.\nYou are free!");
+            }
         }
-        else 
+
+        public void BracketPutter(string yourStringHere)
         {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"--------------------------{yourStringHere}--------------------------");
+            Console.ForegroundColor = ConsoleColor.White;
         }
-        Console.ReadLine();
+
+        static void Main(string[] args)
+        {
+            Program newProgram = new Program();
+            int runNumber = 1;
+            bool playAgain = true;
+
+            while (playAgain) // Main game loop
+            {
+                newProgram.BracketPutter("The Mystical Dungeon");
+                Console.WriteLine("Welcome to...\nThe Mystical Dungeon!");
+                string action = "";
+
+                while (string.IsNullOrWhiteSpace(action))
+                {
+                    Console.WriteLine("Would you like to play?\n--Y/N--");
+                    action = Console.ReadLine();
+
+                    if ("Y".Equals(action, StringComparison.OrdinalIgnoreCase))
+                    {
+                        newProgram.BracketPutter("Let's Go!");
+                        newProgram.RunDungeon($"--Run {runNumber}--\nThe Mystical Dungeon!");
+                        runNumber++;//add to run
+                    }
+                    else if ("N".Equals(action, StringComparison.OrdinalIgnoreCase))
+                    {
+                        newProgram.BracketPutter("So this is goodbye...");
+                        Console.WriteLine("Thank you for playing my game! \nI hope to see you soon.");
+                        playAgain = false; // Exit the game loop
+                    }
+                    else
+                    {
+                        Console.WriteLine("Unrecognized input.\nPlease try again.");
+                        action = ""; // Reset action to force re-entry
+                    }
+                }
+
+                if (playAgain) // Check if player wants to play again
+                {
+                    Console.WriteLine("Would you like to play again? Y/N");
+                    string playerAction = Console.ReadLine();
+
+                    if (!"Y".Equals(playerAction, StringComparison.OrdinalIgnoreCase))
+                    {
+                        playAgain = false; // Exit the game loop
+                        Console.WriteLine("Goodbye! Thanks for playing!");
+                    }
+                }
+            }
+            Console.ReadLine();
+        }
     }
 }

@@ -11,8 +11,8 @@ namespace MonsterClass
         private static int monsterCounter = 1;//how many monster did we have by now?
         public bool alive = true;
 
-        List<string> titleList = new List<string> { "The Fearsome", "The Mighty", "The Dreaded", "The Slimy", "The Indomitable"};
-        List<string> nameList = new List<string> { "Morganna", "Samir", "Vincent", "Delila", "Noga", "Aviv" , "Lydia", "Shalev"};
+        List<string> titleList = new List<string> { "The Fearsome", "The Mighty", "The Dreaded", "The Slimy", "The Indomitable", "The Unholy" , "The Voracious" , "The Relentless" };
+        List<string> nameList = new List<string> { "Morganna", "Samir", "Vincent", "Delila", "Noga", "Aviv" , "Lydia", "Shalev" , "Mario" ,"Goombelino"};
 
         public Monster(int power, int health)
         {
