@@ -39,8 +39,8 @@ namespace MonsterClass
         {
             
             Random random = new Random();
-            power = random.Next(monsterCounter, monsterCounter + 5);
-            health = random.Next(monsterCounter * 2, monsterCounter * 4);
+            power = random.Next(monsterCounter, monsterCounter + 8);
+            health = random.Next(monsterCounter * 2, monsterCounter * 6);
             switch (monsterCounter)
             {
                 case 0:

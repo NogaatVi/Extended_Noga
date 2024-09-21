@@ -15,6 +15,7 @@ namespace roomClass
         public string monstersName = "";
         public bool hasBeenExplored = false;
         public static int roomsVisited;
+        public string roomDescription = string.Empty;
         public Room(string name)
         {
             Name = name;
@@ -73,12 +74,15 @@ namespace roomClass
 
         public void InitializeMonster() //get monster
         {
-            thisRoomMonster = new Monster(0, 0);
             BracketPutter("A Great Monster Appears!");
-            thisRoomMonster.titleGiver();
-            thisRoomMonster.nameSetter();
-            monstersName = thisRoomMonster.name;
-            thisRoomMonster.monsterPowerAndHealthSetter();
+            if (thisRoomMonster == null) 
+            { 
+              thisRoomMonster = new Monster(0, 0);
+              thisRoomMonster.titleGiver();
+              thisRoomMonster.nameSetter();
+              monstersName = thisRoomMonster.name;
+              thisRoomMonster.monsterPowerAndHealthSetter();
+            }
             thisRoomMonster.monsterAnnouncer();
         }
 
@@ -106,6 +110,7 @@ namespace roomClass
             };
             int num = random.Next(1, descriptionList.Count);
             MakeItBlue($"{descriptionList[num]}");
+            roomDescription = descriptionList[num];
             descriptionList.RemoveAt( num );
         }//just for flavor
 
@@ -155,7 +160,14 @@ namespace roomClass
             string action = "";
             BracketPutter("Encounter");
             MakeItGreen($"You've entered {Name}");
+            if (roomDescription == string.Empty) 
+            { 
             DescribeRoom();
+            }
+            else
+            {
+                Console.WriteLine(roomDescription);
+            }
             player.announcePlayer();
             InitializeMonster();
             while (string.IsNullOrWhiteSpace(action)) 
