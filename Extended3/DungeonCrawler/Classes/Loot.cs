@@ -26,7 +26,7 @@ namespace lootClass
             lootName = $"{p1} {p2}";
         }
 
-        public int lootPowerSetter() 
+        public void lootPowerSetter() 
         {
             int basePower;
             Random random = new Random();
@@ -62,20 +62,14 @@ namespace lootClass
                     basePower *= 1;
                 }
                 lootPower = basePower;
-                return lootPower;
             }
-            lootPower = basePower;
-            return lootPower;
         }
 
         public void lootAnnouncer() 
         {
             if (lootName != null)
             {
-                Console.WriteLine("Could it be?");
-                Console.WriteLine($"{lootName}!");
-                Console.WriteLine($"Looking closer, you assess it's power is {lootPower}.");
-                Console.WriteLine("Score!");
+                Console.WriteLine($"Could it be? n\"{lootName}! \nLooking closer, you assess it's power is {lootPower}.");
             }
         }
     }

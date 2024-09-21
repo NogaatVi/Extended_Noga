@@ -42,7 +42,7 @@ namespace DungeonClass
 
         public void InitializeRooms()// minimum 3 rooms
         {
-            Console.WriteLine("You feel the dungeon shift; Dust and rubble fall from the ceiling as new doors appear.");
+            Console.WriteLine("Something crakles in the air. \nYou feel the dungeon shift as the doors slam shut. \nDust and rubble fall from the ceiling as new doors appear, sprouting for a previously solid wall.");
             Random random = new Random();
             int roomAmount = random.Next(3, 8);
             for (int i = 0; i <= roomAmount; i++)//set dynamic room names 
@@ -51,10 +51,6 @@ namespace DungeonClass
                 {
                     roomList.Add(new Room("Entrance Hall"));
                 }
-                //else if (i == roomAmount) 
-                //{
-                //    roomList.Add(new Room("Boss Room"));
-                //}
                 else 
                 {
                     roomList.Add(new Room($"Room {i}"));
@@ -62,7 +58,7 @@ namespace DungeonClass
             }
         }
 
-        public void PrintRooms()//works :) 
+        public void PrintRooms() 
         {
             BracketPutter();
             MakeItPurple("The rooms available to you are:");

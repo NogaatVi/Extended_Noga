@@ -41,7 +41,7 @@ namespace PlayerClass
         public void announcePlayer() 
         {
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine($"Your power is {power}, and your health is {health}.");
+            Console.WriteLine($"{name}, your power is {power}, and your health is {health}.");
         }
         public bool isAlive() 
         {

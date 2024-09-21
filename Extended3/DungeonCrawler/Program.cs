@@ -13,27 +13,33 @@ class Program
     }
     static void Main(string[] args)
     {
+
         Player newPlayer = new Player(1, 15, 35);
         Dungeon thisDungeon = new Dungeon(newPlayer);
+        
         thisDungeon.InitializePlayer();
         thisDungeon.InitializeRooms();
-        if (newPlayer.isAlive())
+        
+        while (newPlayer.isAlive())
         {
-            while (Room.roomsVisited != thisDungeon.roomList.Count)
+            if (thisDungeon.roomList.Count != 0)
             {
                 thisDungeon.PrintRooms();
                 thisDungeon.ExploreRoom();
-                Console.WriteLine($"FOR TEST {Room.roomsVisited}");
-                Console.WriteLine(thisDungeon.roomList.Count);
             }
-          Console.WriteLine("BOSS TIME");
-          thisDungeon.FightBoss();
+            else
+            {
+                thisDungeon.FightBoss();
+                break;
+            }
         }
-        else 
-        {
-            Console.WriteLine("Another victim has been claimed by the devious dungeon's master!");
-            Console.WriteLine("I shall bury the dead, but as always, a new, brave adventurer will come... They always do.");
+
+        if (!newPlayer.isAlive()) 
+        { 
+               Console.WriteLine("Another victim has been claimed by the devious dungeon's master!");
+               Console.WriteLine("I shall bury the dead, but as always, a new, brave adventurer will come... They always do.");
         }
+
         Console.WriteLine("End of program");//FOR TEST
         Console.ReadLine();
     }
