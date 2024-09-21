@@ -72,7 +72,7 @@ namespace DungeonClass
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.Write(room.Name);
                 }
 
