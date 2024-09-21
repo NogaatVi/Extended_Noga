@@ -17,7 +17,7 @@ namespace lootClass
         public void lootNamer() 
         {
             List<string> lootName0 = new List<string> { "Mordekainen's Great", "Sparkling Nando's", "A Worn", "A Simple", "A Good", "An Excellent" };
-            List<string> lootName1 = new List<string> { "Sword", "Shield", "Cloak", "Orb", "Lantern", "Pack", "Staff", "Whip" };
+            List<string> lootName1 = new List<string> { "Sword", "Shield", "Cloak", "Magical Orb", "Lantern", "Pack", "Staff", "Tome", "Quiver", "Helm", "Boots", "Gauntlet", "Wand", };
             Random random = new Random();
             int num = random.Next(0, lootName0.Count);
             int num1 = random.Next(0, lootName1.Count);
@@ -39,15 +39,15 @@ namespace lootClass
                 }
                 else if (lootName.Contains("A Simple"))
                 {
-                    basePower *= 2;
+                    basePower *= 1;
                 }
                 else if (lootName.Contains("A Good"))
                 {
-                    basePower *= 3;
+                    basePower *= 2;
                 }
                 else if (lootName.Contains("An Excellent")) 
                 {
-                    basePower *= 4;
+                    basePower *= 3;
                 }
                 else if (lootName.Contains("Sparkling Nando's"))
                 {
@@ -67,10 +67,12 @@ namespace lootClass
 
         public void lootAnnouncer() 
         {
+            Console.ForegroundColor = ConsoleColor.Yellow;
             if (lootName != null)
             {
-                Console.WriteLine($"Could it be? \n{lootName}! \nLooking closer, you assess it's power is {lootPower}.");
+                Console.WriteLine($"Could it be?\n{lootName}!\nLooking closer, you assess it's power is {lootPower}.");
             }
+            Console.ForegroundColor= ConsoleColor.White;
         }
     }
 }

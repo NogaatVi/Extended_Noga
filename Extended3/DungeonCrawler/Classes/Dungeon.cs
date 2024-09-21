@@ -63,8 +63,30 @@ namespace DungeonClass
         {
             BracketPutter("Rooms Available");
             MakeItPurple("The rooms available to you are:");
-            MakeItPurple(string.Join(", ", roomList.Select(room => room.Name)));
+            foreach (var room in roomList)
+            {
+                if (exploredRooms.Contains(room))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write(room.Name);
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.Write(room.Name);
+                }
+
+                if (room != roomList[^1]) 
+                {
+                    Console.Write(", ");
+                }
+            }
+
+            // just to make sure
+            Console.ResetColor();
+            Console.WriteLine();
         }
+        
 
         public void ExploreRoom() //get a room, initialaize and encounter CHECK IF ROOM EXPLORED
         {

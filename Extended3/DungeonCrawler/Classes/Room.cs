@@ -56,6 +56,20 @@ namespace roomClass
             Console.ForegroundColor = ConsoleColor.White;
         }
 
+        public void InitializeMonster() //get monster
+        {
+            BracketPutter("A Great Monster Appears!");
+            if (thisRoomMonster == null) 
+            { 
+              thisRoomMonster = new Monster(0, 0);
+              thisRoomMonster.titleGiver();
+              thisRoomMonster.nameSetter();
+              monstersName = thisRoomMonster.name;
+              thisRoomMonster.monsterPowerAndHealthSetter();
+            }
+            thisRoomMonster.monsterAnnouncer();
+        }
+
         public void InitializeLoot()
         {
             BracketPutter("Loot");
@@ -70,20 +84,6 @@ namespace roomClass
             loot.lootNamer();
             loot.lootPowerSetter();
             loot.lootAnnouncer();
-        }
-
-        public void InitializeMonster() //get monster
-        {
-            BracketPutter("A Great Monster Appears!");
-            if (thisRoomMonster == null) 
-            { 
-              thisRoomMonster = new Monster(0, 0);
-              thisRoomMonster.titleGiver();
-              thisRoomMonster.nameSetter();
-              monstersName = thisRoomMonster.name;
-              thisRoomMonster.monsterPowerAndHealthSetter();
-            }
-            thisRoomMonster.monsterAnnouncer();
         }
 
         public void DescribeRoom() 
@@ -114,51 +114,10 @@ namespace roomClass
             descriptionList.RemoveAt( num );
         }//just for flavor
 
-        public void Fight(Player player)
-        {
-            roomsVisited++;//add to rooms visitied only on fight
-            int turnsElapsed = 0;
-            while (player.alive && thisRoomMonster.alive)
-            {
-                if (turnsElapsed % 2 == 0) // Player hits monster
-                {
-                    MakeItGreen($"{player.name} ({player.health}) attacked {thisRoomMonster.name} ({thisRoomMonster.health}).");
-                    thisRoomMonster.health -= player.power;
-                }
-                else // Monster hits player
-                {
-                    MakeItRed($"{thisRoomMonster.name} ({thisRoomMonster.health}) attacked {player.name} ({player.health}).");
-                    player.health -= thisRoomMonster.power;
-                }
-
-                player.isAlive();//check if both alive
-                thisRoomMonster.isAlive();
-
-                if (!player.alive || !thisRoomMonster.alive)
-                {
-                    break; // Stop if somone dead
-                }
-
-                turnsElapsed++;
-            }
-        }//lets go
-
-        public void Flee(Player player)//let's NOT go
-        {
-            hasBeenExplored = false;
-            MakeItRed("You've fled...\nThere is no shame in coming back with more power!");
-            return;
-        }
-
-        public void TakeLoot(Player player) 
-        {
-            player.power += loot.lootPower;
-        }
-
         public void Encounter(Player player)
         {
             string action = "";
-            BracketPutter("Encounter");
+            BracketPutter(Name);
             MakeItGreen($"You've entered {Name}");
             if (roomDescription == string.Empty) 
             { 
@@ -270,6 +229,49 @@ namespace roomClass
                 }
             }
         }
+
+        public void Fight(Player player)
+        {
+            roomsVisited++;//add to rooms visitied only on fight
+            int turnsElapsed = 0;
+            while (player.alive && thisRoomMonster.alive)
+            {
+                if (turnsElapsed % 2 == 0) // Player hits monster
+                {
+                    MakeItGreen($"{player.name} ({player.health}) attacked {thisRoomMonster.name} ({thisRoomMonster.health}).");
+                    thisRoomMonster.health -= player.power;
+                }
+                else // Monster hits player
+                {
+                    MakeItRed($"{thisRoomMonster.name} ({thisRoomMonster.health}) attacked {player.name} ({player.health}).");
+                    player.health -= thisRoomMonster.power;
+                }
+
+                player.isAlive();//check if both alive
+                thisRoomMonster.isAlive();
+
+                if (!player.alive || !thisRoomMonster.alive)
+                {
+                    break; // Stop if somone dead
+                }
+
+                turnsElapsed++;
+            }
+        }//lets go
+
+        public void Flee(Player player)//let's NOT go
+        {
+            hasBeenExplored = false;
+            MakeItRed("You've fled...\nThere is no shame in coming back with more power!");
+            return;
+        }
+
+        public void TakeLoot(Player player) 
+        {
+            player.power += loot.lootPower;
+        }
+
+
     }
 }
 
