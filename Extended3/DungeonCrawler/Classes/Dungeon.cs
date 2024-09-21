@@ -10,6 +10,7 @@ namespace DungeonClass
     {
         public List<Room> roomList = new List<Room> { };
         public List<Room> exploredRooms = new List<Room>();
+        public List<List<Room>> dungeonGrid = new List<List<Room>>{};
         public Player MyPlayer { get; set; }
         public Dungeon(Player player)
         {
@@ -58,6 +59,28 @@ namespace DungeonClass
                 }
             }
         }
+        public void InitializaDungeonGrid() 
+        {
+            int rows = 3;
+            int cols = 3;
+            for (int i = 0; i < rows; i++)
+            {
+                List<Room> row = new List<Room>();
+
+                for (int j = 0; j < cols; j++)
+                {
+                    if (j == 0 && i == 0) //first room is entrance hall
+                    {
+                        Room EntranceHall = new Room($"Entrance Hall");
+                        row.Add(EntranceHall);
+                    }
+                    Room newRoom = new Room($"Room ({i}.{j})");
+                    row.Add(newRoom);
+                }
+
+                dungeonGrid.Add(row);
+            }
+        }
 
         public void PrintRooms() 
         {
@@ -87,7 +110,6 @@ namespace DungeonClass
             Console.WriteLine();
         }
         
-
         public void ExploreRoom() //get a room, initialaize and encounter CHECK IF ROOM EXPLORED
         {
             Room selectedRoom = null;
