@@ -22,10 +22,10 @@ namespace DungeonClass
             Console.ForegroundColor = ConsoleColor.White;
         }
 
-        public void BracketPutter(string myTextHere)//i want a bracket here
+        public void BracketPutter(string yourStringHere)//i want a bracket here
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"--------------------------{myTextHere}--------------------------");
+            Console.WriteLine($"--------------------------{yourStringHere}--------------------------");
             Console.ForegroundColor = ConsoleColor.White;
 
         }
@@ -66,7 +66,7 @@ namespace DungeonClass
             MakeItPurple(string.Join(", ", roomList.Select(room => room.Name)));
         }
 
-        public void ExploreRoom() //get a room, get the ball rolling- initialaize and encounter CHECK IF ROOM EXPLORED
+        public void ExploreRoom() //get a room, initialaize and encounter CHECK IF ROOM EXPLORED
         {
             Room selectedRoom = null;
             string roomName = "";
@@ -115,7 +115,14 @@ namespace DungeonClass
             }
             else 
             {
-                Console.WriteLine($"{selectedRoom.Name} has already been explored. \n{selectedRoom.thisRoomMonster.name} is lying dead on the ground.");
+                if (roomName.Equals("Entrance Hall", StringComparison.OrdinalIgnoreCase)) 
+                {
+                    Console.WriteLine("You try pulling the exit's handles--But they will not budge.");
+                }
+                else 
+                { 
+                    Console.WriteLine($"This room has already been explored. \n{selectedRoom.monstersName} is lying dead on the ground.");
+                }
             }
         }
 

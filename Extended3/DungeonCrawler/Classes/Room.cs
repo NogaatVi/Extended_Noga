@@ -12,6 +12,7 @@ namespace roomClass
         public string Name { get; set; }
         Loot loot = new Loot(0, "");
         public Monster thisRoomMonster;
+        public string monstersName = "";
         public bool hasBeenExplored = false;
         public static int roomsVisited;
         public Room(string name)
@@ -76,6 +77,7 @@ namespace roomClass
             BracketPutter("A Great Monster Appears!");
             thisRoomMonster.titleGiver();
             thisRoomMonster.nameSetter();
+            monstersName = thisRoomMonster.name;
             thisRoomMonster.monsterPowerAndHealthSetter();
             thisRoomMonster.monsterAnnouncer();
         }
@@ -94,9 +96,9 @@ namespace roomClass
                 "It's almost a relief finding an old torturer's dungeon. \nI'ts old metal contraptions, moth-eaten leather straps and scraming skulls are better then other thing you have seen...",
                 "A long corridor lined with tarnished mirrors, each one showing twisted reflections that whisper your darkest fears. \nAs you pass by, the whispers grow louder, trying to drive you mad with the secrets they reveal.",
                 "Shelves filled with dusty, ancient tomes line the walls, but each book is alive and bound with faces that scream when touched. \nThe texts constantly mutter spells of madness in forgotten languages.",
-                "A seemingly cheerful room, decorated with colorful banners and enchanted with a perpetual giggle. \nAt first, it seems harmless—until the laughter starts to mimic your voice, mocking your every move and feeding on your insecurities. ",
+                "A seemingly cheerful room, decorated with colorful banners and enchanted with a perpetual giggle. \nAt first, it seems harmless—until the laughter starts to mimic your voice. \nIt mocks your every move and feeding on your insecurities. ",
                 "Once a grand armory, this room is now filled with rusted weapons and shattered armor, all covered in a thick layer of dust. \nThe only light comes from a single, flickering torch in the corner. \nOccasionally, weapons or pieces of armor rattle or clatter as if disturbed by an invisible hand.",
-                "An ancient storage room filled with rotten, decaying food and broken barrels. Mice and giant insects scuttle in the darkness, and every shadow seems to hide something crawling. \nThe smell is putrid, and strange, wet sounds can be heard from the far corners. \nWhatever is hiding in the dark seems to be waiting for fresh meat.",
+                "An ancient storage room filled with rotten, decaying food and broken barrels. \nMice and giant insects scuttle in the darkness, and every shadow seems to hide something crawling. \nThe smell is putrid, and strange, wet sounds can be heard from the far corners. \nWhatever is hiding in the dark seems to be waiting for fresh meat.",
                 "A cold, dark forge with tools scattered on the ground. \nThe furnace occasionally roars to life on its own, casting monstrous shadows that move when they shouldn’t.",
                 "Rusted cages line the walls, their doors twisted open. \nThe stench of decay fills the air, and the soft pad of unseen paws follows you wherever you go.",
                 "A circular chamber with a giant, painted eye on the ceiling. \nFrom the corner of your eye, you swear you saw it blink.",
@@ -134,12 +136,12 @@ namespace roomClass
 
                 turnsElapsed++;
             }
-        }
+        }//lets go
 
-        public void Flee(Player player)//u need to pay more ATTENTION HERE
+        public void Flee(Player player)//let's NOT go
         {
             hasBeenExplored = false;
-            MakeItRed("You've fled...");
+            MakeItRed("You've fled...\nThere is no shame in coming back with more power!");
             return;
         }
 

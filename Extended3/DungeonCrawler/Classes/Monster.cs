@@ -14,7 +14,7 @@ namespace MonsterClass
         List<string> titleList = new List<string> { "The Fearsome", "The Mighty", "The Dreaded", "The Slimy", "The Indomitable"};
         List<string> nameList = new List<string> { "Morganna", "Samir", "Vincent", "Delila", "Noga", "Aviv" , "Lydia", "Shalev"};
 
-        public Monster(int power, int health)//Constructor for monstere
+        public Monster(int power, int health)
         {
             this.power = power;
             this.health = health;
@@ -99,7 +99,7 @@ namespace MonsterClass
             };
             int num = random.Next(1, descriptionList.Count);
             Console.WriteLine($"{descriptionList[num]}");
-        }//just for flavor
+        }//For flavor
 
         public void monsterAnnouncer()//A big scary monster appears! Shout it from the rooftops! 
         {
@@ -119,7 +119,7 @@ namespace MonsterClass
             {
                 return alive = true;
             }
-        }
+        }//are you alive?
     }
 }
 
