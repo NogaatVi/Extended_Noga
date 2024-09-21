@@ -9,7 +9,7 @@ using System.Numerics;
 namespace DungeonCrawler;
 class Program
 {
-    public bool isPlaying = false;
+    public bool isPlaying = true;
     public void NewDungeon() 
     {
     }
@@ -52,32 +52,37 @@ class Program
     static void Main(string[] args)
     {
         Program newProgram = new Program();
-        int num = 1;
-        
-        if (!newProgram.isPlaying)
+        int runNumber = 1;
+
+        if (newProgram.isPlaying)
         {
             Console.WriteLine("Welcome to...\nThe Mystical Dungeon!");
             string action = "";
+
             while (string.IsNullOrWhiteSpace(action))
             {
                 Console.WriteLine("Would you like to play?\nY/N");
                 action = Console.ReadLine();
+
                 if ("Y".Equals(action, StringComparison.OrdinalIgnoreCase))
                 {
-                    newProgram.RunDungeon($"--Run {num}--\nThe Mystical Dungeon!");
+                    newProgram.RunDungeon($"--Run {runNumber}--\nThe Mystical Dungeon!");
                 }
                 else if ("N".Equals(action, StringComparison.OrdinalIgnoreCase))
                 {
+                    Console.WriteLine($"Thank you for opening my game!\nI hope to see you soon.");
                     break;
                 }
                 else
                 {
-                    Console.WriteLine($"Unrecognized.\nPlease Try Again");
+                    Console.WriteLine($"Unrecognized.\nPlease Try Again.");
                     continue;
                 }
             }
-            Console.WriteLine("End of program");//FOR TEST
-            Console.ReadLine();
         }
+        else 
+        {
+        }
+        Console.ReadLine();
     }
 }
