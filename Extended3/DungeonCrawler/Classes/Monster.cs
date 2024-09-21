@@ -87,15 +87,15 @@ namespace MonsterClass
             Random random = new Random();
             List<string> descriptionList = new List<string>
             {
-                $"Coalescing from acrid, yellow smoke,  it's {name}.", 
-                $"Slithering from a hidden crevice,  it's {name}.",
-                $"Spitting out old bones, it's {name}.",
-                $"Brandishing impressively sharp claws,  it's {name}.",
-                $"Revealing itself with an ear-splitting shriek, it's {name} .",
-                $"Landing with a sickening crunch, it's {name} .",
-                $"Skittering up a wall, it's {name} .",
-                $"Hanging from a crumbling pillar, it's {name} .",
-                $"Leaping from a darkened corner, it's {name} .",
+                $"Coalescing from acrid, yellow smoke,  it's {name}.\nIt's teeth gleam in the low light as it prepares to attack!", 
+                $"Slithering from a hidden crevice,  it's {name}.\nIt gurgles as it leaps for your throat!",
+                $"Spitting out old bones, it's {name}.\nIt grins hideiously before running at you, full tilt.",
+                $"Brandishing impressively sharp claws,  it's {name}.\nWatch yourself, this may get ugly.",
+                $"Revealing itself with an ear-splitting shriek, it's {name}.\nIt yips and snarls, moving in twitching leaps and bounds.",
+                $"Landing with a sickening crunch, it's {name}.\nIt's massive girth makes you tremble in your boots.",
+                $"Skittering up a wall, it's {name}.\nIt's jaw opens strangley, like a flower filled with razor-sharp teeth.",
+                $"Hanging from a crumbling pillar, it's {name}.\nIt's tail snakes around, vicious like a whip.",
+                $"Leaping from a darkened corner, it's {name}.\nIt's razor-sharp teeth are bare and ready.",
             };
             int num = random.Next(1, descriptionList.Count);
             Console.WriteLine($"{descriptionList[num]}");
