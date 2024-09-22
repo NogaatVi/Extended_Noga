@@ -153,7 +153,7 @@ namespace roomClass
             switch (ranEvent) 
             {
                 case 0:
-                    InitializeMonster();//get monster
+                    InitializeMonster();
                     while (string.IsNullOrWhiteSpace(action))
                     {
                         MakeItRed($"Will you flee, or will you fight?");
@@ -189,10 +189,10 @@ namespace roomClass
                             continue;
                         }
                     }
-                    break;
+                    break;//get monster
 
                 case 1:
-                    InitializeMonster();//get monster
+                    InitializeMonster();
                     while (string.IsNullOrWhiteSpace(action))
                     {
                         MakeItRed($"Will you flee, or will you fight?");
@@ -228,21 +228,21 @@ namespace roomClass
                             continue;
                         }
                     }
-                    break;
+                    break;//get monster
 
-                case 2://loot only room
+                case 2:
                     InitializeLoot();
                     TakeLoot(player);
                     player.maxHealth += loot.lootPower;
                     player.regenerateHealth();
                     hasBeenExplored = true;
-                    break;
+                    break;//get loot
 
-                case 3://empty room
+                case 3:
                     Console.WriteLine("The room is eerily empty. \nOther than conwebs,there is nothing here for you.");
                     player.regenerateHealth();
                     hasBeenExplored = true;
-                    break;
+                    break;//get empty room
             }
         }
 
