@@ -38,8 +38,10 @@ namespace DungeonCrawler
 
             if (!newPlayer.isAlive())
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("Another victim has been claimed by the devious Dungeon's Master!");
                 Console.WriteLine("I shall bury the dead...\nBut as always, a new, brave adventurer will come...\nThey always do.");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             else
             {
