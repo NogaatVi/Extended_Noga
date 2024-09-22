@@ -52,7 +52,7 @@ namespace roomClass
         public void BracketPutter(string myTextHere)//i want a bracket here
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"--------------------------{myTextHere}--------------------------");
+            Console.WriteLine($"\n--------------------------{myTextHere}--------------------------\n");
             Console.ForegroundColor = ConsoleColor.White;
         }
 

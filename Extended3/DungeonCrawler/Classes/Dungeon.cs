@@ -32,7 +32,7 @@ namespace DungeonClass
         public void BracketPutter(string yourStringHere)//i want a bracket here
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"--------------------------{yourStringHere}--------------------------");
+            Console.WriteLine($"\n--------------------------{yourStringHere}--------------------------\n");
             Console.ForegroundColor = ConsoleColor.White;
 
         }
@@ -189,7 +189,7 @@ namespace DungeonClass
             {
                 BracketPutter("Time to Explore");
                 Console.WriteLine("Where would you like to go?");
-                Console.WriteLine("Use commands: up, down, left, right.");
+                Console.WriteLine("Use commands: up, down, left, right , here.");
                 direction = Console.ReadLine()?.ToLower();
 
                 if (string.IsNullOrWhiteSpace(direction))//gimmie proper answer
@@ -204,16 +204,20 @@ namespace DungeonClass
                 switch (direction)
                 {
                     case "up":
-                        newRow -= 1; // Move up (row decreases)
+                        newRow -= 1; 
                         break;
                     case "down":
-                        newRow += 1; // Move down (row increases)
+                        newRow += 1; 
                         break;
                     case "left":
-                        newColumn -= 1; // Move left (column decreases)
+                        newColumn -= 1; 
                         break;
                     case "right":
-                        newColumn += 1; // Move right (column increases)
+                        newColumn += 1; 
+                        break;
+                    case "here": //for entrance hall
+                        newRow = playerRow;
+                        newColumn = playerCol;
                         break;
                     default:
                         Console.WriteLine("Invalid direction. Please use up, down, left, or right.");
@@ -234,7 +238,7 @@ namespace DungeonClass
                 Console.WriteLine($"{playerCol}, {playerRow} FOR DEBUGGING");
 
                 // Check if the room has been explored
-                if (!selectedRoom.hasBeenExplored)
+                if (!selectedRoom.hasBeenExplored)//SHOULD I ADD BOSS ROOM HERE?
                 {
                     if (selectedRoom.Name.Equals("Entrance Hall", StringComparison.OrdinalIgnoreCase))
                     {
@@ -262,6 +266,7 @@ namespace DungeonClass
 
         public void PrintDungeonGrid()
         {
+            BracketPutter("You've opened your map!");
             for (int i = 0; i < dungeonGrid.Count; i++)
             {
                 for (int j = 0; j < dungeonGrid[i].Count; j++)
@@ -269,21 +274,21 @@ namespace DungeonClass
                     var room = dungeonGrid[i][j];
                     if (i == playerRow && j == playerCol)
                     {
-                        Console.BackgroundColor = ConsoleColor.Blue; // Highlight player position
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.Write($"[{room.Name}]");
+                        Console.BackgroundColor = ConsoleColor.DarkGreen; // Highlight player position
+                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.Write($"{room.Name}");
                         Console.ResetColor();
                     }
                     else if (exploredRooms.Contains(room))
                     {
                         Console.ForegroundColor = ConsoleColor.Red; // Color for explored rooms
-                        Console.Write($"[{room.Name}]");
+                        Console.Write($"{room.Name}");
                         Console.ResetColor();
                     }
                     else
                     {
                         Console.ForegroundColor = ConsoleColor.Green; // Color for unexplored rooms
-                        Console.Write($"[{room.Name}]");
+                        Console.Write($"{room.Name}");
                         Console.ResetColor();
                     }
 
@@ -298,7 +303,10 @@ namespace DungeonClass
 
         public void FightBoss() 
         {
+            rows = 4;
+            List<Room> bossHallList = new List<Room>();
             Room bossRoom = new Room("Boss Room");
+            bossHallList.Add( bossRoom );
             bossRoom.EncounterBossRoom(MyPlayer);
         }
     }

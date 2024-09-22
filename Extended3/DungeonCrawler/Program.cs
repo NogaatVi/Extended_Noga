@@ -54,7 +54,7 @@ namespace DungeonCrawler
         public void BracketPutter(string yourStringHere)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"--------------------------{yourStringHere}--------------------------");
+            Console.WriteLine($"\n--------------------------{yourStringHere}--------------------------\n");
             Console.ForegroundColor = ConsoleColor.White;
         }
 
