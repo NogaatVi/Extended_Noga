@@ -79,6 +79,9 @@ namespace DungeonClass
         public void ExploreDungeonGrid()
         {
             Room selectedRoom = null;
+            Room PreviousRoom = dungeonGrid[playerRow][playerCol];//please god dont be null
+            int prevRow = playerRow;
+            int prevCol = playerCol;
             string direction = "";
 
             while (true)
@@ -125,14 +128,18 @@ namespace DungeonClass
                     MakeItPurple("You can't go that way. Try another direction.");
                     continue;
                 }
-
+                //set prvious location
+                prevCol = playerCol;
+                prevRow = playerRow;
+                PreviousRoom = dungeonGrid[playerRow][playerCol];
                 // Move to the new position
                 playerRow = newRow;
                 playerCol = newColumn;
                 selectedRoom = dungeonGrid[playerRow][playerCol];
+                
 
                 // Check if the room has been explored
-                if (!selectedRoom.hasBeenExplored)//SHOULD I ADD BOSS ROOM HERE?
+                if (!selectedRoom.hasBeenExplored)
                 {
                     if (selectedRoom.Name.Equals("Entrance Hall", StringComparison.OrdinalIgnoreCase))
                     {
@@ -145,6 +152,16 @@ namespace DungeonClass
                     else
                     {
                         selectedRoom.Encounter(MyPlayer);
+                        if (!selectedRoom.hasBeenExplored)//if u fled u go back
+                        {
+                            Console.WriteLine("YOU'VE FLED, GO BACK!");
+                            // Reset the player's position to previous one
+                            playerRow = prevRow;
+                            playerCol = prevCol;
+                            selectedRoom = PreviousRoom; // Update the selectedRoom to previous one
+                            PrintDungeonGrid();
+                            continue;
+                        }
                     }
 
                     if (selectedRoom.hasBeenExplored)
