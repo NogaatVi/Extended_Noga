@@ -14,7 +14,7 @@ namespace DungeonCrawler
 
         public void NewDungeon()
         {
-            // Optional: Add any setup code here for creating a new dungeon.
+            
         }
 
         public void RunDungeon(string starterText)
@@ -24,14 +24,14 @@ namespace DungeonCrawler
             Dungeon thisDungeon = new Dungeon(newPlayer);
 
             thisDungeon.InitializePlayer();
-            thisDungeon.InitializeRooms();
+            thisDungeon.InitializaDungeonGrid();
 
             while (newPlayer.isAlive())
             {
-                if (thisDungeon.roomList.Count != thisDungeon.exploredRooms.Count) // If there are unexplored rooms
+                if (thisDungeon.dungeonGrid.Count != thisDungeon.exploredRooms.Count) // If there are unexplored rooms
                 {
-                    thisDungeon.PrintRooms();
-                    thisDungeon.ExploreRoom();
+                    thisDungeon.PrintDungeonGrid();
+                    thisDungeon.ExploreDungeonGrid();
                 }
                 else
                 {

@@ -183,7 +183,6 @@ namespace roomClass
                 Console.WriteLine("You come back to the Entrance Hall, the doors to the outside world are shut.\nYou are still trapped inside.");
             }
         }
-
         public void EncounterBossRoom(Player player) 
         {
             string action = "";
@@ -229,7 +228,6 @@ namespace roomClass
                 }
             }
         }
-
         public void Fight(Player player)
         {
             roomsVisited++;//add to rooms visitied only on fight

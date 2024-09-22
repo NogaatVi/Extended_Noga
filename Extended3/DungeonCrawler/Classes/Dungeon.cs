@@ -8,14 +8,20 @@ namespace DungeonClass
 {
     public class Dungeon
     {
+        public Player MyPlayer { get; set; }
         public List<Room> roomList = new List<Room> { };
         public List<Room> exploredRooms = new List<Room>();
         public List<List<Room>> dungeonGrid = new List<List<Room>>{};
-        public Player MyPlayer { get; set; }
+        int rows = 3;
+        int cols = 3;
+        int playerRow = 0;
+        int playerCol = 0;
+
         public Dungeon(Player player)
         {
             MyPlayer = player;
         }
+
         public void MakeItPurple(string yourStringHere) 
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
@@ -42,7 +48,7 @@ namespace DungeonClass
             BracketPutter("Enter the Dungeon!");
         }
 
-        public void InitializeRooms()// minimum 3 rooms
+        public void InitializeRooms()//OLD OLD OLD
         {
             Console.WriteLine("Something crakles in the air. \nYou feel the dungeon shift as the doors slam shut. \nDust and rubble fall from the ceiling as new doors appear, sprouting for a previously solid wall.");
             Random random = new Random();
@@ -59,30 +65,8 @@ namespace DungeonClass
                 }
             }
         }
-        public void InitializaDungeonGrid() 
-        {
-            int rows = 3;
-            int cols = 3;
-            for (int i = 0; i < rows; i++)
-            {
-                List<Room> row = new List<Room>();
 
-                for (int j = 0; j < cols; j++)
-                {
-                    if (j == 0 && i == 0) //first room is entrance hall
-                    {
-                        Room EntranceHall = new Room($"Entrance Hall");
-                        row.Add(EntranceHall);
-                    }
-                    Room newRoom = new Room($"Room ({i}.{j})");
-                    row.Add(newRoom);
-                }
-
-                dungeonGrid.Add(row);
-            }
-        }
-
-        public void PrintRooms() 
+        public void PrintRooms()//OLD OLD OLD 
         {
             BracketPutter("Rooms Available");
             MakeItPurple("The rooms available to you are:");
@@ -109,8 +93,8 @@ namespace DungeonClass
             Console.ResetColor();
             Console.WriteLine();
         }
-        
-        public void ExploreRoom() //get a room, initialaize and encounter CHECK IF ROOM EXPLORED
+
+        public void ExploreRoom() //OLD OLD OLD
         {
             Room selectedRoom = null;
             string roomName = "";
@@ -167,6 +151,148 @@ namespace DungeonClass
                 { 
                     Console.WriteLine($"This room has already been explored. \n{selectedRoom.monstersName} is lying dead on the ground.");
                 }
+            }
+        }
+
+        public void InitializaDungeonGrid() 
+        {
+            for (int i = 0; i < rows; i++)
+            {
+                List<Room> row = new List<Room>();
+
+                for (int j = 0; j < cols; j++)
+                {
+                    if (j == 0 && i == 0) //first room is entrance hall
+                    {
+                        Room EntranceHall = new Room($"Entrance Hall");
+                        row.Add(EntranceHall);
+                    }
+                    else if (j == cols && i == rows) 
+                    {
+                        Room BossRoom = new Room($"Boss Room");
+                        row.Add(BossRoom);
+                    }
+                    Room newRoom = new Room($"Room ({i}.{j})");
+                    row.Add(newRoom);
+                }
+
+                dungeonGrid.Add(row);
+            }
+        }
+
+        public void ExploreDungeonGrid()
+        {
+            Room selectedRoom = null;
+            string direction = "";
+
+            while (true)
+            {
+                BracketPutter("Time to Explore");
+                Console.WriteLine("Where would you like to go?");
+                Console.WriteLine("Use commands: up, down, left, right.");
+                direction = Console.ReadLine()?.ToLower();
+
+                if (string.IsNullOrWhiteSpace(direction))//gimmie proper answer
+                {
+                    Console.WriteLine("Please enter a direction.");
+                    continue;
+                }
+
+                // Calculate the new position based on the direction
+                int newRow = playerRow, newColumn = playerCol;
+
+                switch (direction)
+                {
+                    case "up":
+                        newRow -= 1; // Move up (row decreases)
+                        break;
+                    case "down":
+                        newRow += 1; // Move down (row increases)
+                        break;
+                    case "left":
+                        newColumn -= 1; // Move left (column decreases)
+                        break;
+                    case "right":
+                        newColumn += 1; // Move right (column increases)
+                        break;
+                    default:
+                        Console.WriteLine("Invalid direction. Please use up, down, left, or right.");
+                        continue;
+                }
+
+                // Check if the new position is within the bounds of the grid
+                if (newRow < 0 || newRow >= dungeonGrid.Count || newColumn < 0 || newColumn >= dungeonGrid[0].Count)
+                {
+                    Console.WriteLine("You can't go that way. Try another direction.");
+                    continue;
+                }
+
+                // Move to the new position
+                playerRow = newRow;
+                playerCol = newColumn;
+                selectedRoom = dungeonGrid[playerRow][playerCol];
+                Console.WriteLine($"{playerCol}, {playerRow} FOR DEBUGGING");
+
+                // Check if the room has been explored
+                if (!selectedRoom.hasBeenExplored)
+                {
+                    if (selectedRoom.Name.Equals("Entrance Hall", StringComparison.OrdinalIgnoreCase))
+                    {
+                        selectedRoom.EntranceRoomEncounter(MyPlayer);
+                    }
+                    else
+                    {
+                        selectedRoom.Encounter(MyPlayer);
+                    }
+
+                    if (selectedRoom.hasBeenExplored)
+                    {
+                        exploredRooms.Add(selectedRoom);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"You have already explored {selectedRoom.Name}. Nothing new to see here.");
+                }
+
+                // After exploring, print the current state of the grid to show player position
+                PrintDungeonGrid();
+            }
+        }
+
+        public void PrintDungeonGrid()
+        {
+            for (int i = 0; i < dungeonGrid.Count; i++)
+            {
+                for (int j = 0; j < dungeonGrid[i].Count; j++)
+                {
+                    var room = dungeonGrid[i][j];
+                    if (i == playerRow && j == playerCol)
+                    {
+                        Console.BackgroundColor = ConsoleColor.Blue; // Highlight player position
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write($"[{room.Name}]");
+                        Console.ResetColor();
+                    }
+                    else if (exploredRooms.Contains(room))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red; // Color for explored rooms
+                        Console.Write($"[{room.Name}]");
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green; // Color for unexplored rooms
+                        Console.Write($"[{room.Name}]");
+                        Console.ResetColor();
+                    }
+
+                    if (j != dungeonGrid[i].Count - 1)
+                    {
+                        Console.Write(" | "); // Separator between rooms
+                    }
+                }
+                Console.WriteLine(); // New line after each row
             }
         }
 
