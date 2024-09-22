@@ -16,6 +16,7 @@ namespace roomClass
         public bool hasBeenExplored = false;
         public static int roomsVisited;
         public string roomDescription = string.Empty;
+        public int ranEvent;
         public Room(string name)
         {
             Name = name;
@@ -78,8 +79,25 @@ namespace roomClass
                 Console.WriteLine("With the sounds of the great doors shutting still ringing in your ears, you spot a curious object:");
             }
             else 
-            { 
-                Console.WriteLine("The Monster lies dead. \nit's dark blood pooling beneath it's massive body.\nBehind it, spot a curious object:");
+            {
+                switch (ranEvent) 
+                {
+                    case 0: //monster
+                        Console.WriteLine($"The Monster lies dead.\nit's dark blood pooling beneath it's massive body.\nBehind it, you spot a curious object:");
+                        break;
+
+                    case 1://monster
+                        Console.WriteLine("The Monster twitches as it dies.\nThe twitches of it's jaws give you the creeps.\nNear it, you spot a curious object:");
+                        break;
+
+                    case 2://loot
+                        Console.WriteLine($"You spot a hidden chest behind some rubble.\nIn it, youspot a curious object:");
+                        break;
+
+                    case 3://empty
+                        Console.WriteLine($"There is nothing in the room;");
+                        break;
+                }
             }
             loot.lootNamer();
             loot.lootPowerSetter();
@@ -128,41 +146,103 @@ namespace roomClass
                 Console.WriteLine(roomDescription);
             }
             player.announcePlayer();
-            InitializeMonster();
-            while (string.IsNullOrWhiteSpace(action)) 
+
+            Random random = new Random();
+            ranEvent = random.Next(0, 3);
+
+            switch (ranEvent) 
             {
-                MakeItRed($"Will you flee, or will you fight?");
-                action = Console.ReadLine();
-                if ("fight".Equals(action, StringComparison.OrdinalIgnoreCase))
-                {
-                    MakeItGreen("Let's Fight!");
-                    Fight(player);
-                    if (player.alive)//if u lived after fightning
+                case 0:
+                    InitializeMonster();//get monster
+                    while (string.IsNullOrWhiteSpace(action))
                     {
-                        InitializeLoot();
-                        TakeLoot(player);
-                        player.maxHealth += loot.lootPower;
-                        player.regenerateHealth();
-                        hasBeenExplored = true;
-                        break;
+                        MakeItRed($"Will you flee, or will you fight?");
+                        action = Console.ReadLine();
+                        if ("fight".Equals(action, StringComparison.OrdinalIgnoreCase))
+                        {
+                            MakeItGreen("Let's Fight!");
+                            Fight(player);
+                            if (player.alive)//if u lived after fightning
+                            {
+                                InitializeLoot();
+                                TakeLoot(player);
+                                player.maxHealth += loot.lootPower;
+                                player.regenerateHealth();
+                                hasBeenExplored = true;
+                                break;
+                            }
+                            else
+                            {
+                                //have game intiializing here
+                                hasBeenExplored = true;
+                                break;
+                            }
+                        }
+                        else if ("flee".Equals(action, StringComparison.OrdinalIgnoreCase))
+                        {
+                            Flee(player);
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"What will you do,{player.name}.");
+                            continue;
+                        }
                     }
-                    else
-                    {
-                        //have game intiializing here
-                        hasBeenExplored = true;
-                        break;
-                    }
-                }
-                else if ("flee".Equals(action, StringComparison.OrdinalIgnoreCase))
-                {
-                    Flee(player);
                     break;
-                }
-                else
-                {
-                    Console.WriteLine($"What will you do,{player.name}.");
-                    continue;
-                }
+
+                case 1:
+                    InitializeMonster();//get monster
+                    while (string.IsNullOrWhiteSpace(action))
+                    {
+                        MakeItRed($"Will you flee, or will you fight?");
+                        action = Console.ReadLine();
+                        if ("fight".Equals(action, StringComparison.OrdinalIgnoreCase))
+                        {
+                            MakeItGreen("Let's Fight!");
+                            Fight(player);
+                            if (player.alive)//if u lived after fightning
+                            {
+                                InitializeLoot();
+                                TakeLoot(player);
+                                player.maxHealth += loot.lootPower;
+                                player.regenerateHealth();
+                                hasBeenExplored = true;
+                                break;
+                            }
+                            else
+                            {
+                                //have game intiializing here
+                                hasBeenExplored = true;
+                                break;
+                            }
+                        }
+                        else if ("flee".Equals(action, StringComparison.OrdinalIgnoreCase))
+                        {
+                            Flee(player);
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"What will you do,{player.name}.");
+                            continue;
+                        }
+                    }
+                    break;
+
+                case 2://loot only room
+                    InitializeLoot();
+                    TakeLoot(player);
+                    player.maxHealth += loot.lootPower;
+                    player.regenerateHealth();
+                    hasBeenExplored = true;
+                    break;
+
+                case 3://empty room
+                    Console.WriteLine("The room is eerily empty. \nOther than conwebs,there is nothing here for you.");
+                    player.regenerateHealth();
+                    hasBeenExplored = true;
+                    break;
             }
         }
 
@@ -183,6 +263,7 @@ namespace roomClass
                 Console.WriteLine("You come back to the Entrance Hall, the doors to the outside world are shut.\nYou are still trapped inside.");
             }
         }
+
         public void EncounterBossRoom(Player player) 
         {
             string action = "";
@@ -228,6 +309,7 @@ namespace roomClass
                 }
             }
         }
+
         public void Fight(Player player)
         {
             roomsVisited++;//add to rooms visitied only on fight
