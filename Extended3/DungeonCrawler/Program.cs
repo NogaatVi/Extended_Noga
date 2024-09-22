@@ -35,7 +35,8 @@ namespace DungeonCrawler
                 }
                 else
                 {
-                    thisDungeon.FightBoss();
+                    Room bossRoom = new Room("Boss Room");   
+                    thisDungeon.FightBoss(bossRoom);
                     break;
                 }
             }
