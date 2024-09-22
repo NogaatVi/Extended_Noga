@@ -257,9 +257,12 @@ namespace roomClass
                 TakeLoot(player);
                 Console.WriteLine($"You feel your power grow! ({player.power})");
                 hasBeenExplored = true;
+                ranEvent = 3;
             }
             else 
             {
+                hasBeenExplored = true;
+                ranEvent = 3;
                 Console.WriteLine("You come back to the Entrance Hall, the doors to the outside world are shut.\nYou are still trapped inside.");
             }
         }

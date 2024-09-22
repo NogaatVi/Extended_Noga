@@ -60,7 +60,7 @@ namespace DungeonClass
                         Room EntranceHall = new Room($"Entrance Hall");
                         row.Add(EntranceHall);
                     }
-                    else if (j == cols && i == rows) 
+                    else if (j == cols && i == rows)
                     {
                         Room BossRoom = new Room($"Boss Room");
                         row.Add(BossRoom);
@@ -93,7 +93,6 @@ namespace DungeonClass
 
                 // Calculate the new position based on the direction
                 int newRow = playerRow, newColumn = playerCol;
-
                 switch (direction)
                 {
                     case "up":
@@ -171,7 +170,6 @@ namespace DungeonClass
                             break;
                     }
                 }
-
                 // After exploring, print the current state of the grid to show player position
                 PrintDungeonGrid();
             }
