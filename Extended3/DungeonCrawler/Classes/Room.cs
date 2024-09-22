@@ -181,7 +181,7 @@ namespace roomClass
                         else if ("flee".Equals(action, StringComparison.OrdinalIgnoreCase))
                         {
                             Flee(player);
-                            break;
+                            return;
                         }
                         else
                         {

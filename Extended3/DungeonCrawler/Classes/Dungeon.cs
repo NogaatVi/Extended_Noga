@@ -163,6 +163,7 @@ namespace DungeonClass
                             PrintDungeonGrid();
                             continue;
                         }
+                       
                     }
 
                     if (selectedRoom.hasBeenExplored)
@@ -193,6 +194,7 @@ namespace DungeonClass
                 }
 
                 // After exploring, print the current state of the grid to show player position
+                Console.WriteLine("AFTER WHILE EXPLOR DUNGEON PRINT DEBUG");
                 PrintDungeonGrid();
             }
             Console.WriteLine("You've Died!");
