@@ -96,7 +96,7 @@ namespace roomClass
                 "A foul odor fills your nose as you push open a rotten looking door.\nPeeking Inside, you hesitate to think of what had left these human remains on the floor so broken.",
                 "It's a small latrine! \nYou chuckle, 'Even monsters have to poo, huh?'",
                 "As you push past a heavy steel door, you step on something that crunches.\n Looking down, you spy a long, thin bone. \nIt doesn't look like it belongs in a human.",
-                "You should have known by the smeel that you'd be stepping into an old beast's den. \nOn a scraggly looking nest you spy the broken remains of some large, colorful eggs. \nCurious.",
+                "You should have known by the smell that you'd be stepping into an old beast's den. \nOn a scraggly looking nest you spy the broken remains of some large, colorful eggs. \nCurious.",
                 "It's almost a relief finding an old torturer's dungeon. \nI'ts old metal contraptions, moth-eaten leather straps and scraming skulls are better then other thing you have seen...",
                 "A long corridor lined with tarnished mirrors, each one showing twisted reflections that whisper your darkest fears. \nAs you pass by, the whispers grow louder, trying to drive you mad with the secrets they reveal.",
                 "Shelves filled with dusty, ancient tomes line the walls, but each book is alive and bound with faces that scream when touched. \nThe texts constantly mutter spells of madness in forgotten languages.",
