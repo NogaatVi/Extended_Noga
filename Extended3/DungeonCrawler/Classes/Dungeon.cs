@@ -235,7 +235,6 @@ namespace DungeonClass
                 playerRow = newRow;
                 playerCol = newColumn;
                 selectedRoom = dungeonGrid[playerRow][playerCol];
-                Console.WriteLine($"{playerCol}, {playerRow} FOR DEBUGGING");
 
                 // Check if the room has been explored
                 if (!selectedRoom.hasBeenExplored)//SHOULD I ADD BOSS ROOM HERE?
