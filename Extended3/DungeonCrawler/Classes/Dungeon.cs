@@ -156,6 +156,7 @@ namespace DungeonClass
 
         public void InitializaDungeonGrid() 
         {
+            Console.WriteLine("Something crakles in the air. \nYou feel the dungeon shift as the doors slam shut. \nDust and rubble fall from the ceiling as new doors appear, sprouting for a previously solid wall.");
             for (int i = 0; i < rows; i++)
             {
                 List<Room> row = new List<Room>();
@@ -180,12 +181,12 @@ namespace DungeonClass
             }
         }
 
-        public void ExploreDungeonGrid()
+        public void ExploreDungeonGrid(Player player)
         {
             Room selectedRoom = null;
             string direction = "";
 
-            while (true)
+            while (player.alive)
             {
                 BracketPutter("Time to Explore");
                 Console.WriteLine("Where would you like to go?");
@@ -235,7 +236,6 @@ namespace DungeonClass
                 playerRow = newRow;
                 playerCol = newColumn;
                 selectedRoom = dungeonGrid[playerRow][playerCol];
-                Console.WriteLine($"{playerCol}, {playerRow} FOR DEBUGGING");
 
                 // Check if the room has been explored
                 if (!selectedRoom.hasBeenExplored)//SHOULD I ADD BOSS ROOM HERE?
@@ -266,7 +266,8 @@ namespace DungeonClass
 
         public void PrintDungeonGrid()
         {
-            BracketPutter("You've opened your map!");
+            BracketPutter("Rooms Available");
+            MakeItPurple("The rooms available to you are:\n");
             for (int i = 0; i < dungeonGrid.Count; i++)
             {
                 for (int j = 0; j < dungeonGrid[i].Count; j++)

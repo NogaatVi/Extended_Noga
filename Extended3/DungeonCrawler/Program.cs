@@ -31,7 +31,7 @@ namespace DungeonCrawler
                 if (thisDungeon.dungeonGrid.Count != thisDungeon.exploredRooms.Count) // If there are unexplored rooms
                 {
                     thisDungeon.PrintDungeonGrid();
-                    thisDungeon.ExploreDungeonGrid();
+                    thisDungeon.ExploreDungeonGrid(newPlayer);
                 }
                 else
                 {
@@ -78,7 +78,7 @@ namespace DungeonCrawler
                     if ("Y".Equals(action, StringComparison.OrdinalIgnoreCase))
                     {
                         newProgram.BracketPutter("Let's Go!");
-                        newProgram.RunDungeon($"--Run {runNumber}--\nThe Mystical Dungeon!");
+                        newProgram.RunDungeon($"--Run {runNumber}--\n");
                         runNumber++;//add to run
                     }
                     else if ("N".Equals(action, StringComparison.OrdinalIgnoreCase))
