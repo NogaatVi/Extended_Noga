@@ -20,7 +20,7 @@ namespace DungeonCrawler
         public void RunDungeon(string starterText)
         {
             Console.WriteLine(starterText);
-            Player newPlayer = new Player(1, 10, 1);
+            Player newPlayer = new Player(1, 10, 10);
             Dungeon thisDungeon = new Dungeon(newPlayer);
 
             thisDungeon.InitializePlayer();

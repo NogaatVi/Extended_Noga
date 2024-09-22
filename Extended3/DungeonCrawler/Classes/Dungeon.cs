@@ -194,10 +194,13 @@ namespace DungeonClass
                 }
 
                 // After exploring, print the current state of the grid to show player position
-                Console.WriteLine("AFTER WHILE EXPLOR DUNGEON PRINT DEBUG");
-                PrintDungeonGrid();
+                //Console.WriteLine("AFTER WHILE EXPLOR DUNGEON PRINT DEBUG");
+                if (MyPlayer.isAlive()) 
+                { 
+                  PrintDungeonGrid();
+                }
             }
-            Console.WriteLine("You've Died!");
+            MakeItPurple("One too many wounds finally take you down.\nYou've Died!");
         }
 
         public void PrintDungeonGrid()
