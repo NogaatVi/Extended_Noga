@@ -94,7 +94,7 @@ namespace DungeonCrawler
                     }
                 }
 
-                if (playAgain) // Check if player wants to play again
+                if (playAgain) // play again?
                 {
                     Console.WriteLine("Would you like to play again? Y/N");
                     string playerAction = Console.ReadLine();
