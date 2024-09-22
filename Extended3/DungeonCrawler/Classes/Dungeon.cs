@@ -65,8 +65,11 @@ namespace DungeonClass
                         Room BossRoom = new Room($"Boss Room");
                         row.Add(BossRoom);
                     }
-                    Room newRoom = new Room($"Room ({i}.{j})");
-                    row.Add(newRoom);
+                    else 
+                    { 
+                        Room newRoom = new Room($"Room ({i+1}.{j+1})");
+                        row.Add(newRoom);
+                    }
                 }
 
                 dungeonGrid.Add(row);
@@ -135,7 +138,7 @@ namespace DungeonClass
                     {
                         selectedRoom.EntranceRoomEncounter(MyPlayer);
                     }
-                    else if (selectedRoom.Name.Equals("Boss Room", StringComparison.OrdinalIgnoreCase))
+                    else if ((selectedRoom.Name.Equals("Boss Room", StringComparison.OrdinalIgnoreCase)) || (selectedRoom.Name.Equals("Room (3.3)", StringComparison.OrdinalIgnoreCase)))
                     {
                         FightBoss(selectedRoom);
                     }
