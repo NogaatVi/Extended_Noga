@@ -244,6 +244,10 @@ namespace DungeonClass
                     {
                         selectedRoom.EntranceRoomEncounter(MyPlayer);
                     }
+                    else if (selectedRoom.Name.Equals("Boss Room", StringComparison.OrdinalIgnoreCase))
+                    {
+                        FightBoss(selectedRoom);
+                    }
                     else
                     {
                         selectedRoom.Encounter(MyPlayer);
@@ -302,12 +306,8 @@ namespace DungeonClass
             }
         }
 
-        public void FightBoss() 
+        public void FightBoss(Room bossRoom) 
         {
-            rows = 4;
-            List<Room> bossHallList = new List<Room>();
-            Room bossRoom = new Room("Boss Room");
-            bossHallList.Add( bossRoom );
             bossRoom.EncounterBossRoom(MyPlayer);
         }
     }
