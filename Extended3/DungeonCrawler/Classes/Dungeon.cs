@@ -84,7 +84,7 @@ namespace DungeonClass
             int prevCol = playerCol;
             string direction = "";
 
-            while (true)
+            while (MyPlayer.isAlive())
             {
                 BracketPutter("Time to Explore");
                 Console.WriteLine("Where would you like to go?");
@@ -128,15 +128,16 @@ namespace DungeonClass
                     MakeItPurple("You can't go that way. Try another direction.");
                     continue;
                 }
+
                 //set prvious location
                 prevCol = playerCol;
                 prevRow = playerRow;
                 PreviousRoom = dungeonGrid[playerRow][playerCol];
+
                 // Move to the new position
                 playerRow = newRow;
                 playerCol = newColumn;
                 selectedRoom = dungeonGrid[playerRow][playerCol];
-                
 
                 // Check if the room has been explored
                 if (!selectedRoom.hasBeenExplored)
@@ -190,9 +191,11 @@ namespace DungeonClass
                             break;
                     }
                 }
+
                 // After exploring, print the current state of the grid to show player position
                 PrintDungeonGrid();
             }
+            Console.WriteLine("You've Died!");
         }
 
         public void PrintDungeonGrid()
@@ -235,6 +238,7 @@ namespace DungeonClass
         public void FightBoss(Room bossRoom) 
         {
             bossRoom.EncounterBossRoom(MyPlayer);
+            return;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace DungeonCrawler
         public void RunDungeon(string starterText)
         {
             Console.WriteLine(starterText);
-            Player newPlayer = new Player(1, 10, 20);
+            Player newPlayer = new Player(1, 10, 1);
             Dungeon thisDungeon = new Dungeon(newPlayer);
 
             thisDungeon.InitializePlayer();
@@ -33,12 +33,6 @@ namespace DungeonCrawler
                     thisDungeon.PrintDungeonGrid();
                     thisDungeon.dungeonGrid[0][0].EntranceRoomEncounter(newPlayer);//forcing u to entrance hall event
                     thisDungeon.ExploreDungeonGrid();
-                }
-                else
-                {
-                    Room bossRoom = new Room("Boss Room");   
-                    thisDungeon.FightBoss(bossRoom);
-                    break;
                 }
             }
 

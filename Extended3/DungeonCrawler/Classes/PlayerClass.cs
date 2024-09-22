@@ -61,7 +61,7 @@ namespace PlayerClass
             }
             else 
             {
-                Console.WriteLine("Oh no! You've died!");
+                Console.WriteLine("One too many wounds take you down...");
                 return alive = false;
             }
         }
