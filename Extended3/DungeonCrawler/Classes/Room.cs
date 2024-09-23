@@ -21,6 +21,18 @@ namespace roomClass
         {
             Name = name;
         }
+
+        static int delay = 100;
+        static void PrintEffect(string text)
+        {
+            foreach (char letter in text)
+            {
+                Console.Write(letter); // Print each letter
+                Thread.Sleep(delay); // Wait for the specified delay
+            }
+            Console.WriteLine(); // Move to the next line after finishing
+        }
+
         public void MakeItColorful(string yourTextHere , ConsoleColor color)
         {
             Console.ForegroundColor = color;
@@ -54,14 +66,14 @@ namespace roomClass
             BracketPutter("Loot");
             if (Name == "Entrance Hall")
             {
-                Console.WriteLine("With the sounds of the great doors shutting still ringing in your ears, you spot a curious object:");
+                PrintEffect("With the sounds of the great doors shutting still ringing in your ears, you spot a curious object:");
             }
             else 
             {
                 switch (ranEvent) 
                 {
                     case 0: //monster
-                        Console.WriteLine($"The Monster lies dead.\nit's dark blood pooling beneath it's massive body.\nBehind it, you spot a curious object:");
+                        PrintEffect($"The Monster lies dead.\nit's dark blood pooling beneath it's massive body.\nBehind it, you spot a curious object:");
                         break;
 
                     case 1://monster
@@ -69,11 +81,11 @@ namespace roomClass
                         break;
 
                     case 2://loot
-                        Console.WriteLine($"You spot a hidden chest behind some rubble.\nIn it, youspot a curious object:");
+                        PrintEffect($"You spot a hidden chest behind some rubble.\nIn it, youspot a curious object:");
                         break;
 
                     case 3://empty
-                        Console.WriteLine($"There is nothing in the room;");
+                        PrintEffect($"There is nothing in the room;");
                         break;
                 }
             }
@@ -121,7 +133,7 @@ namespace roomClass
             }
             else
             {
-                Console.WriteLine(roomDescription);
+                PrintEffect(roomDescription);
             }
             player.announcePlayer();
 
@@ -163,7 +175,7 @@ namespace roomClass
                         }
                         else
                         {
-                            Console.WriteLine($"What will you do,{player.name}.");
+                            PrintEffect($"What will you do,{player.name}.");
                             continue;
                         }
                     }
@@ -202,7 +214,7 @@ namespace roomClass
                         }
                         else
                         {
-                            Console.WriteLine($"What will you do,{player.name}.");
+                            PrintEffect($"What will you do,{player.name}.");
                             continue;
                         }
                     }
@@ -217,7 +229,7 @@ namespace roomClass
                     break;//get loot
 
                 case 3:
-                    Console.WriteLine("The room is eerily empty. \nOther than conwebs,there is nothing here for you.");
+                    PrintEffect("The room is eerily empty. \nOther than conwebs,there is nothing here for you.");
                     player.regenerateHealth();
                     hasBeenExplored = true;
                     break;//get empty room
@@ -228,12 +240,12 @@ namespace roomClass
         {
             roomsVisited++;
             BracketPutter("Entrance Hall");
-            Console.WriteLine($"You've entered {Name}");
+            PrintEffect($"You've entered {Name}");
             if (!hasBeenExplored)
             {
                 InitializeLoot();
                 TakeLoot(player);
-                Console.WriteLine($"You feel your power grow! ({player.power})");
+                PrintEffect($"You feel your power grow! ({player.power})");
                 hasBeenExplored = true;
                 ranEvent = 3;
             }
@@ -241,7 +253,7 @@ namespace roomClass
             {
                 hasBeenExplored = true;
                 ranEvent = 3;
-                Console.WriteLine("You come back to the Entrance Hall, the doors to the outside world are shut.\nYou are still trapped inside.");
+                PrintEffect("You come back to the Entrance Hall, the doors to the outside world are shut.\nYou are still trapped inside.");
             }
         }
 
@@ -253,8 +265,8 @@ namespace roomClass
             BracketPutter("Boss Time!");
             MakeItColorful("Brave adventurer, gird your loins!", ConsoleColor.Red);
             DescribeRoom();
-            Console.WriteLine("Something around you changes, a smell of stagnant death lingers in the air.");
-            Console.WriteLine("You hear a creepy slithering sound, as all of a sudden you see two, bright red eyes, shining from the darkness.");
+            PrintEffect("Something around you changes, a smell of stagnant death lingers in the air.");
+            PrintEffect("You hear a creepy slithering sound, as all of a sudden you see two, bright red eyes, shining from the darkness.");
             InitializeMonster();
             while (string.IsNullOrWhiteSpace(action))
             {
@@ -267,7 +279,7 @@ namespace roomClass
                     if (player.alive)//if u lived after fightning
                     {
                         player.regenerateHealth();
-                        Console.WriteLine("With the great monster laying dead, you here the sound of the dungeon's doors opening again. \nYou are free!");
+                        PrintEffect("With the great monster laying dead, you here the sound of the dungeon's doors opening again. \nYou are free!");
                         hasBeenExplored = true;
                         break;
                     }
@@ -285,7 +297,7 @@ namespace roomClass
                 }
                 else
                 {
-                    Console.WriteLine($"What will you do,{player.name}.");
+                    PrintEffect($"What will you do,{player.name}.");
                     continue;
                 }
             }

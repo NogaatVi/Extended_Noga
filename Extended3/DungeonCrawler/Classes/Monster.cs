@@ -1,5 +1,6 @@
 ﻿using System;
 using PlayerClass;
+
 namespace MonsterClass
 {
 	public class Monster
@@ -8,8 +9,23 @@ namespace MonsterClass
         public int health;
         public string name = "Not a Name";
         public string title = "Not a Title";
-        private static int monsterCounter = 1;//how many monster did we have by now?
         public bool alive = true;
+
+        private int maxMonsterHealthThreshold = 8;
+        private int maxMonstherPowerThreshold = 6;
+
+        static int delay = 100;
+        static void PrintEffect(string text)
+        {
+            foreach (char letter in text)
+            {
+                Console.Write(letter); // Print each letter
+                Thread.Sleep(delay); // Wait for the specified delay
+            }
+            Console.WriteLine(); // Move to the next line after finishing
+        }
+
+        private static int monsterCounter = 1;//how many monster did we have by now?
 
         List<string> titleList = new List<string> { "The Fearsome", "The Mighty", "The Dreaded", "The Slimy", "The Indomitable", "The Unholy" , "The Voracious" , "The Relentless" };
         List<string> nameList = new List<string> { "Morganna", "Samir", "Vincent", "Delila", "Noga", "Aviv" , "Lydia", "Shalev" , "Mario" ,"Goombelino"};
@@ -39,47 +55,42 @@ namespace MonsterClass
         {
             
             Random random = new Random();
-            power = random.Next(monsterCounter, monsterCounter + 8);
-            health = random.Next(monsterCounter * 2, monsterCounter * 6);
+            power = random.Next(monsterCounter, monsterCounter + maxMonsterHealthThreshold);
+            health = random.Next(monsterCounter * 2, monsterCounter * maxMonstherPowerThreshold);
             switch (monsterCounter)
             {
-                case 0:
+                case 1:
                     power *= 1;
                     health *= 1;
-                    monsterCounter++;
                     break;
 
-                case < 1:
+                case < 3:
                     power *= 2;
                     health *= 2;
-                    monsterCounter++;
-                    break;
-
-                case < 2:
-                    power *= 3;
-                    health *= 3;
-                    monsterCounter++;
                     break;
 
                 case < 4:
+                    power *= 3;
+                    health *= 3;
+                    break;
+
+                case < 5:
                     power *= 4;
                     health *= 4;
-                    monsterCounter++;
                     break;
 
                 case < 6:
                     power *= 5;
                     health *= 5;
-                    monsterCounter++;
-
                     break;
 
                 case < 8:
                     power *= 6;
                     health *= 6;
-                    monsterCounter++;
                     break;
+
             }
+            monsterCounter++;
         }
 
         public void IntroduceMonster()
@@ -98,14 +109,14 @@ namespace MonsterClass
                 $"Leaping from a darkened corner, it's {name}.\nIt's razor-sharp teeth are bare and ready.",
             };
             int num = random.Next(1, descriptionList.Count);
-            Console.WriteLine($"{descriptionList[num]}");
+            PrintEffect($"{descriptionList[num]}");
         }//For flavor
 
         public void monsterAnnouncer()//A big scary monster appears! Shout it from the rooftops! 
         {
             IntroduceMonster();
-            Console.WriteLine($"Their power is ({power})");
-            Console.WriteLine($"Their Health is ({health})");
+            PrintEffect($"Their power is ({power})");
+            PrintEffect($"Their Health is ({health})");
         }
 
         public bool isAlive()

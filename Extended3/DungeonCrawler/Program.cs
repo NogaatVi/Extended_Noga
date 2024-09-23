@@ -4,6 +4,7 @@ using PlayerClass;
 using lootClass;
 using roomClass;
 using DungeonClass;
+using System.Threading;
 using System.Numerics;
 
 namespace DungeonCrawler
@@ -11,6 +12,17 @@ namespace DungeonCrawler
     class Program
     {
         public bool isPlaying = true;
+        static int delay = 100;
+
+        static void PrintEffect(string text)
+        {
+            foreach (char letter in text)
+            {
+                Console.Write(letter); // Print each letter
+                Thread.Sleep(delay); // Wait for the specified delay
+            }
+            Console.WriteLine(); // Move to the next line after finishing
+        }
 
         public void NewDungeon()
         {
@@ -19,8 +31,8 @@ namespace DungeonCrawler
 
         public void RunDungeon(string starterText)
         {
-            Console.WriteLine(starterText);
-            Player newPlayer = new Player(1, 10, 10);
+            PrintEffect(starterText);
+            Player newPlayer = new Player(1, 10, 20);
             Dungeon thisDungeon = new Dungeon(newPlayer);
 
             thisDungeon.InitializePlayer();
@@ -31,21 +43,23 @@ namespace DungeonCrawler
                 if (thisDungeon.dungeonGrid.Count != thisDungeon.exploredRooms.Count) // If there are unexplored rooms
                 {
                     thisDungeon.PrintDungeonGrid();
-                    thisDungeon.dungeonGrid[0][0].EntranceRoomEncounter(newPlayer);//forcing u to entrance hall event
-                    thisDungeon.ExploreDungeonGrid();
+                    thisDungeon.ExploreDungeonGrid(newPlayer);
+                }
+                else
+                {
+                    thisDungeon.FightBoss();
+                    break;
                 }
             }
 
             if (!newPlayer.isAlive())
             {
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("Another victim has been claimed by the devious Dungeon's Master!");
-                Console.WriteLine("I shall bury the dead...\nBut as always, a new, brave adventurer will come...\nThey always do.");
-                Console.ForegroundColor = ConsoleColor.White;
+                PrintEffect("Another victim has been claimed by the devious Dungeon's Master!");
+                PrintEffect("I shall bury the dead...\nBut as always, a new, brave adventurer will come...\nThey always do.");
             }
             else
             {
-                Console.WriteLine("You have done it!\nThe Dungeon's doors swing open,\nGathering your loot, you run out.\nYou are free!");
+                PrintEffect("You have done it!\nThe Dungeon's doors swing open,\nGathering your loot, you run out.\nYou are free!");
             }
         }
 
@@ -76,7 +90,7 @@ namespace DungeonCrawler
                     if ("Y".Equals(action, StringComparison.OrdinalIgnoreCase))
                     {
                         newProgram.BracketPutter("Let's Go!");
-                        newProgram.RunDungeon($"--Run {runNumber}--\nThe Mystical Dungeon!");
+                        newProgram.RunDungeon($"--Run {runNumber}--\n");
                         runNumber++;//add to run
                     }
                     else if ("N".Equals(action, StringComparison.OrdinalIgnoreCase))

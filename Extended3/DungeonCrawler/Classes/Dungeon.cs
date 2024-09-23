@@ -16,38 +16,158 @@ namespace DungeonClass
         int cols = 3;
         int playerRow = 0;
         int playerCol = 0;
-
+        
         public Dungeon(Player player)
         {
             MyPlayer = player;
         }
-        public void MakeItColorful(string yourTextHere, ConsoleColor color)
+
+        static int delay = 100;
+        static void PrintEffect(string text)
         {
-            Console.ForegroundColor = color;
-            Console.WriteLine(yourTextHere);
+            foreach (char letter in text)
+            {
+                Console.Write(letter); // Print each letter
+                Thread.Sleep(delay); // Wait for the specified delay
+            }
+            Console.WriteLine(); // Move to the next line after finishing
+        }
+
+        public void MakeItPurple(string yourStringHere) 
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            PrintEffect(yourStringHere);
             Console.ForegroundColor = ConsoleColor.White;
         }
 
         public void BracketPutter(string yourStringHere)//i want a bracket here
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"\n--------------------------{yourStringHere}--------------------------\n");
+            PrintEffect($"\n--------------------------{yourStringHere}--------------------------\n");
             Console.ForegroundColor = ConsoleColor.White;
 
         }
 
         public void InitializePlayer()
         {
-            Console.WriteLine("Welcome, dear adventurer! \nYou are now at the gates of the Mystic Dungeon!");
-            Console.WriteLine("Be wary, for inside great treasure and even greater danger awaits...");
+            PrintEffect("Welcome, dear adventurer! \nYou are now at the gates of the Mystic Dungeon!");
+            PrintEffect("Be wary, for inside great treasure and even greater danger awaits...");
             Console.ForegroundColor = ConsoleColor.Red;
             MyPlayer.playerNamer();
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine($"Ahh, {MyPlayer.name}, delve carefully. \nThe Master of the Dungeon is crafty and vicious!");
+            PrintEffect($"Ahh, {MyPlayer.name}, delve carefully. \nThe Master of the Dungeon is crafty and vicious!");
+            BracketPutter("Enter the Dungeon!");
+        }
+
+        public void InitializeRooms()//OLD OLD OLD
+        {
+            PrintEffect("Something crakles in the air. \nYou feel the dungeon shift as the doors slam shut. \nDust and rubble fall from the ceiling as new doors appear, sprouting for a previously solid wall.");
+            Random random = new Random();
+            int roomAmount = random.Next(3, 8);
+            for (int i = 0; i <= roomAmount; i++)//set dynamic room names 
+            {
+                if (i==0) 
+                {
+                    roomList.Add(new Room("Entrance Hall"));
+                }
+                else 
+                {
+                    roomList.Add(new Room($"Room {i}"));
+                }
+            }
+        }
+
+        public void PrintRooms()//OLD OLD OLD 
+        {
+            BracketPutter("Rooms Available");
+            MakeItPurple("The rooms available to you are:");
+            foreach (var room in roomList)
+            {
+                if (exploredRooms.Contains(room))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write(room.Name);
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write(room.Name);
+                }
+
+                if (room != roomList[^1]) 
+                {
+                    Console.Write(", ");
+                }
+            }
+
+            // just to make sure
+            Console.ResetColor();
+            Console.WriteLine();
+        }
+
+        public void ExploreRoom() //OLD OLD OLD
+        {
+            Room selectedRoom = null;
+            string roomName = "";
+
+            while (selectedRoom == null) 
+            {
+                BracketPutter("Time to Explore");
+                PrintEffect("What room would you like to explore?");
+                roomName = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(roomName))
+                {
+                    PrintEffect("Please try again.");
+                    continue;
+                }
+                selectedRoom = roomList.FirstOrDefault(room => room.Name == roomName);
+                if (selectedRoom== null)
+                {
+                    PrintEffect("Room not found. Please try again.");
+                }
+            } //name looper- give me propper name!
+
+            //Special rooms
+            if (!selectedRoom.hasBeenExplored)
+            {
+                if (roomName.Equals("Entrance Hall", StringComparison.OrdinalIgnoreCase))
+                {
+                    selectedRoom.EntranceRoomEncounter(MyPlayer);
+                    if (selectedRoom.hasBeenExplored) 
+                    { 
+                       exploredRooms.Add(selectedRoom);//if roomhas been explored (not fled)
+                    }
+                }
+                else if (roomName.Equals("Boss Room", StringComparison.OrdinalIgnoreCase))
+                {
+                    PrintEffect($"{MyPlayer.name}, don't be hasty! The dungeon's master is crafty--Conserve your power!");
+                }
+                else
+                {
+                    selectedRoom.Encounter(MyPlayer); //if not special room just reg encounter
+                    if (selectedRoom.hasBeenExplored) 
+                    { 
+                       exploredRooms.Add(selectedRoom);//if roomhas been explored (not fled)
+                    }
+                }
+            }
+            else 
+            {
+                if (roomName.Equals("Entrance Hall", StringComparison.OrdinalIgnoreCase)) 
+                {
+                    PrintEffect("You try pulling the exit's handles--But they will not budge.");
+                }
+                else 
+                { 
+                    PrintEffect($"This room has already been explored. \n{selectedRoom.monstersName} is lying dead on the ground.");
+                }
+            }
         }
 
         public void InitializaDungeonGrid() 
         {
+            PrintEffect("Something crakles in the air. \nYou feel the dungeon shift as the doors slam shut. \nDust and rubble fall from the ceiling as new doors appear, sprouting for a previously solid wall.");
             for (int i = 0; i < rows; i++)
             {
                 List<Room> row = new List<Room>();
@@ -59,45 +179,40 @@ namespace DungeonClass
                         Room EntranceHall = new Room($"Entrance Hall");
                         row.Add(EntranceHall);
                     }
-                    else if (j == cols && i == rows)
+                    else if (j == cols && i == rows) 
                     {
                         Room BossRoom = new Room($"Boss Room");
                         row.Add(BossRoom);
                     }
-                    else 
-                    { 
-                        Room newRoom = new Room($"Room ({i+1}.{j+1})");
-                        row.Add(newRoom);
-                    }
+                    Room newRoom = new Room($"Room ({i}.{j})");
+                    row.Add(newRoom);
                 }
 
                 dungeonGrid.Add(row);
             }
         }
 
-        public void ExploreDungeonGrid()
+        public void ExploreDungeonGrid(Player player)
         {
             Room selectedRoom = null;
-            Room PreviousRoom = dungeonGrid[playerRow][playerCol];//please god dont be null
-            int prevRow = playerRow;
-            int prevCol = playerCol;
             string direction = "";
 
-            while (MyPlayer.isAlive())
+            while (player.alive)
             {
                 BracketPutter("Time to Explore");
-                Console.WriteLine("Where would you like to go?");
-                MakeItColorful("Use commands: up, down, left, right , here.", ConsoleColor.Yellow);
+                PrintEffect("Where would you like to go?");
+                PrintEffect("Use commands: up, down, left, right , here.");
                 direction = Console.ReadLine()?.ToLower();
 
                 if (string.IsNullOrWhiteSpace(direction))//gimmie proper answer
                 {
-                    MakeItColorful("Please enter a direction.",ConsoleColor.Magenta);
+                    PrintEffect("Please enter a direction.");
                     continue;
                 }
 
                 // Calculate the new position based on the direction
                 int newRow = playerRow, newColumn = playerCol;
+
                 switch (direction)
                 {
                     case "up":
@@ -117,21 +232,16 @@ namespace DungeonClass
                         newColumn = playerCol;
                         break;
                     default:
-                        MakeItColorful("Invalid direction. Please use up, down, left, or right.", ConsoleColor.Magenta);
+                        PrintEffect("Invalid direction. Please use up, down, left, or right.");
                         continue;
                 }
 
                 // Check if the new position is within the bounds of the grid
                 if (newRow < 0 || newRow >= dungeonGrid.Count || newColumn < 0 || newColumn >= dungeonGrid[0].Count)
                 {
-                    MakeItColorful("You can't go that way. Try another direction.", ConsoleColor.Magenta);
+                    PrintEffect("You can't go that way. Try another direction.");
                     continue;
                 }
-
-                //set prvious location
-                prevCol = playerCol;
-                prevRow = playerRow;
-                PreviousRoom = dungeonGrid[playerRow][playerCol];
 
                 // Move to the new position
                 playerRow = newRow;
@@ -139,31 +249,15 @@ namespace DungeonClass
                 selectedRoom = dungeonGrid[playerRow][playerCol];
 
                 // Check if the room has been explored
-                if (!selectedRoom.hasBeenExplored)
+                if (!selectedRoom.hasBeenExplored)//SHOULD I ADD BOSS ROOM HERE?
                 {
                     if (selectedRoom.Name.Equals("Entrance Hall", StringComparison.OrdinalIgnoreCase))
                     {
                         selectedRoom.EntranceRoomEncounter(MyPlayer);
                     }
-                    else if ((selectedRoom.Name.Equals("Boss Room", StringComparison.OrdinalIgnoreCase)) || (selectedRoom.Name.Equals("Room (3.3)", StringComparison.OrdinalIgnoreCase)))
-                    {
-                        FightBoss(selectedRoom);
-                        return;
-                    }
                     else
                     {
                         selectedRoom.Encounter(MyPlayer);
-                        if (!selectedRoom.hasBeenExplored)//if u fled u go back
-                        {
-                            Console.WriteLine("YOU'VE FLED, GO BACK!");
-                            // Reset the player's position to previous one
-                            playerRow = prevRow;
-                            playerCol = prevCol;
-                            selectedRoom = PreviousRoom; // Update the selectedRoom to previous one
-                            PrintDungeonGrid();
-                            continue;
-                        }
-                       
                     }
 
                     if (selectedRoom.hasBeenExplored)
@@ -173,39 +267,18 @@ namespace DungeonClass
                 }
                 else
                 {
-                    switch (selectedRoom.ranEvent)
-                    {
-                        case 0: //monster
-                            Console.WriteLine($"You've already been to {selectedRoom.Name}.\n{selectedRoom.thisRoomMonster.name} lays dead and still on the floor.");
-                            break;
-
-                        case 1://monster
-                            Console.WriteLine($"You've already explored {selectedRoom.Name}.\n{selectedRoom.thisRoomMonster.name}'s legs twitch weakly, maybe it's better to leave..");
-                            break;
-
-                        case 2://loot
-                            Console.WriteLine($"You've already searched {selectedRoom.Name}.\nThe looted chest lays empty, there is nothing here for you..");
-                            break;
-
-                        case 3://empty
-                            Console.WriteLine($"You've already passed through {selectedRoom.Name}. Nothing new to see here.");
-                            break;
-                    }
+                    PrintEffect($"You have already explored {selectedRoom.Name}. Nothing new to see here.");
                 }
 
                 // After exploring, print the current state of the grid to show player position
-                //Console.WriteLine("AFTER WHILE EXPLOR DUNGEON PRINT DEBUG");
-                if (MyPlayer.isAlive()) 
-                { 
-                  PrintDungeonGrid();
-                }
+                PrintDungeonGrid();
             }
-            MakeItColorful("One too many wounds finally take you down.\nYou've Died!", ConsoleColor.Magenta);
         }
 
         public void PrintDungeonGrid()
         {
-            BracketPutter("You've opened your map!");
+            BracketPutter("Rooms Available");
+            MakeItPurple("The rooms available to you are:\n");
             for (int i = 0; i < dungeonGrid.Count; i++)
             {
                 for (int j = 0; j < dungeonGrid[i].Count; j++)
@@ -240,10 +313,13 @@ namespace DungeonClass
             }
         }
 
-        public void FightBoss(Room bossRoom) 
+        public void FightBoss() 
         {
+            rows = 4;
+            List<Room> bossHallList = new List<Room>();
+            Room bossRoom = new Room("Boss Room");
+            bossHallList.Add( bossRoom );
             bossRoom.EncounterBossRoom(MyPlayer);
-            return;
         }
     }
 }

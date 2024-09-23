@@ -22,6 +22,17 @@ namespace PlayerClass
             "The Indomitable"
         };
 
+        static int delay = 100;
+        static void PrintEffect(string text)
+        {
+            foreach (char letter in text)
+            {
+                Console.Write(letter); // Print each letter
+                Thread.Sleep(delay); // Wait for the specified delay
+            }
+            Console.WriteLine(); // Move to the next line after finishing
+        }
+
         public Player(int level, int power, int health) //for player
         {
             this.level = level;
@@ -45,17 +56,14 @@ namespace PlayerClass
             name = playerTitles[num]+ " " + name;
             return name;
         }
-
         public void regenerateHealth()
         {
             health = maxHealth;   
-        }//very simple back to max health
-
+        }//very simple back to max health 
         public void announcePlayer() 
         {
-            Console.WriteLine($"{name}, your power is {power}, and your health is {health}.");
+            PrintEffect($"{name}, your power is {power}, and your health is {health}.");
         }
-
         public bool isAlive() 
         {
             if (health > 0)
@@ -64,6 +72,7 @@ namespace PlayerClass
             }
             else 
             {
+                Console.WriteLine("Oh no! You've died!");
                 return alive = false;
             }
         }

@@ -8,6 +8,17 @@ namespace lootClass
         string p1 ="";//for name setter
         string p2= "";//for name setter
         public string lootName = "";
+        static int delay = 100;
+        static void PrintEffect(string text)
+        {
+            foreach (char letter in text)
+            {
+                Console.Write(letter); // Print each letter
+                Thread.Sleep(delay); // Wait for the specified delay
+            }
+            Console.WriteLine(); // Move to the next line after finishing
+        }
+
         public Loot(int lootPower, string lootName)
         {
             this.lootPower = lootPower;
@@ -70,7 +81,7 @@ namespace lootClass
             Console.ForegroundColor = ConsoleColor.Yellow;
             if (lootName != null)
             {
-                Console.WriteLine($"Could it be?\n{lootName}!\nLooking closer, you assess it's power is {lootPower}.");
+                PrintEffect($"Could it be?\n{lootName}!\nLooking closer, you assess it's power is {lootPower}.");
             }
             Console.ForegroundColor= ConsoleColor.White;
         }
