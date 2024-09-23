@@ -24,20 +24,22 @@ namespace DungeonClass
 
         static int delay = 40;
 
-        static void PrintEffect(string text)
+        static void PrintEffect(string text, ConsoleColor color)
         {
             foreach (char letter in text)
             {
                 Console.Write(letter); // Print each letter
                 Thread.Sleep(delay); // Wait for the specified delay
             }
+            Console.ForegroundColor = color;
             Console.WriteLine(); // Move to the next line after finishing
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         public void MakeItPurple(string yourStringHere) 
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
-            PrintEffect(yourStringHere);
+            PrintEffect(yourStringHere , ConsoleColor.White);
             Console.ForegroundColor = ConsoleColor.White;
         }
 
@@ -51,18 +53,18 @@ namespace DungeonClass
 
         public void InitializePlayer()
         {
-            PrintEffect("Welcome, dear adventurer! \nYou are now at the gates of the Mystic Dungeon!");
-            PrintEffect("Be wary, for inside great treasure and even greater danger awaits...");
+            PrintEffect("Welcome, dear adventurer! \nYou are now at the gates of the Mystic Dungeon!", ConsoleColor.Yellow);
+            PrintEffect("Be wary, for inside great treasure and even greater danger awaits...", ConsoleColor.Yellow);
             Console.ForegroundColor = ConsoleColor.Red;
             MyPlayer.playerNamer();
             Console.ForegroundColor = ConsoleColor.White;
-            PrintEffect($"Ahh, {MyPlayer.name}, delve carefully. \nThe Master of the Dungeon is crafty and vicious!");
+            PrintEffect($"Ahh, {MyPlayer.name}, delve carefully. \nThe Master of the Dungeon is crafty and vicious!", ConsoleColor.Yellow);
             BracketPutter("Enter the Dungeon!");
         }
 
         public void InitializaDungeonGrid() 
         {
-            PrintEffect("Something crakles in the air. \nYou feel the dungeon shift as the doors slam shut. \nDust and rubble fall from the ceiling as new doors appear, sprouting for a previously solid wall.");
+            PrintEffect("Something crakles in the air. \nYou feel the dungeon shift as the doors slam shut. \nDust and rubble fall from the ceiling as new doors appear, sprouting form a previously solid wall.", ConsoleColor.Magenta);
             for (int i = 0; i < rows; i++)
             {
                 List<Room> row = new List<Room>();
@@ -95,13 +97,13 @@ namespace DungeonClass
             while (player.alive)
             {
                 BracketPutter("Time to Explore");
-                PrintEffect("Where would you like to go?");
-                PrintEffect("Use commands: up, down, left, right , here.");
+                PrintEffect("Where would you like to go?", ConsoleColor.White);
+                PrintEffect("Use commands: up, down, left, right , here.", ConsoleColor.White);
                 direction = Console.ReadLine()?.ToLower();
 
                 if (string.IsNullOrWhiteSpace(direction))//gimmie proper answer
                 {
-                    PrintEffect("Please enter a direction.");
+                    PrintEffect("Please enter a direction.", ConsoleColor.White);
                     continue;
                 }
 
@@ -127,14 +129,14 @@ namespace DungeonClass
                         newColumn = playerCol;
                         break;
                     default:
-                        PrintEffect("Invalid direction. Please use up, down, left, or right.");
+                        PrintEffect("Invalid direction. Please use up, down, left, or right.", ConsoleColor.White);
                         continue;
                 }
 
                 // Check if the new position is within the bounds of the grid
                 if (newRow < 0 || newRow >= dungeonGrid.Count || newColumn < 0 || newColumn >= dungeonGrid[0].Count)
                 {
-                    PrintEffect("You can't go that way. Try another direction.");
+                    PrintEffect("You can't go that way. Try another direction.", ConsoleColor.White);
                     continue;
                 }
 
@@ -162,7 +164,7 @@ namespace DungeonClass
                 }
                 else
                 {
-                    PrintEffect($"You have already explored {selectedRoom.Name}. Nothing new to see here.");
+                    PrintEffect($"You have already explored {selectedRoom.Name}. Nothing new to see here.", ConsoleColor.DarkBlue);
                 }
 
                 // After exploring, print the current state of the grid to show player position
