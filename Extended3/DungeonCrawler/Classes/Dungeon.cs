@@ -21,11 +21,10 @@ namespace DungeonClass
         {
             MyPlayer = player;
         }
-
-        public void MakeItPurple(string yourStringHere) 
+        public void MakeItColorful(string yourTextHere, ConsoleColor color)
         {
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine(yourStringHere);
+            Console.ForegroundColor = color;
+            Console.WriteLine(yourTextHere);
             Console.ForegroundColor = ConsoleColor.White;
         }
 
@@ -88,12 +87,12 @@ namespace DungeonClass
             {
                 BracketPutter("Time to Explore");
                 Console.WriteLine("Where would you like to go?");
-                Console.WriteLine("Use commands: up, down, left, right , here.");
+                MakeItColorful("Use commands: up, down, left, right , here.", ConsoleColor.Yellow);
                 direction = Console.ReadLine()?.ToLower();
 
                 if (string.IsNullOrWhiteSpace(direction))//gimmie proper answer
                 {
-                    MakeItPurple("Please enter a direction.");
+                    MakeItColorful("Please enter a direction.",ConsoleColor.Magenta);
                     continue;
                 }
 
@@ -118,14 +117,14 @@ namespace DungeonClass
                         newColumn = playerCol;
                         break;
                     default:
-                        MakeItPurple("Invalid direction. Please use up, down, left, or right.");
+                        MakeItColorful("Invalid direction. Please use up, down, left, or right.", ConsoleColor.Magenta);
                         continue;
                 }
 
                 // Check if the new position is within the bounds of the grid
                 if (newRow < 0 || newRow >= dungeonGrid.Count || newColumn < 0 || newColumn >= dungeonGrid[0].Count)
                 {
-                    MakeItPurple("You can't go that way. Try another direction.");
+                    MakeItColorful("You can't go that way. Try another direction.", ConsoleColor.Magenta);
                     continue;
                 }
 
@@ -201,7 +200,7 @@ namespace DungeonClass
                   PrintDungeonGrid();
                 }
             }
-            MakeItPurple("One too many wounds finally take you down.\nYou've Died!");
+            MakeItColorful("One too many wounds finally take you down.\nYou've Died!", ConsoleColor.Magenta);
         }
 
         public void PrintDungeonGrid()
