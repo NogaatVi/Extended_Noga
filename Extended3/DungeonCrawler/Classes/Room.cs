@@ -77,7 +77,7 @@ namespace roomClass
                         break;
 
                     case 1://monster
-                        Console.WriteLine("The Monster twitches as it dies.\nThe twitches of it's jaws give you the creeps.\nNear it, you spot a curious object:");
+                        PrintEffect("The Monster twitches as it dies.\nThe twitches of it's jaws give you the creeps.\nNear it, you spot a curious object:");
                         break;
 
                     case 2://loot

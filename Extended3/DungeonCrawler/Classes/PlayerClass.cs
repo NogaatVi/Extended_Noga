@@ -72,7 +72,6 @@ namespace PlayerClass
             }
             else 
             {
-                Console.WriteLine("Oh no! You've died!");
                 return alive = false;
             }
         }
