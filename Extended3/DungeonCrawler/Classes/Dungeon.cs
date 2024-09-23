@@ -166,7 +166,7 @@ namespace DungeonClass
                 }
 
                 // After exploring, print the current state of the grid to show player position
-                if (!MyPlayer.isAlive())
+                if (MyPlayer.isAlive())
                 {
                     PrintDungeonGrid();
                 }
