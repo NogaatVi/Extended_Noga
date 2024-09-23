@@ -117,7 +117,7 @@ namespace roomClass
                 "An abandoned altar covered in melted candles and long-dead flowers. \nThe air is thick with the scent of old incense, and shadows seem to flit just beyond the light.", 
             };
             int num = random.Next(1, descriptionList.Count);
-            MakeItColorful($"{descriptionList[num]}", ConsoleColor.Blue);
+            PrintEffect($"{descriptionList[num]}");
             roomDescription = descriptionList[num];
             descriptionList.RemoveAt( num );
         }//just for flavor
