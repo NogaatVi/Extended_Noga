@@ -42,8 +42,8 @@ namespace DungeonCrawler
             {
                 if (thisDungeon.dungeonGrid.Count != thisDungeon.exploredRooms.Count) // If there are unexplored rooms
                 {
-                    thisDungeon.PrintDungeonGrid();
                     thisDungeon.dungeonGrid[0][0].EntranceRoomEncounter(newPlayer);//forcing u to entrance hall event
+                    thisDungeon.PrintDungeonGrid();
                     thisDungeon.ExploreDungeonGrid(newPlayer);
                 }
                 else
