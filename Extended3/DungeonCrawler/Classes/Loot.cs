@@ -8,7 +8,7 @@ namespace lootClass
         string p1 ="";//for name setter
         string p2= "";//for name setter
         public string lootName = "";
-        static int delay = 100;
+        static int delay = 40;
         static void PrintEffect(string text)
         {
             foreach (char letter in text)

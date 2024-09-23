@@ -22,7 +22,8 @@ namespace DungeonClass
             MyPlayer = player;
         }
 
-        static int delay = 100;
+        static int delay = 40;
+
         static void PrintEffect(string text)
         {
             foreach (char letter in text)
@@ -43,7 +44,7 @@ namespace DungeonClass
         public void BracketPutter(string yourStringHere)//i want a bracket here
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            PrintEffect($"\n--------------------------{yourStringHere}--------------------------\n");
+            Console.WriteLine($"\n--------------------------{yourStringHere}--------------------------\n");
             Console.ForegroundColor = ConsoleColor.White;
 
         }

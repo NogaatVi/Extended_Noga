@@ -22,7 +22,7 @@ namespace roomClass
             Name = name;
         }
 
-        static int delay = 100;
+        static int delay = 40;
         static void PrintEffect(string text)
         {
             foreach (char letter in text)
