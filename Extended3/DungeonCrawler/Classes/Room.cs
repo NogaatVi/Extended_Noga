@@ -23,14 +23,16 @@ namespace roomClass
         }
 
         static int delay = 40;
-        static void PrintEffect(string text)
+        static void PrintEffect(string text, ConsoleColor color)
         {
             foreach (char letter in text)
             {
                 Console.Write(letter); // Print each letter
                 Thread.Sleep(delay); // Wait for the specified delay
             }
+            Console.ForegroundColor = color;
             Console.WriteLine(); // Move to the next line after finishing
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         public void MakeItColorful(string yourTextHere , ConsoleColor color)
@@ -66,26 +68,26 @@ namespace roomClass
             BracketPutter("Loot");
             if (Name == "Entrance Hall")
             {
-                PrintEffect("With the sounds of the great doors shutting still ringing in your ears, you spot a curious object:");
+                PrintEffect("With the sounds of the great doors shutting still ringing in your ears, you spot a curious object:", ConsoleColor.Yellow);
             }
             else 
             {
                 switch (ranEvent) 
                 {
                     case 0: //monster
-                        PrintEffect($"The Monster lies dead.\nit's dark blood pooling beneath it's massive body.\nBehind it, you spot a curious object:");
+                        PrintEffect($"The Monster lies dead.\nit's dark blood pooling beneath it's massive body.\nBehind it, you spot a curious object:", ConsoleColor.Yellow);
                         break;
 
                     case 1://monster
-                        PrintEffect("The Monster twitches as it dies.\nThe twitches of it's jaws give you the creeps.\nNear it, you spot a curious object:");
+                        PrintEffect("The Monster twitches as it dies.\nThe twitches of it's jaws give you the creeps.\nNear it, you spot a curious object:", ConsoleColor.Yellow);
                         break;
 
                     case 2://loot
-                        PrintEffect($"You spot a hidden chest behind some rubble.\nIn it, youspot a curious object:");
+                        PrintEffect($"You spot a hidden chest behind some rubble.\nIn it, youspot a curious object:", ConsoleColor.Yellow);
                         break;
 
                     case 3://empty
-                        PrintEffect($"There is nothing in the room;");
+                        PrintEffect($"There is nothing in the room;", ConsoleColor.Yellow);
                         break;
                 }
             }
@@ -117,7 +119,7 @@ namespace roomClass
                 "An abandoned altar covered in melted candles and long-dead flowers. \nThe air is thick with the scent of old incense, and shadows seem to flit just beyond the light.", 
             };
             int num = random.Next(1, descriptionList.Count);
-            PrintEffect($"{descriptionList[num]}");
+            PrintEffect($"{descriptionList[num]}", ConsoleColor.Blue);
             roomDescription = descriptionList[num];
             descriptionList.RemoveAt( num );
         }//just for flavor
@@ -133,7 +135,7 @@ namespace roomClass
             }
             else
             {
-                PrintEffect(roomDescription);
+                PrintEffect(roomDescription, ConsoleColor.Blue);
             }
             player.announcePlayer();
 
@@ -175,7 +177,7 @@ namespace roomClass
                         }
                         else
                         {
-                            PrintEffect($"What will you do,{player.name}.");
+                            PrintEffect($"What will you do,{player.name}.", ConsoleColor.White);
                             continue;
                         }
                     }
@@ -214,7 +216,7 @@ namespace roomClass
                         }
                         else
                         {
-                            PrintEffect($"What will you do,{player.name}.");
+                            PrintEffect($"What will you do,{player.name}.", ConsoleColor.White);
                             continue;
                         }
                     }
@@ -229,7 +231,7 @@ namespace roomClass
                     break;//get loot
 
                 case 3:
-                    PrintEffect("The room is eerily empty. \nOther than conwebs,there is nothing here for you.");
+                    PrintEffect("The room is eerily empty. \nOther than conwebs,there is nothing here for you.", ConsoleColor.DarkBlue);
                     player.regenerateHealth();
                     hasBeenExplored = true;
                     break;//get empty room
@@ -240,12 +242,12 @@ namespace roomClass
         {
             roomsVisited++;
             BracketPutter("Entrance Hall");
-            PrintEffect($"You've entered {Name}");
+            PrintEffect($"You've entered {Name}", ConsoleColor.White);
             if (!hasBeenExplored)
             {
                 InitializeLoot();
                 TakeLoot(player);
-                PrintEffect($"You feel your power grow! ({player.power})");
+                PrintEffect($"You feel your power grow! ({player.power})", ConsoleColor.White);
                 hasBeenExplored = true;
                 ranEvent = 3;
             }
@@ -253,7 +255,7 @@ namespace roomClass
             {
                 hasBeenExplored = true;
                 ranEvent = 3;
-                PrintEffect("You come back to the Entrance Hall, the doors to the outside world are shut.\nYou are still trapped inside.");
+                PrintEffect("You come back to the Entrance Hall, the doors to the outside world are shut.\nYou are still trapped inside.", ConsoleColor.White);
             }
         }
 
@@ -265,8 +267,8 @@ namespace roomClass
             BracketPutter("Boss Time!");
             MakeItColorful("Brave adventurer, gird your loins!", ConsoleColor.Red);
             DescribeRoom();
-            PrintEffect("Something around you changes, a smell of stagnant death lingers in the air.");
-            PrintEffect("You hear a creepy slithering sound, as all of a sudden you see two, bright red eyes, shining from the darkness.");
+            PrintEffect("Something around you changes, a smell of stagnant death lingers in the air.", ConsoleColor.DarkRed);
+            PrintEffect("You hear a creepy slithering sound, as all of a sudden you see two, bright red eyes, shining from the darkness.", ConsoleColor.DarkRed);
             InitializeMonster();
             while (string.IsNullOrWhiteSpace(action))
             {
@@ -279,7 +281,7 @@ namespace roomClass
                     if (player.alive)//if u lived after fightning
                     {
                         player.regenerateHealth();
-                        PrintEffect("With the great monster laying dead, you here the sound of the dungeon's doors opening again. \nYou are free!");
+                        PrintEffect("With the great monster laying dead, you here the sound of the dungeon's doors opening again. \nYou are free!", ConsoleColor.Magenta);
                         hasBeenExplored = true;
                         break;
                     }
@@ -297,7 +299,7 @@ namespace roomClass
                 }
                 else
                 {
-                    PrintEffect($"What will you do,{player.name}.");
+                    PrintEffect($"What will you do,{player.name}.", ConsoleColor.White);
                     continue;
                 }
             }
@@ -311,12 +313,12 @@ namespace roomClass
             {
                 if (turnsElapsed % 2 == 0) // Player hits monster
                 {
-                    MakeItColorful($"{player.name} ({player.health}) attacked {thisRoomMonster.name} ({thisRoomMonster.health}).", ConsoleColor.Green);
+                    PrintEffect($"{player.name} ({player.health}) attacked {thisRoomMonster.name} ({thisRoomMonster.health}).", ConsoleColor.Green);
                     thisRoomMonster.health -= player.power;
                 }
                 else // Monster hits player
                 {
-                    MakeItColorful($"{thisRoomMonster.name} ({thisRoomMonster.health}) attacked {player.name} ({player.health}).", ConsoleColor.Red);
+                    PrintEffect($"{thisRoomMonster.name} ({thisRoomMonster.health}) attacked {player.name} ({player.health}).", ConsoleColor.Red);
                     player.health -= thisRoomMonster.power;
                 }
 
