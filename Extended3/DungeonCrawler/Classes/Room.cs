@@ -28,34 +28,6 @@ namespace roomClass
             Console.ForegroundColor = ConsoleColor.White;
         }
 
-        public void MakeItGreen(string yourTextHere) 
-        { 
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(yourTextHere);
-            Console.ForegroundColor = ConsoleColor.White;
-        }
-
-        public void MakeItMagenta(string yourTextHere)
-        {
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine(yourTextHere);
-            Console.ForegroundColor = ConsoleColor.White;
-        }
-
-        public void MakeItBlue(string yourTextHere)
-        {
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine(yourTextHere);
-            Console.ForegroundColor = ConsoleColor.White;
-        }
-
-        public void MakeItRed(string yourTextHere)
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(yourTextHere);
-            Console.ForegroundColor = ConsoleColor.White;
-        }
-
         public void BracketPutter(string myTextHere)//i want a bracket here
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -133,7 +105,7 @@ namespace roomClass
                 "An abandoned altar covered in melted candles and long-dead flowers. \nThe air is thick with the scent of old incense, and shadows seem to flit just beyond the light.", 
             };
             int num = random.Next(1, descriptionList.Count);
-            MakeItBlue($"{descriptionList[num]}");
+            MakeItColorful($"{descriptionList[num]}", ConsoleColor.Blue);
             roomDescription = descriptionList[num];
             descriptionList.RemoveAt( num );
         }//just for flavor
@@ -142,7 +114,7 @@ namespace roomClass
         {
             string action = "";
             BracketPutter(Name);
-            MakeItGreen($"You've entered {Name}");
+            MakeItColorful($"You've entered {Name}", ConsoleColor.Green);
             if (roomDescription == string.Empty) 
             { 
                 DescribeRoom();
@@ -162,11 +134,11 @@ namespace roomClass
                     InitializeMonster();
                     while (string.IsNullOrWhiteSpace(action))
                     {
-                        MakeItRed($"Will you flee, or will you fight?");
+                        MakeItColorful($"Will you flee, or will you fight?", ConsoleColor.Red);
                         action = Console.ReadLine();
                         if ("fight".Equals(action, StringComparison.OrdinalIgnoreCase))
                         {
-                            MakeItGreen("Let's Fight!");
+                            MakeItColorful("Let's Fight!", ConsoleColor.Red);
                             Fight(player);
                             if (player.alive)//if u lived after fightning
                             {
@@ -201,11 +173,11 @@ namespace roomClass
                     InitializeMonster();
                     while (string.IsNullOrWhiteSpace(action))
                     {
-                        MakeItRed($"Will you flee, or will you fight?");
+                        MakeItColorful($"Will you flee, or will you fight?", ConsoleColor.Red);
                         action = Console.ReadLine();
                         if ("fight".Equals(action, StringComparison.OrdinalIgnoreCase))
                         {
-                            MakeItGreen("Let's Fight!");
+                            MakeItColorful("Let's Fight!", ConsoleColor.Green);
                             Fight(player);
                             if (player.alive)//if u lived after fightning
                             {
@@ -279,18 +251,18 @@ namespace roomClass
             BracketPutter($"Mind yourself, {player.name}");
             player.announcePlayer();
             BracketPutter("Boss Time!");
-            MakeItRed("Brave adventurer, gird your loins!");
+            MakeItColorful("Brave adventurer, gird your loins!", ConsoleColor.Red);
             DescribeRoom();
             Console.WriteLine("Something around you changes, a smell of stagnant death lingers in the air.");
             Console.WriteLine("You hear a creepy slithering sound, as all of a sudden you see two, bright red eyes, shining from the darkness.");
             InitializeMonster();
             while (string.IsNullOrWhiteSpace(action))
             {
-                MakeItRed($"It's the final battle! \nWill you flee, or will you fight?");
+                MakeItColorful($"It's the final battle! \nWill you flee, or will you fight?",ConsoleColor.Red);
                 action = Console.ReadLine();
                 if ("fight".Equals(action, StringComparison.OrdinalIgnoreCase))
                 {
-                    MakeItGreen("Let's do this!");
+                    MakeItColorful("Let's do this!", ConsoleColor.Green);
                     Fight(player);
                     if (player.alive)//if u lived after fightning
                     {
@@ -327,12 +299,12 @@ namespace roomClass
             {
                 if (turnsElapsed % 2 == 0) // Player hits monster
                 {
-                    MakeItGreen($"{player.name} ({player.health}) attacked {thisRoomMonster.name} ({thisRoomMonster.health}).");
+                    MakeItColorful($"{player.name} ({player.health}) attacked {thisRoomMonster.name} ({thisRoomMonster.health}).", ConsoleColor.Green);
                     thisRoomMonster.health -= player.power;
                 }
                 else // Monster hits player
                 {
-                    MakeItRed($"{thisRoomMonster.name} ({thisRoomMonster.health}) attacked {player.name} ({player.health}).");
+                    MakeItColorful($"{thisRoomMonster.name} ({thisRoomMonster.health}) attacked {player.name} ({player.health}).", ConsoleColor.Red);
                     player.health -= thisRoomMonster.power;
                 }
 
@@ -351,7 +323,7 @@ namespace roomClass
         public void Flee(Player player)//let's NOT go
         {
             hasBeenExplored = false;
-            MakeItRed("You've fled...\nThere is no shame in coming back with more power!");
+            MakeItColorful("You've fled...\nThere is no shame in coming back with more power!", ConsoleColor.Red);
             return;
         }
 
