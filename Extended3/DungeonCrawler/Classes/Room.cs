@@ -21,6 +21,12 @@ namespace roomClass
         {
             Name = name;
         }
+        public void MakeItColorful(string yourTextHere , ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.WriteLine(yourTextHere);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
 
         public void MakeItGreen(string yourTextHere) 
         { 
@@ -139,7 +145,7 @@ namespace roomClass
             MakeItGreen($"You've entered {Name}");
             if (roomDescription == string.Empty) 
             { 
-            DescribeRoom();
+                DescribeRoom();
             }
             else
             {
