@@ -80,12 +80,12 @@ namespace DungeonCrawler
             while (playAgain) // Main game loop
             {
                 newProgram.BracketPutter("The Mystical Dungeon");
-                Console.WriteLine("Welcome to...\nThe Mystical Dungeon!");
+                PrintEffect("Welcome to...\nThe Mystical Dungeon!");
                 string action = "";
 
                 while (string.IsNullOrWhiteSpace(action))
                 {
-                    Console.WriteLine("Would you like to play?\n--Y/N--");
+                    PrintEffect("Would you like to play?\n--Y/N--");
                     action = Console.ReadLine();
 
                     if ("Y".Equals(action, StringComparison.OrdinalIgnoreCase))
@@ -97,7 +97,7 @@ namespace DungeonCrawler
                     else if ("N".Equals(action, StringComparison.OrdinalIgnoreCase))
                     {
                         newProgram.BracketPutter("So this is goodbye...");
-                        Console.WriteLine("Thank you for playing my game! \nI hope to see you soon.");
+                        PrintEffect("Thank you for playing my game! \nI hope to see you soon.");
                         playAgain = false; // Exit the game loop
                     }
                     else
@@ -109,13 +109,13 @@ namespace DungeonCrawler
 
                 if (playAgain) // play again?
                 {
-                    Console.WriteLine("Would you like to play again? Y/N");
+                    PrintEffect("Would you like to play again? Y/N");
                     string playerAction = Console.ReadLine();
 
                     if (!"Y".Equals(playerAction, StringComparison.OrdinalIgnoreCase))
                     {
                         playAgain = false; // Exit the game loop
-                        Console.WriteLine("Goodbye! Thanks for playing!");
+                        PrintEffect("Goodbye! Thanks for playing!");
                     }
                 }
             }

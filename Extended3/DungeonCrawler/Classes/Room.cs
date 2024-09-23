@@ -236,6 +236,7 @@ namespace roomClass
                     hasBeenExplored = true;
                     break;//get empty room
             }
+            player.announcePlayer();
         }
 
         public void EntranceRoomEncounter(Player player)
