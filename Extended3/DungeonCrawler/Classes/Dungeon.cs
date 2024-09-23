@@ -149,6 +149,7 @@ namespace DungeonClass
                     else if ((selectedRoom.Name.Equals("Boss Room", StringComparison.OrdinalIgnoreCase)) || (selectedRoom.Name.Equals("Room (3.3)", StringComparison.OrdinalIgnoreCase)))
                     {
                         FightBoss(selectedRoom);
+                        return;
                     }
                     else
                     {

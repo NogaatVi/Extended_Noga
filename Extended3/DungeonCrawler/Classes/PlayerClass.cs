@@ -45,14 +45,17 @@ namespace PlayerClass
             name = playerTitles[num]+ " " + name;
             return name;
         }
+
         public void regenerateHealth()
         {
             health = maxHealth;   
-        }//very simple back to max health 
+        }//very simple back to max health
+
         public void announcePlayer() 
         {
             Console.WriteLine($"{name}, your power is {power}, and your health is {health}.");
         }
+
         public bool isAlive() 
         {
             if (health > 0)
