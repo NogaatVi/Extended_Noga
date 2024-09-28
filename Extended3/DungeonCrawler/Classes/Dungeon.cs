@@ -22,7 +22,7 @@ namespace DungeonClass
             MyPlayer = player;
         }
 
-        static int delay = 40;
+        static int delay = 20;
 
         static void PrintEffect(string text, ConsoleColor color)
         {

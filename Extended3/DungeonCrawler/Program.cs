@@ -12,7 +12,7 @@ namespace DungeonCrawler
     class Program
     {
         public bool isPlaying = true;
-        static int delay = 40;
+        static int delay = 20;
 
         static void PrintEffect(string text)
         {

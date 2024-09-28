@@ -29,7 +29,7 @@ namespace roomClass
             Name = name;
         }
 
-        static int delay = 40;
+        static int delay = 20;
         static void PrintEffect(string text, ConsoleColor color)
         {
             foreach (char letter in text)
@@ -259,7 +259,7 @@ namespace roomClass
                     break;//get loot
 
                 case 3:
-                    PrintEffect("The room is eerily empty. \nOther than conwebs,there is nothing here for you.", ConsoleColor.DarkBlue);
+                    PrintEffect("The room is eerily empty.\nOther than conwebs,there is nothing here for you.", ConsoleColor.DarkBlue);
                     player.regenerateHealth();
                     hasBeenExplored = true;
                     break;//get empty room

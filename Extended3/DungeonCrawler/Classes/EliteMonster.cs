@@ -43,7 +43,7 @@ namespace EliteMonsterClass
                 }
                 else if (ressurectionPoint == 1)
                 {
-                    Console.WriteLine($"{name} roars, wobblying tiredly feet.\nIt's almost dead!");
+                    Console.WriteLine($"{name} roars, wobblying tiredly, but stays alive.\nImpossible!\nIt's almost dead!");
                     ressurectionPoint--;
                     return alive = true;
                 }

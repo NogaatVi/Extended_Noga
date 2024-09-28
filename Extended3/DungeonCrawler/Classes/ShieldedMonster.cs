@@ -39,10 +39,11 @@ namespace ShieldedMonsterClass
             {
                 Console.WriteLine($"{name} roars, one of it's armored shields cracked!");
                 shield--;
+                Console.WriteLine($"Shields left {shield}!");
             }
             else 
             { 
-                getDamage(damage);
+                base.getDamage(damage);
             }
         }
 
