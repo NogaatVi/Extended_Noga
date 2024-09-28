@@ -3,19 +3,36 @@ using PlayerClass;
 
 namespace MonsterClass
 {
-	public class Monster
+	public abstract class Monster
 	{
         public int power;
         public int health;
+        public int shield;
         public string name = "Not a Name";
         public string title = "Not a Title";
         public bool alive = true;
 
         private int maxMonsterHealthThreshold = 8;
         private int maxMonstherPowerThreshold = 6;
+        
+        Random random = new Random();
+
+        protected static int monsterCounter = 1;//how many monster did we have by now?
 
         static int delay = 40;
-        static void PrintEffect(string text)
+
+        List<string> titleList = new List<string> 
+        { "The Fearsome", "The Mighty", "The Dreaded", "The Slimy", "The Indomitable", "The Unholy" , "The Voracious" , "The Relentless" };
+        List<string> nameList = new List<string> 
+        { "Morganna", "Samir", "Vincent", "Delila", "Noga", "Aviv" , "Lydia", "Shalev" , "Mario" ,"Goombelino"};
+
+        public Monster(int power, int health)
+        {
+            this.power = power;
+            this.health = health;
+        }
+
+        public void printEffect(string text)
         {
             foreach (char letter in text)
             {
@@ -25,19 +42,8 @@ namespace MonsterClass
             Console.WriteLine(); // Move to the next line after finishing
         }
 
-        private static int monsterCounter = 1;//how many monster did we have by now?
-
-        List<string> titleList = new List<string> { "The Fearsome", "The Mighty", "The Dreaded", "The Slimy", "The Indomitable", "The Unholy" , "The Voracious" , "The Relentless" };
-        List<string> nameList = new List<string> { "Morganna", "Samir", "Vincent", "Delila", "Noga", "Aviv" , "Lydia", "Shalev" , "Mario" ,"Goombelino"};
-
-        public Monster(int power, int health)
-        {
-            this.power = power;
-            this.health = health;
-        }
         public string titleGiver()//get a fearsome title...
         {
-            Random random = new Random();
             int num = random.Next(0, titleList.Count);
             title = titleList[num];
             return title;
@@ -45,13 +51,12 @@ namespace MonsterClass
 
         public string nameSetter()// and add it to a silly name...
         {
-            Random random = new Random();
             int num = random.Next(0, nameList.Count);
             name = title + " " + nameList[num];
             return name;
         }
 
-        public void monsterPowerAndHealthSetter()// sets the power of monster depending on how many monster initialized
+        public virtual void monsterPowerAndHealthSetter()// sets the power of monster depending on how many monster initialized
         {
             
             Random random = new Random();
@@ -93,12 +98,12 @@ namespace MonsterClass
             monsterCounter++;
         }
 
-        public void IntroduceMonster()
+        public  virtual void introduceMonster()
         {
             Random random = new Random();
             List<string> descriptionList = new List<string>
             {
-                $"Coalescing from acrid, yellow smoke,  it's {name}.\nIt's teeth gleam in the low light as it prepares to attack!", 
+                $"Coalescing from acrid, yellow smoke, it's {name}.\nIt's teeth gleam in the low light as it prepares to attack!", 
                 $"Slithering from a hidden crevice,  it's {name}.\nIt gurgles as it leaps for your throat!",
                 $"Spitting out old bones, it's {name}.\nIt grins hideiously before running at you, full tilt.",
                 $"Brandishing impressively sharp claws,  it's {name}.\nWatch yourself, this may get ugly.",
@@ -109,14 +114,14 @@ namespace MonsterClass
                 $"Leaping from a darkened corner, it's {name}.\nIt's razor-sharp teeth are bare and ready.",
             };
             int num = random.Next(1, descriptionList.Count);
-            PrintEffect($"{descriptionList[num]}");
+            printEffect($"{descriptionList[num]}");
         }//For flavor
 
-        public void monsterAnnouncer()//A big scary monster appears! Shout it from the rooftops! 
+        public void announceMonster()//A big scary monster appears! Shout it from the rooftops! 
         {
-            IntroduceMonster();
-            PrintEffect($"Their power is ({power})");
-            PrintEffect($"Their Health is ({health})");
+            introduceMonster();
+            printEffect($"Their power is ({power})");
+            printEffect($"Their Health is ({health})");
         }
 
         public bool isAlive()

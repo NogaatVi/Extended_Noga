@@ -60,7 +60,7 @@ namespace roomClass
               monstersName = thisRoomMonster.name;
               thisRoomMonster.monsterPowerAndHealthSetter();
             }
-            thisRoomMonster.monsterAnnouncer();
+            thisRoomMonster.announceMonster();
         }
 
         public void InitializeLoot()
