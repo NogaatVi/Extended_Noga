@@ -336,6 +336,7 @@ namespace roomClass
 
         public void Fight(Player player)
         {
+            int attackNum = 1;
             roomsVisited++;//add to rooms visitied only on fight
             int turnsElapsed = 0;
             while (player.alive && thisRoomMonster.alive)
@@ -348,7 +349,13 @@ namespace roomClass
                 else // Monster hits player
                 {
                     PrintEffect($"{thisRoomMonster.name} ({thisRoomMonster.health}) attacked {player.name} ({player.health}).", ConsoleColor.Red);
-                    player.health -= thisRoomMonster.power;
+                    player.getDamage(thisRoomMonster.power);
+                    if (thisRoomMonster is RageMonster ) 
+                    {
+                        Console.WriteLine($"{thisRoomMonster.name} roars with rage, it's power grows!");
+                        thisRoomMonster.power += attackNum * 2;//i could access the derived class so icreated this...
+                        attackNum ++;
+                    }//if this is rage monster
                 }
 
                 player.isAlive();//check if both alive

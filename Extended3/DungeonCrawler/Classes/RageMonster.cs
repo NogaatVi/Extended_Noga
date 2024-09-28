@@ -17,7 +17,7 @@ namespace RageMonsterClass
         public override void monsterPowerAndHealthSetter() 
         {
             base.monsterPowerAndHealthSetter();
-            
+            addDamage();
         }
 
         public override void introduceMonster()
@@ -28,7 +28,7 @@ namespace RageMonsterClass
 
         public void addDamage() //add the amount of monsters to monster power each attack
         {
-            power += Monster.monsterCounter;
+            power += Monster.monsterCounter * 2;
         }
     }
 }
