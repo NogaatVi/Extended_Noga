@@ -6,7 +6,6 @@ namespace PlayerClass
 {
     public class Player
     {
-        public int level;
         public int power;
         public int health;
         public int maxHealth = 20;
@@ -33,9 +32,8 @@ namespace PlayerClass
             Console.WriteLine(); // Move to the next line after finishing
         }
 
-        public Player(int level, int power, int health) //for player
+        public Player( int power, int health) //for player
         {
-            this.level = level;
             this.power = power;
             this.health = health;
         }

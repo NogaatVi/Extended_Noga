@@ -32,7 +32,7 @@ namespace DungeonCrawler
         public void RunDungeon(string starterText)
         {
             PrintEffect(starterText);
-            Player newPlayer = new Player(1, 10, 20);
+            Player newPlayer = new Player(10, 20);
             Dungeon thisDungeon = new Dungeon(newPlayer);
 
             thisDungeon.InitializePlayer();
