@@ -7,10 +7,17 @@ namespace RageMonsterClass
 	public  class RageMonster : Monster
 	{
 
-        public RageMonster(int power, int health) : base(power, health)
+        public RageMonster(int power, int health, int shield) : base(power, health ,shield)
         {
             this.power = power;
             this.health = health;
+            this.shield = shield;
+        }
+
+        public override void monsterPowerAndHealthSetter() 
+        {
+            base.monsterPowerAndHealthSetter();
+            
         }
 
         public override void introduceMonster()

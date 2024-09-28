@@ -4,6 +4,10 @@ using lootClass;
 using MonsterClass;
 using DungeonClass;
 using System.Numerics;
+using RageMonsterClass;
+using EliteMonsterClass;
+using ShieldedMonsterClass;
+using RegularMonsterClass;
 
 namespace roomClass
 {
@@ -16,7 +20,10 @@ namespace roomClass
         public bool hasBeenExplored = false;
         public static int roomsVisited;
         public string roomDescription = string.Empty;
-        public int ranEvent;
+
+        Random random = new Random();
+       int ranEvent;
+
         public Room(string name)
         {
             Name = name;
@@ -53,8 +60,31 @@ namespace roomClass
         {
             BracketPutter("A Great Monster Appears!");
             if (thisRoomMonster == null) 
-            { 
-              thisRoomMonster = new Monster(0, 0);
+            {
+                ranEvent = random.Next(0, 3);
+                switch (ranEvent) 
+                {
+                    case 0:
+                    thisRoomMonster = new RageMonster(0, Monster.monsterCounter, 0);
+                        Console.WriteLine("Rage Monster");
+                    break;
+
+                    case 1:
+                        thisRoomMonster = new EliteMonster(0, 0, 0, Monster.monsterCounter);
+                        Console.WriteLine("Elite Monster");
+                        break;
+
+                    case 2:
+                        thisRoomMonster = new ShieldedMonster(0, 0, Monster.monsterCounter);
+                        Console.WriteLine("Shield Monster");
+
+                        break;
+                    case 3:
+                        thisRoomMonster = new RegularMonster(0, 0, 0);
+                        Console.WriteLine("Regular Monster");
+
+                        break;
+                }
               thisRoomMonster.titleGiver();
               thisRoomMonster.nameSetter();
               monstersName = thisRoomMonster.name;
@@ -138,8 +168,6 @@ namespace roomClass
                 PrintEffect(roomDescription, ConsoleColor.Blue);
             }
             player.announcePlayer();
-
-            Random random = new Random();
             ranEvent = random.Next(0, 3);
 
             switch (ranEvent) 
@@ -315,7 +343,7 @@ namespace roomClass
                 if (turnsElapsed % 2 == 0) // Player hits monster
                 {
                     PrintEffect($"{player.name} ({player.health}) attacked {thisRoomMonster.name} ({thisRoomMonster.health}).", ConsoleColor.Green);
-                    thisRoomMonster.health -= player.power;
+                    thisRoomMonster.getDamage(player.power);
                 }
                 else // Monster hits player
                 {

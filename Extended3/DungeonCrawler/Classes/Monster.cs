@@ -17,7 +17,7 @@ namespace MonsterClass
         
         Random random = new Random();
 
-        protected static int monsterCounter = 1;//how many monster did we have by now?
+        public  static int monsterCounter = 1;//how many monster did we have by now?
 
         static int delay = 40;
 
@@ -26,10 +26,11 @@ namespace MonsterClass
         List<string> nameList = new List<string> 
         { "Morganna", "Samir", "Vincent", "Delila", "Noga", "Aviv" , "Lydia", "Shalev" , "Mario" ,"Goombelino"};
 
-        public Monster(int power, int health)
+        public Monster(int power, int health, int shield)
         {
             this.power = power;
             this.health = health;
+            this.shield = shield;
         }
 
         public void printEffect(string text)
@@ -124,7 +125,7 @@ namespace MonsterClass
             printEffect($"Their Health is ({health})");
         }
 
-        public bool isAlive()
+        public virtual bool isAlive()
         {
             if (health < 0)
             {
@@ -136,6 +137,11 @@ namespace MonsterClass
                 return alive = true;
             }
         }//are you alive?
+
+        public virtual void getDamage(int damage) 
+        {
+            health -= damage;
+        }
     }
 }
 
