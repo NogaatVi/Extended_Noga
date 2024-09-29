@@ -16,12 +16,12 @@ namespace DungeonCrawler
 
         static void PrintEffect(string text, ConsoleColor color)
         {
+            Console.ForegroundColor = color;
             foreach (char letter in text)
             {
                 Console.Write(letter); // Print each letter
                 Thread.Sleep(delay); // Wait for the specified delay
             }
-            Console.ForegroundColor = color;
             Console.WriteLine(); // Move to the next line after finishing
             Console.ForegroundColor = ConsoleColor.White;
         }

@@ -26,12 +26,12 @@ namespace DungeonClass
 
         static void PrintEffect(string text, ConsoleColor color)
         {
+            Console.ForegroundColor = color;
             foreach (char letter in text)
             {
                 Console.Write(letter); // Print each letter
                 Thread.Sleep(delay); // Wait for the specified delay
             }
-            Console.ForegroundColor = color;
             Console.WriteLine(); // Move to the next line after finishing
             Console.ForegroundColor = ConsoleColor.White;
         }
@@ -39,7 +39,7 @@ namespace DungeonClass
         public void MakeItPurple(string yourStringHere) 
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
-            PrintEffect(yourStringHere , ConsoleColor.White);
+            PrintEffect(yourStringHere , ConsoleColor.Magenta);
             Console.ForegroundColor = ConsoleColor.White;
         }
 
@@ -97,7 +97,7 @@ namespace DungeonClass
             while (player.alive)
             {
                 BracketPutter("Time to Explore");
-                PrintEffect("Where would you like to go?", ConsoleColor.White);
+                PrintEffect("Where would you like to go?", ConsoleColor.Green);
                 PrintEffect("Use commands: up, down, left, right , here.", ConsoleColor.White);
                 direction = Console.ReadLine()?.ToLower();
 
