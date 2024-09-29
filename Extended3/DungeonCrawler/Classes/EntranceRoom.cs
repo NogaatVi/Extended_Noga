@@ -12,7 +12,7 @@ using roomClass;
 
 namespace EntranceroomClass
 {
-    public abstract class EntranceRoom : Room
+    public  class EntranceRoom : Room
     {
         Random random = new Random();
         public int ranEvent;

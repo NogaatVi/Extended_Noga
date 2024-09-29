@@ -3,6 +3,11 @@ using System;
 using roomClass;
 using static DungeonCrawler.Program;
 using System.Security.Cryptography.X509Certificates;
+using EntranceroomClass;
+using BossRoomClass;
+using MonsterRoomClass;
+using LootRoomClass;
+using ShieldroomClass;
 
 namespace DungeonClass
 {
@@ -11,13 +16,15 @@ namespace DungeonClass
         public Player MyPlayer { get; set; }
         public List<Room> roomList = new List<Room> { };
         public List<Room> exploredRooms = new List<Room>();
-        public List<List<Room>> dungeonGrid = new List<List<Room>>{};
+        public List<List<Room>> dungeonGrid = new List<List<Room>> { };
+        Random random = new Random();
+        int ranEvent;
         int rows = 5;
         int cols = 5;
         int playerRow = 0;
         int playerCol = 0;
         static int delay = 20;
-        
+
         public Dungeon(Player player)
         {
             MyPlayer = player;
@@ -54,7 +61,7 @@ namespace DungeonClass
             BracketPutter("Enter the Dungeon!");
         }
 
-        public void InitializaDungeonGrid() 
+        public void InitializaDungeonGrid()
         {
             PrintEffect("Something crakles in the air. \nYou feel the dungeon shift as the doors slam shut. \nDust and rubble fall from the ceiling as new doors appear, sprouting form a previously solid wall.", ConsoleColor.Magenta);
             for (int i = 0; i < rows; i++)
@@ -65,16 +72,32 @@ namespace DungeonClass
                 {
                     if (j == 0 && i == 0) //first room is entrance hall
                     {
-                        Room EntranceHall = new Room($"Entrance Hall");
+                        Room EntranceHall = new EntranceRoom($"Entrance Hall");
                         row.Add(EntranceHall);
                     }
-                    else if (j == cols && i == rows) 
+                    else if (j == cols && i == rows)
                     {
-                        Room BossRoom = new Room($"Boss Room");
+                        Room BossRoom = new BossRoom($"Boss Room");
                         row.Add(BossRoom);
                     }
-                    Room newRoom = new Room($"Room ({i}.{j})");
-                    row.Add(newRoom);
+                    ranEvent = random.Next(0, 2);
+                    switch (ranEvent)
+                    {
+                        case 0://monster
+                            Room newMonsterRoom = new MonsterRoom($"Room ({i}.{j})");
+                            row.Add(newMonsterRoom);
+                            break;
+
+                        case 1://loot
+                            Room newLootRoom = new LootRoom($"Room ({i}.{j})");
+                            row.Add(newLootRoom);
+                            break;
+
+                        case 2://shield
+                            Room newShieldRoom = new ShieldRoom($"Room ({i}.{j})");
+                            row.Add(newShieldRoom);
+                            break;
+                    }//initialize diffrent roomz
                 }
 
                 dungeonGrid.Add(row);
@@ -105,16 +128,16 @@ namespace DungeonClass
                 switch (direction)
                 {
                     case "up":
-                        newRow -= 1; 
+                        newRow -= 1;
                         break;
                     case "down":
-                        newRow += 1; 
+                        newRow += 1;
                         break;
                     case "left":
-                        newColumn -= 1; 
+                        newColumn -= 1;
                         break;
                     case "right":
-                        newColumn += 1; 
+                        newColumn += 1;
                         break;
                     case "here": //for entrance hall
                         newRow = playerRow;
@@ -138,25 +161,15 @@ namespace DungeonClass
                 selectedRoom = dungeonGrid[playerRow][playerCol];
 
                 // Check if the room has been explored
-                if (!selectedRoom.hasBeenExplored)//SHOULD I ADD BOSS ROOM HERE?
+                if (!selectedRoom.hasBeenExplored)
                 {
-                    if (selectedRoom.Name.Equals("Entrance Hall", StringComparison.OrdinalIgnoreCase))
-                    {
-                        selectedRoom.EntranceRoomEncounter(MyPlayer);
-                    }
-                    else
-                    {
-                        selectedRoom.Encounter(MyPlayer);
-                    }
-
-                    if (selectedRoom.hasBeenExplored)
-                    {
-                        exploredRooms.Add(selectedRoom);
-                    }
+                    selectedRoom.Encounter(MyPlayer);//do encounter
+                    exploredRooms.Add(selectedRoom);//add to selected
+                    
                 }
                 else
                 {
-                    PrintEffect($"You have already explored {selectedRoom.Name}. Nothing new to see here.", ConsoleColor.DarkBlue);
+                    PrintEffect($"You have already explored {selectedRoom.Name}\nNothing new to see here.", ConsoleColor.DarkBlue);
                 }
 
                 // After exploring, print the current state of the grid to show player position
@@ -164,7 +177,7 @@ namespace DungeonClass
                 {
                     PrintDungeonGrid();
                 }
-                
+
             }
         }
 
@@ -206,14 +219,6 @@ namespace DungeonClass
             }
         }
 
-        public void FightBoss() 
-        {
-            rows = 4;
-            List<Room> bossHallList = new List<Room>();
-            Room bossRoom = new Room("Boss Room");
-            bossHallList.Add( bossRoom );
-            bossRoom.EncounterBossRoom(MyPlayer);
-        }
     }
 }
 
