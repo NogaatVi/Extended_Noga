@@ -72,13 +72,13 @@ namespace PlayerClass
 
         public bool isAlive() 
         {
-            if (health > 0)
+            if (health <= 0)
             {
-                return alive = true;
+                return alive = false;
             }
             else 
             {
-                return alive = false;
+                return alive = true;
             }
         }
     }

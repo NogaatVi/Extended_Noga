@@ -14,14 +14,16 @@ namespace DungeonCrawler
         public bool isPlaying = true;
         static int delay = 20;
 
-        static void PrintEffect(string text)
+        static void PrintEffect(string text, ConsoleColor color)
         {
             foreach (char letter in text)
             {
                 Console.Write(letter); // Print each letter
                 Thread.Sleep(delay); // Wait for the specified delay
             }
+            Console.ForegroundColor = color;
             Console.WriteLine(); // Move to the next line after finishing
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         public void NewDungeon()
@@ -31,7 +33,7 @@ namespace DungeonCrawler
 
         public void RunDungeon(string starterText)
         {
-            PrintEffect(starterText);
+            PrintEffect(starterText , ConsoleColor.White);
             Player newPlayer = new Player(10, 20);
             Dungeon thisDungeon = new Dungeon(newPlayer);
 
@@ -55,12 +57,12 @@ namespace DungeonCrawler
 
             if (!newPlayer.isAlive())
             {
-                PrintEffect("Another victim has been claimed by the devious Dungeon's Master!");
-                PrintEffect("I shall bury the dead...\nBut as always, a new, brave adventurer will come...\nThey always do.");
+                PrintEffect("Another victim has been claimed by the devious Dungeon's Master!", ConsoleColor.Magenta);
+                PrintEffect("I shall bury the dead...\nBut as always, a new, brave adventurer will come...\nThey always do.", ConsoleColor.Magenta);
             }
             else
             {
-                PrintEffect("You have done it!\nThe Dungeon's doors swing open,\nGathering your loot, you run out.\nYou are free!");
+                PrintEffect("You have done it!\nThe Dungeon's doors swing open,\nGathering your loot, you run out.\nYou are free!", ConsoleColor.Green);
             }
         }
 
@@ -80,12 +82,12 @@ namespace DungeonCrawler
             while (playAgain) // Main game loop
             {
                 newProgram.BracketPutter("The Mystical Dungeon");
-                PrintEffect("Welcome to...\nThe Mystical Dungeon!");
+                PrintEffect("Welcome to...\nThe Mystical Dungeon!", ConsoleColor.Magenta);
                 string action = "";
 
                 while (string.IsNullOrWhiteSpace(action))
                 {
-                    PrintEffect("Would you like to play?\n--Y/N--");
+                    PrintEffect("Would you like to play?\n--Y/N--", ConsoleColor.Magenta);
                     action = Console.ReadLine();
 
                     if ("Y".Equals(action, StringComparison.OrdinalIgnoreCase))
@@ -97,7 +99,7 @@ namespace DungeonCrawler
                     else if ("N".Equals(action, StringComparison.OrdinalIgnoreCase))
                     {
                         newProgram.BracketPutter("So this is goodbye...");
-                        PrintEffect("Thank you for playing my game! \nI hope to see you soon.");
+                        PrintEffect("Thank you for playing my game! \nI hope to see you soon.", ConsoleColor.DarkBlue);
                         playAgain = false; // Exit the game loop
                     }
                     else
@@ -109,13 +111,13 @@ namespace DungeonCrawler
 
                 if (playAgain) // play again?
                 {
-                    PrintEffect("Would you like to play again? Y/N");
+                    PrintEffect("Would you like to play again? Y/N", ConsoleColor.Magenta);
                     string playerAction = Console.ReadLine();
 
                     if (!"Y".Equals(playerAction, StringComparison.OrdinalIgnoreCase))
                     {
                         playAgain = false; // Exit the game loop
-                        PrintEffect("Goodbye! Thanks for playing!");
+                        PrintEffect("Goodbye! Thanks for playing!", ConsoleColor.Green);
                     }
                 }
             }

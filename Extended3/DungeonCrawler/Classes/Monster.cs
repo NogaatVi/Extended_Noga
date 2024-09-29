@@ -127,7 +127,7 @@ namespace MonsterClass
 
         public virtual bool isAlive()
         {
-            if (health < 0)
+            if (health <= 0)
             {
                 Console.WriteLine($"{name} has been vanquished!");
                 return alive = false;
