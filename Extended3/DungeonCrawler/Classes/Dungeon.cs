@@ -12,17 +12,16 @@ namespace DungeonClass
         public List<Room> roomList = new List<Room> { };
         public List<Room> exploredRooms = new List<Room>();
         public List<List<Room>> dungeonGrid = new List<List<Room>>{};
-        int rows = 3;
-        int cols = 3;
+        int rows = 5;
+        int cols = 5;
         int playerRow = 0;
         int playerCol = 0;
+        static int delay = 20;
         
         public Dungeon(Player player)
         {
             MyPlayer = player;
         }
-
-        static int delay = 20;
 
         static void PrintEffect(string text, ConsoleColor color)
         {
@@ -33,13 +32,6 @@ namespace DungeonClass
                 Thread.Sleep(delay); // Wait for the specified delay
             }
             Console.WriteLine(); // Move to the next line after finishing
-            Console.ForegroundColor = ConsoleColor.White;
-        }
-
-        public void MakeItPurple(string yourStringHere) 
-        {
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            PrintEffect(yourStringHere , ConsoleColor.Magenta);
             Console.ForegroundColor = ConsoleColor.White;
         }
 
@@ -179,7 +171,7 @@ namespace DungeonClass
         public void PrintDungeonGrid()
         {
             BracketPutter("Rooms Available");
-            MakeItPurple("The rooms available to you are:\n");
+            PrintEffect("The rooms available to you are:\n", ConsoleColor.Green);
             for (int i = 0; i < dungeonGrid.Count; i++)
             {
                 for (int j = 0; j < dungeonGrid[i].Count; j++)

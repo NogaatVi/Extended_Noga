@@ -11,10 +11,10 @@ using RegularMonsterClass;
 
 namespace roomClass
 {
-    public class Room
+    public abstract class Room
     {
         public string Name { get; set; }
-        Loot loot = new Loot(0, "");
+        public Loot loot = new Loot(0, "");
         public Monster thisRoomMonster;
         public string monstersName = "";
         public bool hasBeenExplored = false;
@@ -22,7 +22,7 @@ namespace roomClass
         public string roomDescription = string.Empty;
 
         Random random = new Random();
-       int ranEvent;
+        public int ranEvent;
 
         public Room(string name)
         {
@@ -30,7 +30,7 @@ namespace roomClass
         }
 
         static int delay = 20;
-        static void PrintEffect(string text, ConsoleColor color)
+        public void PrintEffect(string text, ConsoleColor color)
         {
             Console.ForegroundColor = color;
             foreach (char letter in text)
@@ -56,7 +56,7 @@ namespace roomClass
             Console.ForegroundColor = ConsoleColor.White;
         }
 
-        public void InitializeMonster() //get monster
+        public virtual void InitializeMonster() //get monster
         {
             BracketPutter("A Great Monster Appears!");
             if (thisRoomMonster == null) 
@@ -93,7 +93,7 @@ namespace roomClass
             thisRoomMonster.announceMonster();
         }
 
-        public void InitializeLoot()
+        public virtual void InitializeLoot()
         {
             BracketPutter("Loot");
             if (Name == "Entrance Hall")
@@ -126,7 +126,7 @@ namespace roomClass
             loot.lootAnnouncer();
         }
 
-        public void DescribeRoom() 
+        public virtual void DescribeRoom() 
         {
             Random random = new Random();
             List<string> descriptionList = new List<string>
@@ -154,7 +154,7 @@ namespace roomClass
             descriptionList.RemoveAt( num );
         }//just for flavor
 
-        public void Encounter(Player player)
+        public virtual void Encounter(Player player)
         {
             string action = "";
             BracketPutter(Name);

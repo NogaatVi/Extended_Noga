@@ -9,6 +9,7 @@ namespace PlayerClass
         public int power;
         public int health;
         public int maxHealth = 20;
+        public int shield;
         public string name = null;
         public bool alive = true;
         List<string> playerTitles = new List<string> 
@@ -32,15 +33,25 @@ namespace PlayerClass
             Console.WriteLine(); // Move to the next line after finishing
         }
 
-        public Player( int power, int health) //for player
+        public Player( int power, int health, int shield) //for player
         {
             this.power = power;
             this.health = health;
+            this.shield = shield;
         }
 
         public void getDamage(int damage) 
         {
-            health -= damage;
+            if (shield > 0)
+            {
+                Console.WriteLine($"Your shield craks, saving your life!");
+                shield--;
+                Console.WriteLine($"Shields left ({shield})!");
+            }
+            else
+            {
+                health -= damage;
+            }
         }
 
         public string playerNamer() //Name that bitch!
@@ -67,7 +78,7 @@ namespace PlayerClass
 
         public void announcePlayer() 
         {
-            PrintEffect($"{name}, your power is {power}, and your health is {health}.");
+            PrintEffect($"{name}, your power is ({power}).\nYour health is ({health}).\nYour shield amount is ({shield}).");
         }
 
         public bool isAlive() 
